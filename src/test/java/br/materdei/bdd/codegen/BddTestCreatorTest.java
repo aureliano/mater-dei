@@ -9,16 +9,20 @@ public class BddTestCreatorTest {
 
 	@Test
 	public void testCreate() throws Exception {
-		Object obj = BddTestCreator.create("br.materdei.bdd.ProjectBddTest");
+		Object obj = BddTestCreator.create(null, "br.materdei.bdd.ProjectBddTest");
 		assertNotNull(obj);
 		assertEquals("br.materdei.bdd.ProjectBddTest", obj.getClass().getName());
 		assertNotNull(obj.getClass().getSuperclass());
 		assertEquals("br.materdei.bdd.codegen.StoryBase", obj.getClass().getSuperclass().getName());
 		
-		obj = BddTestCreator.create("br.materdei.bdd.ProjectBddTest");
+		obj = BddTestCreator.create(null, "br.materdei.bdd.ProjectBddTest");
 		assertNotNull(obj);
 		
-		obj = BddTestCreator.create("br.materdei.bdd.codegen.BddTestCreator");
+		obj = BddTestCreator.create(null, "br.materdei.bdd.codegen.BddTestCreator");
+		assertNotNull(obj);
+		assertEquals("br.materdei.bdd.codegen.BddTestCreator", obj.getClass().getName());
+		
+		obj = BddTestCreator.create(StoryBaseMock.class, "br.materdei.bdd.codegen.BddTestCreator");
 		assertNotNull(obj);
 		assertEquals("br.materdei.bdd.codegen.BddTestCreator", obj.getClass().getName());
 	}

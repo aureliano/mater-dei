@@ -9,15 +9,19 @@ public class BddTestCreator {
 		super();
 	}
 	
-	public static Object create(String storyName) throws Exception {
+	public static Object create(Class<?> storyBase, String storyName) throws Exception {
 		Object obj;
 		
 		if (isClassExist(storyName)) {
 			obj = Class.forName(storyName).newInstance();
 		} else {
 			ClassPool pool = ClassPool.getDefault();
-			CtClass storyBase = pool.getCtClass(StoryBase.class.getName());
-			CtClass evalClass = pool.makeClass(storyName, storyBase);
+			if (storyBase == null) {
+				storyBase = StoryBase.class;
+			}
+			
+			CtClass ctClassStoryBase = pool.getCtClass(storyBase.getName());
+			CtClass evalClass = pool.makeClass(storyName, ctClassStoryBase);
 			
 			obj = evalClass.toClass().newInstance();
 		}
