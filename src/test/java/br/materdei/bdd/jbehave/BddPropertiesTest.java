@@ -14,7 +14,7 @@ public class BddPropertiesTest {
 		Properties p = BddProperties.getProperties();
 		assertNotNull(p);
 		assertFalse(p.isEmpty());
-		assertEquals(5, p.size());
+		assertEquals(3, p.size());
 	}
 	
 	@Test
@@ -22,8 +22,6 @@ public class BddPropertiesTest {
 		Properties p = BddProperties.getProperties();
 		assertEquals("localhost", p.getProperty("selenium.web.host"));
 		assertEquals("/", p.getProperty("project.home.page"));
-		assertEquals("*firefox /usr/lib/firefox-3.6.13/firefox-bin", p.getProperty("navegador.firefox"));
-		assertEquals("chrome", p.getProperty("navegador.chrome"));
-		assertEquals("iexplorer", p.getProperty("navegador.iexplorer"));
+		assertEquals("*firefox /usr/lib/firefox-3.6.13/firefox-bin", p.getProperty("browser.location"));
 	}
 }
