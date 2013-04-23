@@ -16,7 +16,9 @@ public class TestsRunner {
 			String storyName = StoryNameParser.parse(story);
 						
 			StoryBase runnableStory = (StoryBase) BddTestCreator.create(storyName);
+			runnableStory.beforeTest();
 			runnableStory.run(storyName.replaceAll("\\.", "/") + extension);
+			runnableStory.tearDown();
 		}
 	}
 }
