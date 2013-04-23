@@ -24,11 +24,11 @@ public class StoryBase extends JUnitStory {
 	
 	@Before
 	public void beforeTest() {
-		System.out.println("Iniciando teste => " + this.getClass().getSimpleName());
+		System.out.println("Iniciando teste => " + this.getClass().getName());
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		System.out.println("Finalizando teste => " + this.getClass().getSimpleName());
+		System.out.println("Finalizando teste => " + this.getClass().getName());
 	}
 }

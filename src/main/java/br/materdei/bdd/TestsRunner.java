@@ -12,12 +12,12 @@ public class TestsRunner {
 	public void run() throws Throwable {
 		List<String> stories = StoryFinder.find();
 		for (String story : stories) {
-			String extension = story.substring(story.lastIndexOf("."));
+			String fileName = story.substring(story.lastIndexOf("/") + 1);
 			String storyName = StoryNameParser.parse(story);
 						
 			StoryBase runnableStory = (StoryBase) BddTestCreator.create(storyName);
 			runnableStory.beforeTest();
-			runnableStory.run(storyName.replaceAll("\\.", "/") + extension);
+			runnableStory.run(storyName.replaceAll("\\.", "/").substring(0, storyName.lastIndexOf(".") + 1) + fileName);
 			runnableStory.tearDown();
 		}
 	}

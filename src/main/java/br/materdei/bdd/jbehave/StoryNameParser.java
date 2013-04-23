@@ -22,7 +22,7 @@ public class StoryNameParser {
 		return convertToCamelCase(storyPath) + "Test";
 	}
 	
-	private static String convertToCamelCase(String text) {
+	public static String convertToCamelCase(String text) {
 		String prefix = text.substring(0, text.lastIndexOf(".") + 1);
 		text = text.substring(text.lastIndexOf(".") + 1);
 		
