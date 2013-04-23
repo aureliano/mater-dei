@@ -9,10 +9,32 @@ public class BddTestCreator {
 		super();
 	}
 	
-	public static Object create() throws Exception {
-		ClassPool pool = ClassPool.getDefault();
-		CtClass evalClass = pool.makeClass("br.materdei.bdd.ProjectBddTest");
+	public static Object create(String storyName) throws Exception {
+		Object obj;
 		
-		return evalClass.toClass().newInstance();
+		if (isClassExist(storyName)) {
+			obj = Class.forName(storyName).newInstance();
+		} else {
+			ClassPool pool = ClassPool.getDefault();
+			CtClass storyBase = pool.getCtClass(StoryBase.class.getName());
+			CtClass evalClass = pool.makeClass(storyName, storyBase);
+			
+			obj = evalClass.toClass().newInstance();
+		}
+		
+		return obj;
+	}
+	
+	private static boolean isClassExist(String clazz) {
+		boolean exists = false;
+		
+		try {
+			Class.forName(clazz);
+			exists = true;
+		} catch (ClassNotFoundException ex) {
+			exists = false;
+		}
+		
+		return exists;
 	}
 }
