@@ -13,7 +13,9 @@ import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.After;
 import org.junit.Before;
 
+import br.materdei.bdd.jbehave.BddProperties;
 import br.materdei.bdd.jbehave.JBehaveConfigurationUtil;
+import br.materdei.bdd.jbehave.SeleniumServerControllerSingleton;
 
 public class StoryBase extends JUnitStory {
 
@@ -41,7 +43,13 @@ public class StoryBase extends JUnitStory {
 	}
 	
 	@Before
-	public void beforeTest() { }
+	public void beforeTest() {
+		if (BddProperties.getPropriedade("mater.dei.ignorar.iniciacao.selenium.server") == null) {
+			SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
+			controlador.iniciaServidorSelenium();
+			controlador.iniciaSelenium();
+		}
+	}
 
 	@After
 	public void afterTest() throws Exception { }
