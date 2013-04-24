@@ -4,7 +4,7 @@
   <groupId>br.materdei</groupId>
   <artifactId>mater-dei</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>mater-dei</name>
   <url>http://maven.apache.org</url>
   
@@ -38,22 +38,22 @@
     <dependency>
 		<groupId>org.jbehave</groupId>
 		<artifactId>jbehave-core</artifactId>
-		<version>3.8</version>
+		<version>3.6.7</version>
 	</dependency>	
 	<dependency>
 		<groupId>org.jbehave.web</groupId>
-  			<artifactId>jbehave-web-selenium</artifactId>
-  			<version>3.5.5</version>
-	</dependency>		
-	<dependency>
-	    <groupId>org.seleniumhq.selenium</groupId>
-	    <artifactId>selenium-server</artifactId>
-	    <version>2.6.0</version>
-	</dependency>	
+		<artifactId>jbehave-web-selenium</artifactId>
+		<version>3.5.4</version>
+	</dependency>
 	<dependency>
 		<groupId>org.seleniumhq.selenium.client-drivers</groupId>
 		<artifactId>selenium-java-client-driver</artifactId>
 		<version>1.0.2</version>
+	</dependency>
+     <dependency>
+	    <groupId>org.seleniumhq.selenium</groupId>
+	    <artifactId>selenium-server</artifactId>
+	    <version>2.6.0</version>
 	</dependency>
   </dependencies>
   

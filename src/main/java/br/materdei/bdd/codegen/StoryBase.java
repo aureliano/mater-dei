@@ -2,10 +2,18 @@ package br.materdei.bdd.codegen;
 
 import static java.util.Arrays.asList;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.embedder.Embedder;
 import org.jbehave.core.junit.JUnitStory;
+import org.jbehave.core.steps.CandidateSteps;
+import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.After;
 import org.junit.Before;
+
+import br.materdei.bdd.jbehave.JBehaveConfigurationUtil;
 
 public class StoryBase extends JUnitStory {
 
@@ -22,13 +30,19 @@ public class StoryBase extends JUnitStory {
         }
 	}
 	
-	@Before
-	public void beforeTest() {
-		System.out.println("Iniciando teste => " + this.getClass().getName());
+	@Override
+	public List<CandidateSteps> candidateSteps() {
+		return new InstanceStepsFactory(configuration(), new ArrayList<Object>()).createCandidateSteps();
 	}
+	
+	@Override
+	public Configuration configuration() {
+		return JBehaveConfigurationUtil.createSeleniumConfiguration(this.getClass());
+	}
+	
+	@Before
+	public void beforeTest() { }
 
 	@After
-	public void tearDown() throws Exception {
-		System.out.println("Finalizando teste => " + this.getClass().getName());
-	}
+	public void afterTest() throws Exception { }
 }
