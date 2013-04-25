@@ -17,7 +17,7 @@ public final class ScenarioFinder {
 		List<String> stories = new ArrayList<String>();
 		
 		for (File f : files) {
-			if (f.getAbsolutePath().endsWith("Cenario.java")) {
+			if ((f.getAbsolutePath().endsWith("Cenario.java")) ||(f.getAbsolutePath().endsWith("Scenario.java"))) {
 				stories.add(f.getAbsolutePath());
 			}
 		}
