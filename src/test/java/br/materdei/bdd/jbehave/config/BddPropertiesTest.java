@@ -1,19 +1,13 @@
 package br.materdei.bdd.jbehave.config;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Properties;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
-import br.materdei.bdd.jbehave.config.BddProperties;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertFalse;
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({BddProperties.class})
 public class BddPropertiesTest {
 
 	@Test
