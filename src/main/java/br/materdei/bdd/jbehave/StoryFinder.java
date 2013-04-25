@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.materdei.bdd.util.FileUtil;
+
 public final class StoryFinder {
 
 	private StoryFinder() {
@@ -24,26 +26,10 @@ public final class StoryFinder {
 	}
 	
 	private static List<File> loadResources() {
-		File resources = new File(new File("").getAbsolutePath() + "/src/main/resources");
-		List<File> mainResources = new ArrayList<File>();
-		loadFiles(mainResources, resources);
-		
-		resources = new File(new File("").getAbsolutePath() + "/src/test/resources");
-		List<File> testResources = new ArrayList<File>();
-		loadFiles(testResources, resources);
+		List<File> mainResources = FileUtil.loadFiles("src/main/resources");
+		List<File> testResources = FileUtil.loadFiles("src/test/resources");
 		
 		mainResources.addAll(testResources);
 		return mainResources;
-	}
-	
-	private static void loadFiles(List<File> files, File seed) {
-		if (seed.isDirectory()) {
-			File[] _files = seed.listFiles();
-			for (File f : _files) {
-				loadFiles(files, f);
-			}
-		} else {
-			files.add(seed);
-		}
 	}
 }
