@@ -6,7 +6,8 @@ public enum BddConfigPropertiesEnum {
 	PROJECT_HOME_PAGE("project.home.page", "http://www.google.com"),
 	BROWSER_LOCATION("browser.location", null),
 	IGNORE_SELENIUM_START_UP("mater.dei.ignorar.iniciacao.selenium.server", null),
-	SELENIUM_TIMEOUT("selenium.timeout", "30000");	
+	SELENIUM_PORT("selenium.port", "2222"),
+	SELENIUM_TIMEOUT("selenium.timeout", "30000");
 	
 	private BddConfigPropertiesEnum(String k, String defaultValue) {
 		this.key = k;
