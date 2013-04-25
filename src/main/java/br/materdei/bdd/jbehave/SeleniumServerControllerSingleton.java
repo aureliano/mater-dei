@@ -9,12 +9,14 @@ import org.jbehave.web.selenium.SeleniumStepMonitor;
 import org.openqa.selenium.server.RemoteControlConfiguration;
 import org.openqa.selenium.server.SeleniumServer;
 
+import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
+
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
 public class SeleniumServerControllerSingleton {
 	
-	private static final int PORTA_SELENIUM = 2222;
+	private static final int PORTA_SELENIUM = Integer.parseInt(BddConfigPropertiesEnum.SELENIUM_PORT.getValue());
 	private static volatile SeleniumServerControllerSingleton serverController = null;
 	
 	/**
@@ -44,12 +46,12 @@ public class SeleniumServerControllerSingleton {
 	}
 
 	private void configuraSelenium() {
-		String host = BddProperties.getPropriedade("selenium.web.host");
+		String host = BddConfigPropertiesEnum.SELENIUM_WEB_HOST.getValue();
 
 		// Alterando para a porta PORTA_SELENIUM pra não dar conflito com processos do servidor web.
 		int porta = PORTA_SELENIUM;
-		String navegador = BddProperties.getPropriedade("browser.location");
-		String url = BddProperties.getPropriedade("project.home.page");
+		String navegador = BddConfigPropertiesEnum.BROWSER_LOCATION.getValue();
+		String url = BddConfigPropertiesEnum.PROJECT_HOME_PAGE.getValue();
 
 		selenium = new DefaultSelenium(host, porta, navegador, url);
 		seleniumContext = new SeleniumContext();
