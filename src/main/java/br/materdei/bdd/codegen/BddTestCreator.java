@@ -3,7 +3,7 @@ package br.materdei.bdd.codegen;
 import javassist.ClassPool;
 import javassist.CtClass;
 
-public class BddTestCreator {
+public final class BddTestCreator {
 
 	private BddTestCreator() {
 		super();

@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoryFinder {
+public final class StoryFinder {
 
 	private StoryFinder() {
 		super();

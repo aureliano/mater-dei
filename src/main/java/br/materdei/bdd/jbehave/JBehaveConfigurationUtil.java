@@ -15,7 +15,7 @@ import org.jbehave.web.selenium.SeleniumContextOutput;
 import com.thoughtworks.paranamer.BytecodeReadingParanamer;
 import com.thoughtworks.paranamer.CachingParanamer;
 
-public class JBehaveConfigurationUtil {
+public final class JBehaveConfigurationUtil {
 
 	private JBehaveConfigurationUtil() {
 		super();

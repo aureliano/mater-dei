@@ -2,7 +2,7 @@ package br.materdei.bdd.jbehave;
 
 import java.io.File;
 
-public class StoryNameParser {
+public final class StoryNameParser {
 
 	private StoryNameParser() {
 		super();

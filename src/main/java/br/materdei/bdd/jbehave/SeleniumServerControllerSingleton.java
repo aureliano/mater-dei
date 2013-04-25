@@ -14,7 +14,7 @@ import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
-public class SeleniumServerControllerSingleton {
+public final class SeleniumServerControllerSingleton {
 	
 	private static final int PORTA_SELENIUM = Integer.parseInt(BddConfigPropertiesEnum.SELENIUM_PORT.getValue());
 	private static volatile SeleniumServerControllerSingleton serverController = null;
