@@ -45,7 +45,7 @@ public class StoryBase extends JUnitStory {
 	@Before
 	public void beforeTest() {
 		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
-		if ((ignore == null) && ("false".equalsIgnoreCase(ignore))) {
+		if ((ignore == null) || ("false".equalsIgnoreCase(ignore))) {
 			SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
 			controlador.iniciaServidorSelenium();
 			controlador.iniciaSelenium();
