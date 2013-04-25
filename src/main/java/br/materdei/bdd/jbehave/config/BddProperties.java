@@ -1,4 +1,4 @@
-package br.materdei.bdd.jbehave;
+package br.materdei.bdd.jbehave.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 
-public class BddProperties {
+public final class BddProperties {
 
 	private BddProperties() {
 		super();
@@ -17,10 +17,19 @@ public class BddProperties {
 
 	static {
 		URL url = ClassLoader.getSystemResource("bdd-config.properties");
-		CAMINHO_ARQUIVO_PROPRIEDADES = url.getFile();
+		if (url == null) {
+			System.out.println("Arquivo de configuração bdd-config.properties não encontrado! Utilizando configuração padrão.");
+			CAMINHO_ARQUIVO_PROPRIEDADES = null;
+		} else {
+			CAMINHO_ARQUIVO_PROPRIEDADES = url.getFile();
+		}
 	}
 	
 	private static void carregaPropriedades() {		
+		if (CAMINHO_ARQUIVO_PROPRIEDADES == null) {
+			return;
+		}
+		
 		propriedades = new Properties();
 
 		InputStream stream = null;
