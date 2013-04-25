@@ -1,10 +1,14 @@
 package br.materdei.bdd.util;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+
 import org.junit.Test;
 
 import br.materdei.bdd.codegen.BddTestCreator;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 public class ClassUtilTest {
 
@@ -19,5 +23,17 @@ public class ClassUtilTest {
 		assertFalse(ClassUtil.classExists("br.mg.bhe.Testar"));
 		BddTestCreator.create(null, "br.mg.bhe.Testar");
 		assertTrue(ClassUtil.classExists("br.mg.bhe.Testar"));
+	}
+	
+	@Test
+	public void testExtractClassNameFromJavaFile() {
+		File f = new File("src/test/java/br/materdei/bdd/integration/CadastraUsuarioCenario.java");
+		assertEquals("br.materdei.bdd.integration.CadastraUsuarioCenario", ClassUtil.extractClassNameFromJavaFile(f));
+		
+		f = new File("src/test/java/br/materdei/bdd/integration/AtualizaUsuarioCenario.java");
+		assertEquals("br.materdei.bdd.integration.AtualizaUsuarioCenario", ClassUtil.extractClassNameFromJavaFile(f));
+		
+		f = new File("src/main/java/br/materdei/bdd/codegen/StoryBase.java");
+		assertEquals("br.materdei.bdd.codegen.StoryBase", ClassUtil.extractClassNameFromJavaFile(f));
 	}
 }

@@ -34,7 +34,9 @@ public class StoryBase extends JUnitStory {
 	
 	@Override
 	public List<CandidateSteps> candidateSteps() {
-		return new InstanceStepsFactory(configuration(), new WebSteps()).createCandidateSteps();
+		List<Object> scenarios = ScenarioCreator.instantiateScenarios();
+		scenarios.add(new WebSteps());
+		return new InstanceStepsFactory(configuration(), scenarios).createCandidateSteps();
 	}
 	
 	@Override

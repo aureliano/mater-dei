@@ -1,6 +1,7 @@
 package br.materdei.bdd.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,5 +52,11 @@ public class FileUtilTest {
 		FileUtil.loadFiles("pom.xml");
 		FileUtil.loadFiles("README.md");
 		FileUtil.loadFiles("src/test/resources/bdd-config.properties");
+	}
+	
+	@Test
+	public void testTextFromFile() throws IOException {
+		String text = FileUtil.textFromFile(new File("src/test/java/br/materdei/bdd/integration/CadastraUsuarioCenario.java"));
+		assertEquals("package br.materdei.bdd.integration;\n\npublic class CadastraUsuarioCenario {\n\n}", text);
 	}
 }
