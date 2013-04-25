@@ -1,5 +1,6 @@
 package br.materdei.bdd.codegen;
 
+import br.materdei.bdd.util.ClassUtil;
 import javassist.ClassPool;
 import javassist.CtClass;
 
@@ -12,7 +13,7 @@ public final class BddTestCreator {
 	public static Object create(Class<?> storyBase, String storyName) throws Exception {
 		Object obj;
 		
-		if (isClassExist(storyName)) {
+		if (ClassUtil.classExists(storyName)) {
 			obj = Class.forName(storyName).newInstance();
 		} else {
 			ClassPool pool = ClassPool.getDefault();
@@ -27,18 +28,5 @@ public final class BddTestCreator {
 		}
 		
 		return obj;
-	}
-	
-	private static boolean isClassExist(String clazz) {
-		boolean exists = false;
-		
-		try {
-			Class.forName(clazz);
-			exists = true;
-		} catch (ClassNotFoundException ex) {
-			exists = false;
-		}
-		
-		return exists;
 	}
 }
