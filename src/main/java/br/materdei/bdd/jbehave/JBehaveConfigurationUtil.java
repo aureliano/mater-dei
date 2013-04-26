@@ -43,7 +43,7 @@ public final class JBehaveConfigurationUtil {
 					.withFailureTrace(true)
 					.withFailureTraceCompression(true));
 	}
-
+	
 	private static Format[] getFormats() {
 		SeleniumServerControllerSingleton serverSingleton = SeleniumServerControllerSingleton.getInstancia();
 		return new Format[] { new SeleniumContextOutput(serverSingleton.getSeleniumContext()), Format.CONSOLE, Format.HTML };

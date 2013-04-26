@@ -1,11 +1,11 @@
 package br.materdei.bdd.util;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 
 public final class FileUtil {
 
@@ -34,18 +34,7 @@ public final class FileUtil {
 	}
 	
 	public static String textFromFile(File file) throws IOException {
-		BufferedReader buffer = new BufferedReader(new FileReader(file));
-		StringBuilder builder = new StringBuilder();
-		String line;
-		
-		while ((line = buffer.readLine()) != null) {
-			builder.append(line).append("\n");
-		}
-		
-		buffer.close();		
-		builder.delete(builder.length() - 1, builder.length());
-		
-		return builder.toString();
+		return FileUtils.readFileToString(file);
 	}
 	
 	private static void loadFiles(List<File> files, File seed) {

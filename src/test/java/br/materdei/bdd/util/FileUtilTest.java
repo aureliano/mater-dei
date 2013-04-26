@@ -57,6 +57,6 @@ public class FileUtilTest {
 	@Test
 	public void testTextFromFile() throws IOException {
 		String text = FileUtil.textFromFile(new File("src/test/java/br/materdei/bdd/integration/CadastraUsuarioCenario.java"));
-		assertEquals("package br.materdei.bdd.integration;\n\npublic class CadastraUsuarioCenario {\n\n}", text);
+		assertEquals("package br.materdei.bdd.integration;\n\npublic class CadastraUsuarioCenario {\n\n}\n", text);
 	}
 }
