@@ -12,6 +12,7 @@ import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.After;
 import org.junit.Before;
 
+import br.materdei.bdd.TestModel;
 import br.materdei.bdd.jbehave.JBehaveConfigurationUtil;
 import br.materdei.bdd.jbehave.SeleniumServerControllerSingleton;
 import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
@@ -23,10 +24,12 @@ public class StoryBase extends JUnitStory {
 		super();
 	}
 	
-	public void run(String storyName) throws Throwable {
+	public void run(TestModel model) throws Throwable {
 		Embedder embedder = configuredEmbedder();
+		embedder.useMetaFilters(model.getMetaFilters());
+		
         try {
-            embedder.runStoriesAsPaths(asList(storyName));
+            embedder.runStoriesAsPaths(asList(model.getStoryPath()));
         } finally {
             embedder.generateCrossReference();
         }

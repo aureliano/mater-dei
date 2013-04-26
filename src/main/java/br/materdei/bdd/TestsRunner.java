@@ -12,30 +12,24 @@ import br.materdei.bdd.jbehave.StoryNameParser;
 public class TestsRunner {
 
 	public void run() throws Throwable {
-		this.execute(null, null);
+		this.execute(new TestModel());
 	}
 	
-	public void run(String storyPath) throws Throwable {
-		this.execute(null, storyPath);
+	public void run(TestModel model) throws Throwable {
+		this.execute(model);
 	}
 	
-	public void run(Class<?> storyBase) throws Throwable {
-		this.execute(storyBase, null);
-	}
-	
-	public void run(Class<?> storyBase, String storyPath) throws Throwable {
-		this.execute(storyBase, storyPath);
-	}
-	
-	private void execute(Class<?> storyBase, String resourceName) throws Throwable {
-		List<String> stories = loadStories(resourceName);
+	private void execute(TestModel model) throws Throwable {
+		List<String> stories = loadStories(model.getStoryPath());
 		for (String story : stories) {
 			String fileName = story.substring(story.lastIndexOf("/") + 1);
 			String storyName = StoryNameParser.parse(story);
 						
-			StoryBase runnableStory = (StoryBase) BddTestCreator.create(storyBase, storyName);
-			runnableStory.beforeTest();
-			runnableStory.run(storyName.replaceAll("\\.", "/").substring(0, storyName.lastIndexOf(".") + 1) + fileName);
+			StoryBase runnableStory = (StoryBase) BddTestCreator.create(model.getStoryBase(), storyName);
+			model.useStoryPath(storyName.replaceAll("\\.", "/").substring(0, storyName.lastIndexOf(".") + 1) + fileName);
+			
+			runnableStory.beforeTest();			
+			runnableStory.run(model);
 			runnableStory.afterTest();
 		}
 	}
