@@ -26,4 +26,11 @@ public class BddTestCreatorTest {
 		assertNotNull(obj);
 		assertEquals("br.materdei.bdd.codegen.BddTestCreator", obj.getClass().getName());
 	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testCreateWhereStoryDoesNotInheritFromStoryBase() throws Exception {
+		BddTestCreator.create(Object.class, "br.materdei.bdd.OtherProjectBddTest");
+		BddTestCreator.create(BddTestCreatorTest.class, "br.materdei.bdd.OtherProjectBddTest");
+		BddTestCreator.create(ScenarioCreator.class, "br.materdei.bdd.OtherProjectBddTest");
+	}
 }

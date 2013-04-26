@@ -19,6 +19,11 @@ public final class BddTestCreator {
 			ClassPool pool = ClassPool.getDefault();
 			if (storyBase == null) {
 				storyBase = StoryBase.class;
+			} else {
+				System.out.println(storyBase.getSuperclass());
+				if (!StoryBase.class.equals(storyBase.getSuperclass())) {
+					throw new RuntimeException(storyBase.getName() + " deve herdar de " + StoryBase.class.getName());
+				}
 			}
 			
 			CtClass ctClassStoryBase = pool.getCtClass(storyBase.getName());
