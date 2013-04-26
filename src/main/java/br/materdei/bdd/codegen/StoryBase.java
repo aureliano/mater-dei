@@ -51,6 +51,7 @@ public class StoryBase extends JUnitStory {
 			SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
 			controlador.iniciaServidorSelenium();
 			controlador.iniciaSelenium();
+			controlador.getSelenium().windowMaximize();
 		}
 	}
 
