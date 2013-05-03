@@ -14,8 +14,6 @@ import org.junit.Before;
 
 import br.materdei.bdd.TestModel;
 import br.materdei.bdd.jbehave.JBehaveConfigurationUtil;
-import br.materdei.bdd.jbehave.SeleniumServerControllerSingleton;
-import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 import br.materdei.bdd.steps.WebSteps;
 
 public class StoryBase extends JUnitStory {
@@ -48,16 +46,8 @@ public class StoryBase extends JUnitStory {
 	}
 	
 	@Before
-	public void beforeTest() {
-		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
-		if ((ignore == null) || ("false".equalsIgnoreCase(ignore))) {
-			SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
-			controlador.iniciaServidorSelenium();
-			controlador.iniciaSelenium();
-			controlador.getSelenium().windowMaximize();
-		}
-	}
+	public void beforeTest() {}
 
 	@After
-	public void afterTest() throws Exception { }
+	public void afterTest() throws Exception {}
 }

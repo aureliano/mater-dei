@@ -7,6 +7,7 @@ public enum BddConfigPropertiesEnum {
 	BROWSER_LOCATION("browser.location", null),
 	IGNORE_SELENIUM_START_UP("mater.dei.ignorar.iniciacao.selenium.server", null),
 	SELENIUM_PORT("selenium.port", "2222"),
+	SELENIUM_RESOURCES_FOLDER("selenium.resources.folder", "target/selenium"),
 	SELENIUM_TIMEOUT("selenium.timeout", "30000");
 	
 	private BddConfigPropertiesEnum(String k, String defaultValue) {

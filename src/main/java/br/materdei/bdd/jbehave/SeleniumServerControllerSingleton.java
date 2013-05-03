@@ -1,8 +1,10 @@
 package br.materdei.bdd.jbehave;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 
+import org.apache.commons.io.FileUtils;
 import org.jbehave.core.steps.SilentStepMonitor;
 import org.jbehave.web.selenium.SeleniumContext;
 import org.jbehave.web.selenium.SeleniumStepMonitor;
@@ -30,6 +32,14 @@ public final class SeleniumServerControllerSingleton {
 		}
 
 		return serverController;
+	}
+	
+	public static void createSeleniumResourcesFolder() {
+		try {
+			FileUtils.forceMkdir(new File(BddConfigPropertiesEnum.SELENIUM_RESOURCES_FOLDER.getValue()));
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 	
 	private boolean servidorSeleniumIniciado;
@@ -62,7 +72,8 @@ public final class SeleniumServerControllerSingleton {
 		RemoteControlConfiguration remoteControlConfiguration = new RemoteControlConfiguration();
 		// Alterando para a porta PORTA_SELENIUM pra não dar conflito com processos do servidor web.
 		remoteControlConfiguration.setPort(PORTA_SELENIUM);
-
+		remoteControlConfiguration.setLogOutFile(new File("target/selenium-server.log"));		
+		
 		return remoteControlConfiguration;
 	}
 
@@ -127,6 +138,7 @@ public final class SeleniumServerControllerSingleton {
 
 	public void paraSelenium() {
 		this.selenium.stop();
+		this.seleniumIniciado = false;
 	}
 
 	/**

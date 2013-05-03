@@ -6,8 +6,10 @@ import java.util.List;
 
 import br.materdei.bdd.codegen.BddTestCreator;
 import br.materdei.bdd.codegen.StoryBase;
+import br.materdei.bdd.jbehave.SeleniumServerControllerSingleton;
 import br.materdei.bdd.jbehave.StoryFinder;
 import br.materdei.bdd.jbehave.StoryNameParser;
+import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 
 public class TestsRunner {
 
@@ -21,6 +23,8 @@ public class TestsRunner {
 	
 	private void execute(TestModel model) throws Throwable {
 		List<String> stories = loadStories(model.getStoryPath());
+		this.prepareSeleniumEnvironment();
+		
 		for (String story : stories) {
 			String fileName = story.substring(story.lastIndexOf("/") + 1);
 			String storyName = StoryNameParser.parse(story);
@@ -32,6 +36,8 @@ public class TestsRunner {
 			runnableStory.run(model);
 			runnableStory.afterTest();
 		}
+			
+		this.stopSelenium();
 	}
 	
 	protected List<String> loadStories(String resourceName) {
@@ -50,5 +56,29 @@ public class TestsRunner {
 		}
 		
 		return stories;
+	}
+	
+	private void prepareSeleniumEnvironment() {
+		SeleniumServerControllerSingleton.createSeleniumResourcesFolder();
+		this.startSelenium();
+	}
+	
+	private void startSelenium() {
+		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
+		if ((ignore == null) || ("false".equalsIgnoreCase(ignore))) {
+			SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
+			controlador.iniciaServidorSelenium();
+			controlador.iniciaSelenium();
+			controlador.getSelenium().windowMaximize();
+		}
+	}
+	
+	private void stopSelenium() {
+		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
+		if ((ignore == null) || ("false".equalsIgnoreCase(ignore))) {
+			SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
+			controlador.paraSelenium();
+			controlador.paraServidorSelenium();
+		}
 	}
 }
