@@ -17,7 +17,7 @@ public class BddPropertiesTest {
 		Properties p = BddProperties.getProperties();
 		assertNotNull(p);
 		assertFalse(p.isEmpty());
-		assertEquals(6, p.size());
+		assertEquals(7, p.size());
 	}
 	
 	@Test
@@ -29,5 +29,6 @@ public class BddPropertiesTest {
 		assertEquals("true", p.getProperty(IGNORE_SELENIUM_START_UP.getKey()));
 		assertEquals("10000", p.getProperty(SELENIUM_TIMEOUT.getKey()));
 		assertEquals("testes_desabilitados", p.getProperty(DISABLED_TESTS_FILE.getKey()));
+		assertEquals("true", p.getProperty(TRUST_ALL_SSL_CERTIFICATES.getKey()));
 	}
 }

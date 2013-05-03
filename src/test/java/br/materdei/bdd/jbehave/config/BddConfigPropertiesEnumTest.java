@@ -16,5 +16,7 @@ public class BddConfigPropertiesEnumTest {
 		assertEquals("2222", SELENIUM_PORT.getValue());
 		assertEquals("10000", SELENIUM_TIMEOUT.getValue());
 		assertEquals("localhost", SELENIUM_WEB_HOST.getValue());
+		assertEquals("testes_desabilitados", DISABLED_TESTS_FILE.getValue());
+		assertEquals("true", TRUST_ALL_SSL_CERTIFICATES.getValue());
 	}
 }
