@@ -2,6 +2,10 @@ package br.materdei.bdd;
 
 import java.util.List;
 
+import junit.textui.TestRunner;
+
+import org.apache.log4j.Logger;
+
 import br.materdei.bdd.codegen.BddTestCreator;
 import br.materdei.bdd.codegen.StoryBase;
 import br.materdei.bdd.jbehave.SeleniumServerControllerSingleton;
@@ -9,6 +13,8 @@ import br.materdei.bdd.jbehave.StoryFinder;
 import br.materdei.bdd.jbehave.StoryNameParser;
 
 public class TestsRunner {
+	
+	private static final Logger logger = Logger.getLogger(TestRunner.class);
 
 	public void run() throws Throwable {
 		this.execute(new TestModel());
@@ -31,6 +37,8 @@ public class TestsRunner {
 			
 			StoryBase runnableStory = (StoryBase) BddTestCreator.create(model.getStoryBase(), storyName);
 			model.useStoryPath(storyName.replaceAll("\\.", "/").substring(0, storyName.lastIndexOf(".") + 1) + fileName);
+			
+			logger.info("Executando estória " + model.getStoryPath());
 			
 			runnableStory.beforeTest();			
 			runnableStory.run(model);
