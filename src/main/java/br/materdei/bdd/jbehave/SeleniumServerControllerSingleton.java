@@ -72,7 +72,7 @@ public final class SeleniumServerControllerSingleton {
 		RemoteControlConfiguration remoteControlConfiguration = new RemoteControlConfiguration();
 		// Alterando para a porta PORTA_SELENIUM pra não dar conflito com processos do servidor web.
 		remoteControlConfiguration.setPort(PORTA_SELENIUM);
-		remoteControlConfiguration.setLogOutFile(new File("target/selenium-server.log"));		
+		remoteControlConfiguration.setTrustAllSSLCertificates(Boolean.parseBoolean(BddConfigPropertiesEnum.TRUST_ALL_SSL_CERTIFICATES.getValue()));
 		
 		return remoteControlConfiguration;
 	}
@@ -100,6 +100,7 @@ public final class SeleniumServerControllerSingleton {
 
 		this.configuraSelenium();
 		this.selenium.start();
+		selenium.setTimeout(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
 		this.seleniumIniciado = true;
 	}
 
