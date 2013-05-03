@@ -35,7 +35,7 @@ public class FileUtilTest {
 		List<File> files = FileUtil.loadFiles("src/test/resources");
 		assertNotNull(files);
 		assertFalse(files.isEmpty());
-		assertEquals(3, files.size());
+		assertEquals(4, files.size());
 		
 		List<String> fileNames = new ArrayList<String>();
 		for (File f : files) {

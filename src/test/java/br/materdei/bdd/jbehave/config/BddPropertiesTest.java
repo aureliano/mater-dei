@@ -17,7 +17,7 @@ public class BddPropertiesTest {
 		Properties p = BddProperties.getProperties();
 		assertNotNull(p);
 		assertFalse(p.isEmpty());
-		assertEquals(5, p.size());
+		assertEquals(6, p.size());
 	}
 	
 	@Test
@@ -28,5 +28,6 @@ public class BddPropertiesTest {
 		assertEquals("*firefox /usr/lib/firefox-3.6.13/firefox-bin", p.getProperty(BROWSER_LOCATION.getKey()));
 		assertEquals("true", p.getProperty(IGNORE_SELENIUM_START_UP.getKey()));
 		assertEquals("10000", p.getProperty(SELENIUM_TIMEOUT.getKey()));
+		assertEquals("testes_desabilitados", p.getProperty(DISABLED_TESTS_FILE.getKey()));
 	}
 }
