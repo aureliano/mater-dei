@@ -2,8 +2,6 @@ package br.materdei.bdd;
 
 import java.util.List;
 
-import junit.textui.TestRunner;
-
 import br.materdei.bdd.codegen.BddTestCreator;
 import br.materdei.bdd.codegen.StoryBase;
 import br.materdei.bdd.jbehave.SeleniumServerControllerSingleton;
@@ -34,7 +32,7 @@ public class TestsRunner {
 			StoryBase runnableStory = (StoryBase) BddTestCreator.create(model.getStoryBase(), storyName);
 			model.useStoryPath(storyName.replaceAll("\\.", "/").substring(0, storyName.lastIndexOf(".") + 1) + fileName);
 			
-			System.out.println("Executando estória " + model.getStoryPath());
+			System.out.println(" => Executando estória " + model.getStoryPath());
 			
 			runnableStory.beforeTest();			
 			runnableStory.run(model);
