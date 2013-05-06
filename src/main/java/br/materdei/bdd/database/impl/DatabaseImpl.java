@@ -9,6 +9,7 @@ import br.materdei.bdd.database.DatabaseInterface;
 import br.materdei.bdd.database.DatabasesEnum;
 import br.materdei.bdd.database.DbUrlCreator;
 import br.materdei.bdd.database.config.DbConfigPropertiesEnum;
+import br.materdei.bdd.database.init.InitData;
 
 public abstract class DatabaseImpl implements DatabaseInterface {
 
@@ -48,11 +49,14 @@ public abstract class DatabaseImpl implements DatabaseInterface {
 	
 	@Override
 	public Connection createDatabaseConnection() throws Exception {
-		Class.forName(this.driverClass);
-		
-		Connection c = DriverManager.getConnection(this.urlConnection + database, user, password);
-		c.setAutoCommit(false);
-		
+		Class.forName(this.driverClass);		
+		Connection c = DriverManager.getConnection(this.urlConnection + database, user, password);		
 		return c;
+	}
+
+	@Override
+	public void loadInitialData() throws Exception {
+		System.out.println("Carregando dados iniciais no banco de dados " + this.database);
+		InitData.init(this.createDatabaseConnection());
 	}
 }

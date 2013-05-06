@@ -3,7 +3,6 @@ package br.materdei.bdd.database;
 import org.apache.commons.lang.StringUtils;
 
 import br.materdei.bdd.database.config.DbConfigPropertiesEnum;
-import br.materdei.bdd.jbehave.config.BddProperties;
 
 public final class DbUrlCreator {
 
@@ -32,7 +31,7 @@ public final class DbUrlCreator {
 	}
 	
 	private static String configPort(DatabasesEnum db) {
-		String port = BddProperties.getPropriedade(DbConfigPropertiesEnum.DATABASE_CONNECTION_PORT.getValue());
+		String port = DbConfigPropertiesEnum.DATABASE_CONNECTION_PORT.getValue();
 		if (StringUtils.isEmpty(port)) {
 			port = db.getDefaultPort();
 		}
@@ -41,7 +40,7 @@ public final class DbUrlCreator {
 	}
 	
 	private static String configHost(DatabasesEnum db) {
-		String host = BddProperties.getPropriedade(DbConfigPropertiesEnum.DATABASE_CONNECTION_HOST.getValue());
+		String host = DbConfigPropertiesEnum.DATABASE_CONNECTION_HOST.getValue();
 		if (StringUtils.isEmpty(host)) {
 			host = db.getDefaultHost();
 		}

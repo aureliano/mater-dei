@@ -20,7 +20,13 @@ public class PostgresImpl extends DatabaseImpl {
 	}
 
 	@Override
-	public void createClearDatabaseFunction() {
+	public void createClearDatabaseFunctions() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearDatabase() {
 		// TODO Auto-generated method stub
 		
 	}

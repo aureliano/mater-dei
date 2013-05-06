@@ -12,9 +12,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
-import br.materdei.bdd.database.DatabaseInterfaceFactory;
 import br.materdei.bdd.database.config.DbConfigPropertiesEnum;
-import br.materdei.bdd.jbehave.config.BddProperties;
 
 public class InitData {
 
@@ -22,16 +20,16 @@ public class InitData {
 		super();
 	}
 	
-	public static void init() {
+	public static void init(Connection conn) {
 		List<File> files = loadStatmentFiles();
 		if (CollectionUtils.isEmpty(files)) {
 			return;
 		}
 	
 		try {
-			Connection conn =  DatabaseInterfaceFactory.createDatabaseInterface().createDatabaseConnection();
 			Statement stmt = conn.createStatement();
 			for (File file : files) {
+				System.out.println("Adicionando comandos do arquivo " + file.getAbsolutePath() + " ao batch.");
 				List<String> statments = statments(file);
 				
 				for (String cmd : statments) {
@@ -48,7 +46,7 @@ public class InitData {
 	}
 	
 	private static List<File> loadStatmentFiles() {
-		String value = BddProperties.getPropriedade(DbConfigPropertiesEnum.DATABASE_INIT_DATA_FILE.getValue());
+		String value = DbConfigPropertiesEnum.DATABASE_INIT_DATA_FILE.getValue();
 		if (StringUtils.isEmpty(value)) {
 			return null;
 		}

@@ -10,5 +10,9 @@ public interface DatabaseInterface {
 	
 	public abstract void enableForeignKeys();
 	
-	public abstract void createClearDatabaseFunction();
+	public abstract void createClearDatabaseFunctions();
+	
+	public abstract void clearDatabase();
+	
+	public abstract void loadInitialData() throws Exception;
 }

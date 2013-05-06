@@ -7,7 +7,7 @@ public class DbUrlCreatorTest {
 
 	@Test
 	public void testCreate() {
-		assertEquals("jdbc:mysql://localhost:3306/", DbUrlCreator.create(DatabasesEnum.MYSQL));
-		assertEquals("jdbc:postgresql://localhost:5432/", DbUrlCreator.create(DatabasesEnum.POSTGRESQL));
+		assertEquals("jdbc:mysql://127.0.0.1:12345/", DbUrlCreator.create(DatabasesEnum.MYSQL));
+		assertEquals("jdbc:postgresql://127.0.0.1:12345/", DbUrlCreator.create(DatabasesEnum.POSTGRESQL));
 	}
 }
