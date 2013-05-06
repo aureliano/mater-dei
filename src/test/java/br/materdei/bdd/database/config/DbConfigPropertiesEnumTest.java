@@ -9,7 +9,7 @@ public class DbConfigPropertiesEnumTest {
 
 	@Test
 	public void testDbConfigProperties() {
-		assertEquals("com.sgdb.driver", DATABASE_CONNECTION_DRIVER.getValue());
+		assertEquals("com.mysql.driver", DATABASE_CONNECTION_DRIVER.getValue());
 		assertEquals("usuario", DATABASE_CONNECTION_USER.getValue());
 		assertEquals("senha", DATABASE_COONECTION_PASSWORD.getValue());
 		assertEquals("bancodados", DATABASE_CONNECTION_DB.getValue());

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +12,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
-import br.materdei.bdd.database.DatabasesEnum;
-import br.materdei.bdd.database.DbUrlCreator;
+import br.materdei.bdd.database.DatabaseInterfaceFactory;
 import br.materdei.bdd.database.config.DbConfigPropertiesEnum;
 import br.materdei.bdd.jbehave.config.BddProperties;
 
@@ -31,7 +29,7 @@ public class InitData {
 		}
 	
 		try {
-			Connection conn = createConnection();
+			Connection conn =  DatabaseInterfaceFactory.createDatabaseInterface().createDatabaseConnection();
 			Statement stmt = conn.createStatement();
 			for (File file : files) {
 				List<String> statments = statments(file);
@@ -68,21 +66,6 @@ public class InitData {
 		}
 		
 		return files;
-	}
-	
-	private static Connection createConnection() throws Exception {
-		String driver = BddProperties.getPropriedade(DbConfigPropertiesEnum.DATABASE_CONNECTION_DRIVER.getValue());
-		Class.forName(driver);
-		
-		String url = DbUrlCreator.create(DatabasesEnum.databaseFromDriverName(driver));
-		String user = BddProperties.getPropriedade(DbConfigPropertiesEnum.DATABASE_CONNECTION_USER.getValue());
-		String password = BddProperties.getPropriedade(DbConfigPropertiesEnum.DATABASE_COONECTION_PASSWORD.getValue());
-		String database = BddProperties.getPropriedade(DbConfigPropertiesEnum.DATABASE_CONNECTION_DB.getValue());
-		
-		Connection c = DriverManager.getConnection(url + database, user, password);
-		c.setAutoCommit(false);
-		
-		return c;
 	}
 	
 	private static List<String> statments(File file) {

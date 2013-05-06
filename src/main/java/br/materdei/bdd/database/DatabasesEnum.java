@@ -20,6 +20,10 @@ public enum DatabasesEnum {
 	}
 	
 	public static DatabasesEnum databaseFromDriverName(String driverName) {
+		if (driverName == null) {
+			return null;
+		}
+		
 		if (driverName.toLowerCase().contains("mysql")) {
 			return MYSQL;
 		} else if (driverName.toLowerCase().contains("postgresql")) {

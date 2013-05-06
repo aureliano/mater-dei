@@ -32,7 +32,7 @@ public class BddPropertiesTest {
 		assertEquals("testes_desabilitados", p.getProperty(DISABLED_TESTS_FILE.getKey()));
 		assertEquals("true", p.getProperty(TRUST_ALL_SSL_CERTIFICATES.getKey()));
 		
-		assertEquals("com.sgdb.driver", p.getProperty(DATABASE_CONNECTION_DRIVER.getKey()));
+		assertEquals("com.mysql.driver", p.getProperty(DATABASE_CONNECTION_DRIVER.getKey()));
 		assertEquals("usuario", p.getProperty(DATABASE_CONNECTION_USER.getKey()));
 		assertEquals("senha", p.getProperty(DATABASE_COONECTION_PASSWORD.getKey()));
 		assertEquals("bancodados", p.getProperty(DATABASE_CONNECTION_DB.getKey()));
