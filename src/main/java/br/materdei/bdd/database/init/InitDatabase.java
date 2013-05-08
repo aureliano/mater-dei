@@ -10,7 +10,10 @@ public final class InitDatabase {
 	}
 	
 	public static void init() {
-		DatabaseInterface databaseInterface = DatabaseInterfaceFactory.createDatabaseInterface();
+		init(DatabaseInterfaceFactory.createDatabaseInterface());
+	}
+	
+	public static void init(DatabaseInterface databaseInterface) {
 		try {
 			databaseInterface.createClearDatabaseFunctions();
 			databaseInterface.disableForeignKeys();

@@ -3,6 +3,11 @@ package br.materdei.bdd.database.helper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import org.apache.commons.lang.StringUtils;
+
+import br.materdei.bdd.database.DatabaseInterface;
+import br.materdei.bdd.database.config.DbConfigPropertiesEnum;
+
 public final class PostgresHelper {
 
 	private PostgresHelper() {
@@ -34,15 +39,24 @@ public final class PostgresHelper {
 	}
 	
 	public static void deleteRowsFromAllTables(Connection connection) throws Exception {
-		String query = "select mater_dei_clear_tables_function(',sis_ca,pf_org_ca,papeis_possiveis,pf_op_ca,pais,und_federativa,municipio,dsc_enumerados,area_atuacao_enti_privada,cnae,dom_pergunta_certidao,dom_pergunta_dirigente,fonte_recurso,seq_sol_abertura_conta,banco,tp_doc_contabil,und_fornecimento,natureza_despesa,natureza_despesa_sub_it,decisao_fundamentada,agendador,programa_trabalho_resumido,')";
+		String query = "select mater_dei_clear_tables_function('" + getTablesToIgnoreOnDelete(connection) + "')";
 		PreparedStatement ps = connection.prepareStatement(query);
 		ps.execute();
+	}
+	
+	private static String getTablesToIgnoreOnDelete(Connection connection) throws Exception {
+		String tables = DbConfigPropertiesEnum.DATABASE_TABLES_TO_NOT_CLEAR.getValue();
+		if (StringUtils.isEmpty(tables)) {
+			return String.format(",%s,", DatabaseInterface.FOREIGN_KEYS_TABLE);
+		}
+		
+		return String.format(",%s,%s,", tables.replaceAll("\\s", ""), DatabaseInterface.FOREIGN_KEYS_TABLE);
 	}
 	
 	private static void createFunctionToClearDatabase(Connection connection) throws Exception {
 		String function = "CREATE OR REPLACE FUNCTION mater_dei_clear_tables_function(ignore_tables TEXT) RETURNS INTEGER AS " +
 				"$$ DECLARE tupla RECORD; BEGIN " +
-				"FOR tupla IN SELECT table_name FROM information_schema.tables WHERE table_schema NOT IN ('pg_catalog', 'information_schema') AND table_type = 'BASE TABLE' AND ignore_tables||'mater_dei_foreign_keys_table,' NOT LIKE '%,'||table_name||',%' " +
+				"FOR tupla IN SELECT table_name FROM information_schema.tables WHERE table_schema NOT IN ('pg_catalog', 'information_schema') AND table_type = 'BASE TABLE' AND ignore_tables NOT LIKE '%,'||table_name||',%' " +
 				"LOOP EXECUTE 'DELETE FROM ' || tupla.table_name; END LOOP; RETURN 0; END $$ LANGUAGE 'plpgsql';";
 		PreparedStatement ps = connection.prepareStatement(function);
 		ps.execute();

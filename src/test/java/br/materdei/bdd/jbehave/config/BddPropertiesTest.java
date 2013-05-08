@@ -18,7 +18,7 @@ public class BddPropertiesTest {
 		Properties p = BddProperties.getProperties();
 		assertNotNull(p);
 		assertFalse(p.isEmpty());
-		assertEquals(14, p.size());
+		assertEquals(15, p.size());
 	}
 	
 	@Test
@@ -39,5 +39,6 @@ public class BddPropertiesTest {
 		assertEquals("br/materdei/data/dados_iniciais.sql,br/materdei/data/script.sql", p.getProperty(DATABASE_INIT_DATA_FILE.getKey()));
 		assertEquals("12345", p.getProperty(DATABASE_CONNECTION_PORT.getKey()));
 		assertEquals("127.0.0.1", p.getProperty(DATABASE_CONNECTION_HOST.getKey()));
+		assertEquals("sis_ca,pf_org_ca,papeis_possiveis, pf_op_ca,pais  ,und_federativa,municipio, dsc_enumerados,  area_atuacao_enti_privada,cnae ,dom_pergunta_certidao,dom_pergunta_dirigente,fonte_recurso,seq_sol_abertura_conta,banco,tp_doc_contabil,und_fornecimento,natureza_despesa,natureza_despesa_sub_it,decisao_fundamentada,agendador,programa_trabalho_resumido", p.getProperty(DATABASE_TABLES_TO_NOT_CLEAR.getKey()));
 	}
 }

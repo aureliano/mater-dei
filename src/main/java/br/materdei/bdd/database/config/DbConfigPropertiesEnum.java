@@ -10,7 +10,8 @@ public enum DbConfigPropertiesEnum {
 	DATABASE_CONNECTION_DB("database.connection.db"),
 	DATABASE_CONNECTION_PORT("database.connection.port"),
 	DATABASE_CONNECTION_HOST("database.connection.host"),
-	DATABASE_INIT_DATA_FILE("database.init.data.file");
+	DATABASE_INIT_DATA_FILE("database.init.data.file"),
+	DATABASE_TABLES_TO_NOT_CLEAR("database.tables.to.not.clear");
 	
 	private DbConfigPropertiesEnum(String key) {
 		this.key = key;
