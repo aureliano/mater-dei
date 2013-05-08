@@ -17,6 +17,7 @@ public final class InitDatabase {
 			databaseInterface.clearDatabase();
 			databaseInterface.loadInitialData();
 			databaseInterface.enableForeignKeys();
+			databaseInterface.closeConnection();
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);
 		}

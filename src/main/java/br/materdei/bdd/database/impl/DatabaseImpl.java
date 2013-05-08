@@ -2,6 +2,7 @@ package br.materdei.bdd.database.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -18,6 +19,8 @@ public abstract class DatabaseImpl implements DatabaseInterface {
 	protected String user;
 	protected String password;
 	protected String database;
+	
+	private Connection connection;
 	
 	protected DatabaseImpl() {
 		this.driverClass = DbConfigPropertiesEnum.DATABASE_CONNECTION_DRIVER.getValue();
@@ -49,14 +52,24 @@ public abstract class DatabaseImpl implements DatabaseInterface {
 	
 	@Override
 	public Connection createDatabaseConnection() throws Exception {
-		Class.forName(this.driverClass);		
-		Connection c = DriverManager.getConnection(this.urlConnection + database, user, password);		
-		return c;
+		if ((this.connection == null) || (this.connection.isClosed())) {
+			Class.forName(this.driverClass);		
+			this.connection = DriverManager.getConnection(this.urlConnection + database, user, password);		
+		}
+		
+		return this.connection;
 	}
 
 	@Override
 	public void loadInitialData() throws Exception {
 		System.out.println("Carregando dados iniciais no banco de dados " + this.database);
 		InitData.init(this.createDatabaseConnection());
+	}
+	
+	@Override
+	public void closeConnection() throws SQLException {
+		if (this.connection != null) {
+			this.connection.close();
+		}
 	}
 }
