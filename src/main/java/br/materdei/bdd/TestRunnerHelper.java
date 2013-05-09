@@ -65,7 +65,7 @@ public final class TestRunnerHelper {
 		String urlResources = "https://dl.dropboxusercontent.com/s/b0hoin4wghahik5/jbehave-site-resources.zip";
 		Integer connectionTimeout = Integer.parseInt(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
 		Integer readTimeout = Integer.parseInt(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
-		File jbehaveSiteDir = new File(BddConfigPropertiesEnum.JBEHAVE_OUTPUT_REPORT_DIR.getValue() + "/jbehave-site-resources.zip");
+		File jbehaveSiteDir = new File(BddConfigPropertiesEnum.JBEHAVE_REPORT_OUTPUT_DIR.getValue() + "/jbehave-site-resources.zip");
 		System.out.println("COPIANDO RECURSOS DE FORMATAÇÃO (css, imagens e js) DO RELATÓRIO DE TESTES PARA " + jbehaveSiteDir.getParent());
 		
 		if (jbehaveSiteDir.exists()) {
@@ -74,7 +74,7 @@ public final class TestRunnerHelper {
 		
 		try {
 			FileUtils.copyURLToFile(new URL(urlResources), jbehaveSiteDir, connectionTimeout, readTimeout);
-			FileUtil.extractFromZipFile(jbehaveSiteDir.getAbsolutePath(), BddConfigPropertiesEnum.JBEHAVE_OUTPUT_REPORT_DIR.getValue());
+			FileUtil.extractFromZipFile(jbehaveSiteDir.getAbsolutePath(), BddConfigPropertiesEnum.JBEHAVE_REPORT_OUTPUT_DIR.getValue());
 		} catch (IOException ex) {
 			System.out.println("WARN: Não foi possível copiar o recurso jbehave-site-resources. " + ex.getMessage());
 		}

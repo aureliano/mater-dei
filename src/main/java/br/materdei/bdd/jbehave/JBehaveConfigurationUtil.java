@@ -2,6 +2,7 @@ package br.materdei.bdd.jbehave;
 
 import java.util.Locale;
 
+import org.apache.commons.lang.StringUtils;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.Keywords;
 import org.jbehave.core.i18n.LocalizedKeywords;
@@ -12,6 +13,8 @@ import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.web.selenium.SeleniumConfiguration;
 import org.jbehave.web.selenium.SeleniumContextOutput;
 
+import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
+import br.materdei.bdd.jbehave.reporters.console.ColoredConsoleFormat;
 import br.materdei.bdd.jbehave.reporters.html.ScreenShootingHtmlFormat;
 
 import com.thoughtworks.paranamer.BytecodeReadingParanamer;
@@ -48,7 +51,17 @@ public final class JBehaveConfigurationUtil {
 	
 	private static Format[] getFormats() {
 		SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
-		Format screenshootingFormat = new ScreenShootingHtmlFormat(controlador.getSelenium());
-		return new Format[] { new SeleniumContextOutput(controlador.getSeleniumContext()), screenshootingFormat };
+		Format consoleFormat;
+		String coloredConsole = BddConfigPropertiesEnum.JBEHAVE_REPORT_FORMAT_CONSOLE_COLORED.getValue();
+		
+		if((StringUtils.isEmpty(coloredConsole)) || ("false".equals(coloredConsole.toLowerCase()))) {
+			consoleFormat = Format.CONSOLE;
+		} else {
+			consoleFormat = new ColoredConsoleFormat();
+		}
+		
+		Format screenShootingFormat = new ScreenShootingHtmlFormat(controlador.getSelenium());
+		
+		return new Format[] { new SeleniumContextOutput(controlador.getSeleniumContext()), consoleFormat, screenShootingFormat };
 	}
 }
