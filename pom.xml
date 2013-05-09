@@ -24,10 +24,10 @@
   </build>
   
   <dependencies>
-    <dependency>
-      <groupId>org.javassist</groupId>
-      <artifactId>javassist</artifactId>
-      <version>3.17.1-GA</version>
+	<dependency>
+	    <groupId>org.javassist</groupId>
+	    <artifactId>javassist</artifactId>
+	    <version>3.17.1-GA</version>
     </dependency>
     <dependency>
     	<groupId>junit</groupId>
