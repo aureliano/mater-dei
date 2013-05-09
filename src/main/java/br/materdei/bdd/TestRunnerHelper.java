@@ -1,12 +1,17 @@
 package br.materdei.bdd;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+
 import br.materdei.bdd.jbehave.SeleniumServerControllerSingleton;
 import br.materdei.bdd.jbehave.StoryFinder;
 import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
+import br.materdei.bdd.util.FileUtil;
 
 public final class TestRunnerHelper {
 
@@ -48,6 +53,30 @@ public final class TestRunnerHelper {
 			SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
 			controlador.paraSelenium();
 			controlador.paraServidorSelenium();
+		}
+	}
+	
+	public static void copyJBehaveSiteResources() {
+		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
+		if ((ignore != null) && ("true".equalsIgnoreCase(ignore))) {
+			return;
+		}
+		
+		String urlResources = "https://dl.dropboxusercontent.com/s/b0hoin4wghahik5/jbehave-site-resources.zip";
+		Integer connectionTimeout = Integer.parseInt(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
+		Integer readTimeout = Integer.parseInt(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
+		File jbehaveSiteDir = new File(BddConfigPropertiesEnum.JBEHAVE_OUTPUT_REPORT_DIR.getValue() + "/jbehave-site-resources.zip");
+		System.out.println("COPIANDO RECURSOS DE FORMATAÇÃO (css, imagens e js) DO RELATÓRIO DE TESTES PARA " + jbehaveSiteDir.getParent());
+		
+		if (jbehaveSiteDir.exists()) {
+			return;
+		}
+		
+		try {
+			FileUtils.copyURLToFile(new URL(urlResources), jbehaveSiteDir, connectionTimeout, readTimeout);
+			FileUtil.extractFromZipFile(jbehaveSiteDir.getAbsolutePath(), BddConfigPropertiesEnum.JBEHAVE_OUTPUT_REPORT_DIR.getValue());
+		} catch (IOException ex) {
+			System.out.println("WARN: Não foi possível copiar o recurso jbehave-site-resources. " + ex.getMessage());
 		}
 	}
 	

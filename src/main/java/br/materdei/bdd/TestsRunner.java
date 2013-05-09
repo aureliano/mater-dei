@@ -49,6 +49,7 @@ public class TestsRunner {
 	private void prepareTestEnvironment() {
 		SeleniumServerControllerSingleton.createSeleniumResourcesFolder();
 		TestRunnerHelper.startSelenium();
+		TestRunnerHelper.copyJBehaveSiteResources();
 	}
 	
 	private void tearDownTestEnvironment(List<String> disabledStories) {

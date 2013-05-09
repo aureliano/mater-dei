@@ -35,7 +35,7 @@ public class FileUtilTest {
 		List<File> files = FileUtil.loadFiles("src/test/resources");
 		assertNotNull(files);
 		assertFalse(files.isEmpty());
-		assertEquals(6, files.size());
+		assertEquals(7, files.size());
 		
 		List<String> fileNames = new ArrayList<String>();
 		for (File f : files) {
@@ -45,6 +45,14 @@ public class FileUtilTest {
 		assertTrue(fileNames.contains(new File("src/test/resources/bdd-config.properties").getAbsolutePath()));
 		assertTrue(fileNames.contains(new File("src/test/resources/br/materdei/feature/atualiza_usuario.story").getAbsolutePath()));
 		assertTrue(fileNames.contains(new File("src/test/resources/br/materdei/feature/cadastra_usuario.estoria").getAbsolutePath()));
+	}
+	
+	@Test
+	public void testExtractFromZipFile() throws IOException {
+		List<File> files = FileUtil.extractFromZipFile("src/test/resources/resources.zip", "target");
+		for (File file : files) {
+			assertTrue(file.exists());
+		}
 	}
 	
 	@Test(expected = RuntimeException.class)
