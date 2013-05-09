@@ -18,6 +18,6 @@ public class BddConfigPropertiesEnumTest {
 		assertEquals("localhost", SELENIUM_WEB_HOST.getValue());
 		assertEquals("testes_desabilitados", DISABLED_TESTS_FILE.getValue());
 		assertEquals("true", TRUST_ALL_SSL_CERTIFICATES.getValue());
-		assertEquals("target/jbehave/view", JBEHAVE_OUTPUT_REPORT_DIR.getValue());
+		assertEquals("target/jbehave/view", JBEHAVE_REPORT_OUTPUT_DIR.getValue());
 	}
 }

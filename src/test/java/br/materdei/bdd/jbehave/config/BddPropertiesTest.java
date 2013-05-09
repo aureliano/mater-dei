@@ -31,7 +31,7 @@ public class BddPropertiesTest {
 		assertEquals("10000", p.getProperty(SELENIUM_TIMEOUT.getKey()));
 		assertEquals("testes_desabilitados", p.getProperty(DISABLED_TESTS_FILE.getKey()));
 		assertEquals("true", p.getProperty(TRUST_ALL_SSL_CERTIFICATES.getKey()));
-		assertEquals("target/jbehave/view", p.getProperty(JBEHAVE_OUTPUT_REPORT_DIR.getKey()));
+		assertEquals("target/jbehave/view", p.getProperty(JBEHAVE_REPORT_OUTPUT_DIR.getKey()));
 		
 		assertEquals("com.mysql.driver", p.getProperty(DATABASE_CONNECTION_DRIVER.getKey()));
 		assertEquals("usuario", p.getProperty(DATABASE_CONNECTION_USER.getKey()));

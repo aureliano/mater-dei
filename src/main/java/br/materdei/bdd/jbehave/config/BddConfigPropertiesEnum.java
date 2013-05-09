@@ -11,7 +11,7 @@ public enum BddConfigPropertiesEnum {
 	SELENIUM_TIMEOUT("selenium.timeout", "30000"),
 	DISABLED_TESTS_FILE("disabled.tests.file.location", "testes_desabilitados"),
 	TRUST_ALL_SSL_CERTIFICATES("trust.all.ssl.certificates", "false"),
-	JBEHAVE_OUTPUT_REPORT_DIR("jbehave.output.report.dir", "target/jbehave/view");
+	JBEHAVE_REPORT_OUTPUT_DIR("jbehave.report.output.dir", "target/jbehave/view");
 	
 	private BddConfigPropertiesEnum(String k, String defaultValue) {
 		this.key = k;
