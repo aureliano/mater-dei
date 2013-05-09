@@ -12,6 +12,8 @@ import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.web.selenium.SeleniumConfiguration;
 import org.jbehave.web.selenium.SeleniumContextOutput;
 
+import br.materdei.bdd.jbehave.reporters.html.ScreenShootingHtmlFormat;
+
 import com.thoughtworks.paranamer.BytecodeReadingParanamer;
 import com.thoughtworks.paranamer.CachingParanamer;
 
@@ -45,7 +47,8 @@ public final class JBehaveConfigurationUtil {
 	}
 	
 	private static Format[] getFormats() {
-		SeleniumServerControllerSingleton serverSingleton = SeleniumServerControllerSingleton.getInstancia();
-		return new Format[] { new SeleniumContextOutput(serverSingleton.getSeleniumContext()), Format.CONSOLE, Format.HTML };
+		SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
+		Format screenshootingFormat = new ScreenShootingHtmlFormat(controlador.getSelenium());
+		return new Format[] { new SeleniumContextOutput(controlador.getSeleniumContext()), screenshootingFormat };
 	}
 }
