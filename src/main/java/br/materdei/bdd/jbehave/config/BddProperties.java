@@ -18,18 +18,13 @@ public final class BddProperties {
 	static {
 		URL url = ClassLoader.getSystemResource("bdd-config.properties");
 		if (url == null) {
-			System.out.println(" => Arquivo de configuração bdd-config.properties não encontrado! Utilizando configuração padrão.");
-			CAMINHO_ARQUIVO_PROPRIEDADES = null;
+			throw new RuntimeException(" => ARQUIVO DE CONFIGURAÇÃO bdd-config.properties NÃO ENCONTRADO! <= ");
 		} else {
 			CAMINHO_ARQUIVO_PROPRIEDADES = url.getFile();
 		}
 	}
 	
-	private static void carregaPropriedades() {		
-		if (CAMINHO_ARQUIVO_PROPRIEDADES == null) {
-			return;
-		}
-		
+	private static void carregaPropriedades() {				
 		propriedades = new Properties();
 
 		InputStream stream = null;

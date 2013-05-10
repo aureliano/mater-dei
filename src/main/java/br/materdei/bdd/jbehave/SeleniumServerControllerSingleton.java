@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.jbehave.core.steps.SilentStepMonitor;
 import org.jbehave.web.selenium.SeleniumContext;
 import org.jbehave.web.selenium.SeleniumStepMonitor;
@@ -63,6 +64,10 @@ public final class SeleniumServerControllerSingleton {
 		String navegador = BddConfigPropertiesEnum.SELENIUM_BROWSER_LOCATION.getValue();
 		String url = BddConfigPropertiesEnum.SELENIUM_HOME_PAGE.getValue();
 
+		if (StringUtils.isEmpty(navegador)) {
+			throw new RuntimeException("Você deve informar a localização do navegador através da propriedade 'selenium.browser.location' do arquivo 'bdd-config.properties'.");
+		}
+		
 		selenium = new DefaultSelenium(host, porta, navegador, url);
 		seleniumContext = new SeleniumContext();
 		stepMonitor = new SeleniumStepMonitor(selenium, seleniumContext, new SilentStepMonitor());
