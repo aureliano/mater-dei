@@ -3,14 +3,14 @@ package br.materdei.bdd.jbehave.config;
 public enum BddConfigPropertiesEnum {
 
 	SELENIUM_WEB_HOST("selenium.web.host", "localhost"),
-	PROJECT_HOME_PAGE("project.home.page", "http://www.google.com"),
-	BROWSER_LOCATION("browser.location", null),
+	SELENIUM_HOME_PAGE("selenium.home.page", "http://localhost:2222"),
+	SELENIUM_BROWSER_LOCATION("selenium.browser.location", null),
 	IGNORE_SELENIUM_START_UP("mater.dei.ignorar.iniciacao.selenium.server", null),
 	SELENIUM_PORT("selenium.port", "2222"),
 	SELENIUM_RESOURCES_FOLDER("selenium.resources.folder", "target/selenium"),
 	SELENIUM_TIMEOUT("selenium.timeout", "30000"),
 	DISABLED_TESTS_FILE("disabled.tests.file.location", "testes_desabilitados"),
-	TRUST_ALL_SSL_CERTIFICATES("trust.all.ssl.certificates", "false"),
+	SELENIUM_TRUST_ALL_SSL_CERTIFICATES("selenium.trust.all.ssl.certificates", "false"),
 	JBEHAVE_REPORT_OUTPUT_DIR("jbehave.report.output.dir", "target/jbehave/view"),
 	JBEHAVE_REPORT_FORMAT_CONSOLE_COLORED("jbehave.report.format.console.colored", "false");
 	

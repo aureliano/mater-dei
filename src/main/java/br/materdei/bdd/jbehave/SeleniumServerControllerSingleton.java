@@ -60,8 +60,8 @@ public final class SeleniumServerControllerSingleton {
 
 		// Alterando para a porta PORTA_SELENIUM pra não dar conflito com processos do servidor web.
 		int porta = PORTA_SELENIUM;
-		String navegador = BddConfigPropertiesEnum.BROWSER_LOCATION.getValue();
-		String url = BddConfigPropertiesEnum.PROJECT_HOME_PAGE.getValue();
+		String navegador = BddConfigPropertiesEnum.SELENIUM_BROWSER_LOCATION.getValue();
+		String url = BddConfigPropertiesEnum.SELENIUM_HOME_PAGE.getValue();
 
 		selenium = new DefaultSelenium(host, porta, navegador, url);
 		seleniumContext = new SeleniumContext();
@@ -72,7 +72,7 @@ public final class SeleniumServerControllerSingleton {
 		RemoteControlConfiguration remoteControlConfiguration = new RemoteControlConfiguration();
 		// Alterando para a porta PORTA_SELENIUM pra não dar conflito com processos do servidor web.
 		remoteControlConfiguration.setPort(PORTA_SELENIUM);
-		remoteControlConfiguration.setTrustAllSSLCertificates(Boolean.parseBoolean(BddConfigPropertiesEnum.TRUST_ALL_SSL_CERTIFICATES.getValue()));
+		remoteControlConfiguration.setTrustAllSSLCertificates(Boolean.parseBoolean(BddConfigPropertiesEnum.SELENIUM_TRUST_ALL_SSL_CERTIFICATES.getValue()));
 		
 		return remoteControlConfiguration;
 	}
