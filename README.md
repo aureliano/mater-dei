@@ -12,17 +12,14 @@ Este projeto foi criado com o objetivo de atender aos requisitos principais:
 Instalação
 ---
 * Faça o download do [código-fonte como ZIP](https://github.com/aureliano/mater-dei/archive/master.zip), extraia-o e entre na pasta mater-dei-master para executar o comando.
-```
-mvn install
-```
+```mvn install```
 
 Ou
 
 * Clone este repositório localmente e gere o JAR do projeto.
 ```
 git clone git://github.com/aureliano/mater-dei.git
-```
-```
+
 mvn install
 ```
 
