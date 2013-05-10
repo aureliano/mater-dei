@@ -158,7 +158,7 @@ public final class SeleniumServerControllerSingleton {
 
 	private boolean seleniumEstaSendoExecutado() {
 		try {
-			Socket socket = new Socket("127.0.0.1", PORTA_SELENIUM);
+			Socket socket = new Socket(BddConfigPropertiesEnum.SELENIUM_WEB_HOST.getValue(), PORTA_SELENIUM);
 			socket.close();
 			return true;
 		} catch (IOException ex) {
