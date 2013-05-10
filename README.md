@@ -17,7 +17,7 @@ Instalação
 Ou
 
 * Clone este repositório localmente e gere o JAR do projeto.
-```git clone git://github.com/aureliano/mater-dei.git```
+```git clone https://github.com/aureliano/mater-dei.git```
 ```mvn install```
 
 Documentação
