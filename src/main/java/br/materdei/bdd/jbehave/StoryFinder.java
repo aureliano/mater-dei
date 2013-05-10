@@ -18,7 +18,7 @@ public final class StoryFinder {
 	}
 	
 	public static List<String> find() {
-		List<File> files = loadResources();
+		List<File> files = FileUtil.loadFiles(BddConfigPropertiesEnum.JBEHAVE_STORIES_PATH.getValue());
 		List<String> stories = new ArrayList<String>();
 		
 		for (File f : files) {
@@ -44,13 +44,5 @@ public final class StoryFinder {
 		}
 		
 		return lines;
-	}
-	
-	private static List<File> loadResources() {
-		List<File> mainResources = FileUtil.loadFiles("src/main/resources");
-		List<File> testResources = FileUtil.loadFiles("src/test/resources");
-		
-		mainResources.addAll(testResources);
-		return mainResources;
 	}
 }

@@ -18,7 +18,7 @@ public class BddPropertiesTest {
 		Properties p = BddProperties.getProperties();
 		assertNotNull(p);
 		assertFalse(p.isEmpty());
-		assertEquals(18, p.size());
+		assertEquals(20, p.size());
 	}
 	
 	@Test
@@ -34,6 +34,8 @@ public class BddPropertiesTest {
 		assertEquals("target/jbehave/view", p.getProperty(JBEHAVE_REPORT_OUTPUT_DIR.getKey()));
 		assertEquals("true", p.getProperty(JBEHAVE_REPORT_FORMAT_CONSOLE_COLORED.getKey()));
 		assertEquals("2222", p.getProperty(SELENIUM_PORT.getKey()));
+		assertEquals("src/test/resources", JBEHAVE_STORIES_PATH.getValue());
+		assertEquals("src/test/java", JBEHAVE_SCENARIO_CLASSES_PATH.getValue());
 		
 		assertEquals("com.mysql.driver", p.getProperty(DATABASE_CONNECTION_DRIVER.getKey()));
 		assertEquals("usuario", p.getProperty(DATABASE_CONNECTION_USER.getKey()));

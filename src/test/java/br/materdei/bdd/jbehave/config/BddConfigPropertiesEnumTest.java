@@ -21,5 +21,7 @@ public class BddConfigPropertiesEnumTest {
 		assertEquals("target/jbehave/view", JBEHAVE_REPORT_OUTPUT_DIR.getValue());
 		assertEquals("true", JBEHAVE_REPORT_FORMAT_CONSOLE_COLORED.getValue());
 		assertEquals("2222", SELENIUM_PORT.getValue());
+		assertEquals("src/test/resources", JBEHAVE_STORIES_PATH.getValue());
+		assertEquals("src/test/java", JBEHAVE_SCENARIO_CLASSES_PATH.getValue());
 	}
 }

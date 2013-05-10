@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 import br.materdei.bdd.util.FileUtil;
 
 public final class ScenarioFinder {
@@ -13,7 +14,7 @@ public final class ScenarioFinder {
 	}
 	
 	public static List<String> find() {
-		List<File> files = FileUtil.loadFiles("src/test/java");
+		List<File> files = FileUtil.loadFiles(BddConfigPropertiesEnum.JBEHAVE_SCENARIO_CLASSES_PATH.getValue());
 		List<String> stories = new ArrayList<String>();
 		
 		for (File f : files) {
