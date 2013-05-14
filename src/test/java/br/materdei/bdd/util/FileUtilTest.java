@@ -48,6 +48,16 @@ public class FileUtilTest {
 	}
 	
 	@Test
+	public void testLoadMatchFiles() {
+		List<File> files = FileUtil.loadMatchFiles("[\\w\\s\\d-+]*.properties");
+		String root = new File("").getAbsolutePath();
+		
+		assertFalse(files.isEmpty());
+		assertTrue(files.contains(new File(root + "/src/main/resources/log4j.properties")));
+		assertTrue(files.contains(new File(root + "/src/test/resources/bdd-config.properties")));
+	}
+	
+	@Test
 	public void testExtractFromZipFile() throws IOException {
 		List<File> files = FileUtil.extractFromZipFile("src/test/resources/resources.zip", "target");
 		for (File file : files) {

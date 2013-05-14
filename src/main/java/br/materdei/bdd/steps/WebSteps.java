@@ -1,11 +1,11 @@
 package br.materdei.bdd.steps;
 
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.When;
-
 import static br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum.SELENIUM_TIMEOUT;
 
+import org.jbehave.core.annotations.When;
+
 import br.materdei.bdd.jbehave.SeleniumServerControllerSingleton;
+import br.materdei.bdd.web.page.POFinder;
 
 import com.thoughtworks.selenium.Selenium;
 
@@ -17,9 +17,15 @@ public class WebSteps {
 		this.driver = SeleniumServerControllerSingleton.getInstancia().getSelenium();
 	}
 	
-	@Given("eu acesso a página '$pagina'")
-	public void dadoQueEuAcessoPagina(String pagina) {
-		this.driver.open(pagina);
+	@When("eu acesso a página pela url '$url'")
+	public void dadoQueEuAcessoPaginaPelaUrl(String url) {
+		this.driver.open(url);
+		this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
+	}
+	
+	@When("eu acesso a página '$nomePagina'")
+	public void dadoQueEuAcessoPagina(String nomePagina) {
+		POFinder.findByName(nomePagina).abrePagina();
 		this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
 	}
 	

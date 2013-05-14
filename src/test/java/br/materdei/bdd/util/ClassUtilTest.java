@@ -39,8 +39,8 @@ public class ClassUtilTest {
 		f = new File("src/main/java/br/materdei/bdd/web/page/IPage.java");
 		assertEquals("br.materdei.bdd.web.page.IPage", ClassUtil.extractClassNameFromJavaFile(f));
 		
-		f = new File("src/main/java/br/materdei/bdd/web/page/PageObjectFinder.java");
-		assertEquals("br.materdei.bdd.web.page.PageObjectFinder", ClassUtil.extractClassNameFromJavaFile(f));
+		f = new File("src/main/java/br/materdei/bdd/web/page/POFinder.java");
+		assertEquals("br.materdei.bdd.web.page.POFinder", ClassUtil.extractClassNameFromJavaFile(f));
 		
 		f = new File("src/main/java/br/materdei/bdd/web/annotation/PageObject.java");
 		assertEquals("br.materdei.bdd.web.annotation.PageObject", ClassUtil.extractClassNameFromJavaFile(f));

@@ -39,6 +39,19 @@ public final class FileUtil {
 		return files;
 	}
 	
+	public static List<File> loadMatchFiles(String regex) {
+		List<File> allFiles = FileUtil.loadFiles();
+		List<File> files = new ArrayList<File>();
+		
+		for (File f : allFiles) {
+			if (f.getName().matches(regex)) {
+				files.add(f);
+			}
+		}
+		
+		return files;
+	}
+	
 	public static List<File> extractFromZipFile(String inputPath, String outputPath) throws IOException {
 		List<File> unzipedFiles = new ArrayList<File>();
 
