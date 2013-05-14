@@ -40,10 +40,10 @@ public final class ClassUtil {
 			throw new RuntimeException("Não foi possível extrair o nome canônico de classe do arquivo '" + file.getAbsolutePath() + "'. É uma classe Java?");
 		}
 		
-		matcher = Pattern.compile("\\s*public\\s*(final\\sclass|class|interface)\\s*[\\w_\\d]+").matcher(text);
+		matcher = Pattern.compile("\\s*public\\s*(final\\sclass|abstract\\sclass|class|enum|interface|@interface)\\s*[\\w_\\d]+").matcher(text);
 		String clazz;
 		if (matcher.find()) {
-			clazz = matcher.group().replaceAll("\\s*public\\s*(final\\sclass|class|interface)\\s*", "");
+			clazz = matcher.group().replaceAll("\\s*public\\s*(final\\sclass|abstract\\sclass|class|enum|interface|@interface)\\s*", "");
 		} else {
 			throw new RuntimeException("Não foi possível extrair o nome canônico de classe do arquivo '" + file.getAbsolutePath() + "'. É uma classe Java?");
 		}

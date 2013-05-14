@@ -41,5 +41,14 @@ public class ClassUtilTest {
 		
 		f = new File("src/main/java/br/materdei/bdd/web/page/PageObjectFinder.java");
 		assertEquals("br.materdei.bdd.web.page.PageObjectFinder", ClassUtil.extractClassNameFromJavaFile(f));
+		
+		f = new File("src/main/java/br/materdei/bdd/web/annotation/PageObject.java");
+		assertEquals("br.materdei.bdd.web.annotation.PageObject", ClassUtil.extractClassNameFromJavaFile(f));
+		
+		f = new File("src/main/java/br/materdei/bdd/database/impl/DatabaseImpl.java");
+		assertEquals("br.materdei.bdd.database.impl.DatabaseImpl", ClassUtil.extractClassNameFromJavaFile(f));
+		
+		f = new File("src/main/java/br/materdei/bdd/database/config/DbConfigPropertiesEnum.java");
+		assertEquals("br.materdei.bdd.database.config.DbConfigPropertiesEnum", ClassUtil.extractClassNameFromJavaFile(f));
 	}
 }
