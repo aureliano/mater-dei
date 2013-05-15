@@ -7,7 +7,6 @@ public class TestModel {
 
 	private String storyPath;
 	private Class<?> storyBase;
-	private Class<?> scenarioBase;
 	private List<String> metaFilters;
 	
 	public TestModel() {
@@ -48,15 +47,6 @@ public class TestModel {
 			}
 		}
 
-		return this;
-	}
-
-	public Class<?> getScenarioBase() {
-		return scenarioBase;
-	}
-
-	public TestModel useScenarioBase(Class<?> scenarioBase) {
-		this.scenarioBase = scenarioBase;
 		return this;
 	}
 }

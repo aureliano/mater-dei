@@ -14,6 +14,20 @@ public class TextField extends Component<TextField> implements ITextComponent<Te
 
 	@Override
 	public void type(String text) {
+		this.selenium.type(this.getLocator(), text);
+	}
+
+	@Override
+	public void click() {
+		this.selenium.click(this.getLocator());
+	}
+	
+	@Override
+	public boolean isElementPresent() {
+		return this.selenium.isElementPresent(this.getLocator());
+	}
+	
+	private String getLocator() {
 		String locator = null;
 		if (!StringUtils.isEmpty(this.getId())) {
 			locator = super.getId();
@@ -21,6 +35,6 @@ public class TextField extends Component<TextField> implements ITextComponent<Te
 			locator = super.getXPath();
 		}
 		
-		this.selenium.type(locator, text);
+		return locator;
 	}
 }

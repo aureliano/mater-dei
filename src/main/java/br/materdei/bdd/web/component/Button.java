@@ -15,6 +15,15 @@ public class Button extends Component<Button> implements IButtonComponent<Button
 	
 	@Override
 	public void click() {
+		this.selenium.click(this.getLocator());
+	}
+	
+	@Override
+	public boolean isElementPresent() {
+		return this.selenium.isElementPresent(this.getLocator());
+	}
+	
+	private String getLocator() {
 		String locator = null;
 		if (!StringUtils.isEmpty(super.getId())) {
 			locator = super.getId();
@@ -24,7 +33,7 @@ public class Button extends Component<Button> implements IButtonComponent<Button
 			locator = super.getXPath();
 		}
 		
-		this.selenium.click(locator);
+		return locator;
 	}
 
 	@Override

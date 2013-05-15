@@ -39,25 +39,9 @@ public class StoryBase extends JUnitStory {
 	@Override
 	public List<CandidateSteps> candidateSteps() {
 		List<Object> scenarios = ScenarioCreator.instantiateScenarios();
-		Object scenarioBase = this.scenarioBaseInstance();
-		if (scenarioBase != null) {
-			scenarios.add(scenarioBase);
-		}
 		scenarios.add(new WebSteps());
 		
 		return new InstanceStepsFactory(configuration(), scenarios).createCandidateSteps();
-	}
-	
-	private Object scenarioBaseInstance() {
-		if (this.model.getScenarioBase() != null) {
-			try {
-				return this.model.getScenarioBase().newInstance();
-			} catch (Exception ex) {
-				throw new RuntimeException(ex);
-			}
-		}
-		
-		return null;
 	}
 	
 	@Override

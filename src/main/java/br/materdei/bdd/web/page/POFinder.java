@@ -33,12 +33,12 @@ public final class POFinder {
 			}
 		}
 		
-		return null;
+		throw new RuntimeException("Não foi encontrado nenhum Page Object com o nome '" + name + "'");
 	}
 	
 	public static <T> T findByClass(Class<?> clazz) {
 		if (!PAGE_OBJECTS.containsKey(clazz)) {
-			return null;
+			throw new RuntimeException("Não foi encontrado nenhum Page Object do tipo " + clazz.getName());
 		}
 		
 		T page = (T) PAGE_OBJECTS.get(clazz);

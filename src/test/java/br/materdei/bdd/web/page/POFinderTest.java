@@ -1,18 +1,25 @@
 package br.materdei.bdd.web.page;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 public class POFinderTest {
 
 	@Test
 	public void testFind() {
-		assertNull(POFinder.findByName(null));
-		assertNull(POFinder.findByName("NomeNaoExistente"));
 		assertNotNull(POFinder.findByName("MeuObjetoDePagina"));
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testFindWithNullNameParam() {
+		POFinder.findByName(null);
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testFindUnexistingPageName() {
+		POFinder.findByName("NomeNaoExistente");
 	}
 	
 	@Test
@@ -20,7 +27,10 @@ public class POFinderTest {
 		IPage page = POFinder.findByClass(MyPageObject.class);
 		assertNotNull(page);
 		assertTrue(page instanceof MyPageObject);
-		
-		assertNull(POFinder.findByClass(IPage.class));
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testFindByClassWithNullClassParam() {
+		POFinder.findByClass(IPage.class);
 	}
 }

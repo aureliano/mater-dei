@@ -9,4 +9,8 @@ public interface IComponent<T> {
 	public abstract String getXPath();
 	
 	public abstract T useXPath(String xpath);
+	
+	public abstract void click();
+	
+	public abstract boolean isElementPresent();
 }

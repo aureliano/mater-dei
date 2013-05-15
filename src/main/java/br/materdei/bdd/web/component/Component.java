@@ -1,6 +1,6 @@
 package br.materdei.bdd.web.component;
 
-public class Component<T> implements IComponent<T> {
+public abstract class Component<T> implements IComponent<T> {
 
 	private String id;
 	private String xPath;
