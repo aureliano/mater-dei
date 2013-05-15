@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -22,7 +21,7 @@ public class InitData {
 	
 	public static void init(Connection conn) {
 		List<File> files = loadStatmentFiles();
-		if (CollectionUtils.isEmpty(files)) {
+		if (files.isEmpty()) {
 			return;
 		}
 	
