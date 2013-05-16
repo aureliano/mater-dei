@@ -2,6 +2,8 @@ package br.materdei.bdd.web.component;
 
 import org.apache.commons.lang.StringUtils;
 
+import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
+
 import com.thoughtworks.selenium.Selenium;
 
 public class TextField extends Component<TextField> implements ITextComponent<TextField> {
@@ -20,6 +22,7 @@ public class TextField extends Component<TextField> implements ITextComponent<Te
 	@Override
 	public void click() {
 		this.selenium.click(this.getLocator());
+		this.selenium.waitForPageToLoad(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@Override

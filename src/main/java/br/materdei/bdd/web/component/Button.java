@@ -2,6 +2,8 @@ package br.materdei.bdd.web.component;
 
 import org.apache.commons.lang.StringUtils;
 
+import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
+
 import com.thoughtworks.selenium.Selenium;
 
 public class Button extends Component<Button> implements IButtonComponent<Button> {
@@ -16,6 +18,7 @@ public class Button extends Component<Button> implements IButtonComponent<Button
 	@Override
 	public void click() {
 		this.selenium.click(this.getLocator());
+		this.selenium.waitForPageToLoad(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@Override
