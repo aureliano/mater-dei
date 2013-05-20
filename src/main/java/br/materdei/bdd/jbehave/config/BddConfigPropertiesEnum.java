@@ -2,11 +2,8 @@ package br.materdei.bdd.jbehave.config;
 
 public enum BddConfigPropertiesEnum {
 
-	SELENIUM_WEB_HOST("selenium.web.host", "localhost"),
-	SELENIUM_HOME_PAGE("selenium.home.page", "http://localhost:2222"),
 	SELENIUM_BROWSER_LOCATION("selenium.browser.location", null),
 	IGNORE_SELENIUM_START_UP("mater.dei.ignorar.iniciacao.selenium.server", null),
-	SELENIUM_PORT("selenium.port", "2222"),
 	SELENIUM_RESOURCES_FOLDER("selenium.resources.folder", "target/selenium"),
 	SELENIUM_TIMEOUT("selenium.timeout", "30000"),
 	DISABLED_TESTS_FILE("disabled.tests.file.location", "testes_desabilitados"),

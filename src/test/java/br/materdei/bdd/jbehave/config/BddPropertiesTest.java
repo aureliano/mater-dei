@@ -18,14 +18,12 @@ public class BddPropertiesTest {
 		Properties p = BddProperties.getProperties();
 		assertNotNull(p);
 		assertFalse(p.isEmpty());
-		assertEquals(20, p.size());
+		assertEquals(17, p.size());
 	}
 	
 	@Test
 	public void testGetProperty() {
 		Properties p = BddProperties.getProperties();
-		assertEquals("localhost", p.getProperty(SELENIUM_WEB_HOST.getKey()));
-		assertEquals("http://localhost:2222", p.getProperty(SELENIUM_HOME_PAGE.getKey()));
 		assertEquals("firefox", p.getProperty(SELENIUM_BROWSER_LOCATION.getKey()));
 		assertEquals("true", p.getProperty(IGNORE_SELENIUM_START_UP.getKey()));
 		assertEquals("10000", p.getProperty(SELENIUM_TIMEOUT.getKey()));
@@ -33,7 +31,6 @@ public class BddPropertiesTest {
 		assertEquals("true", p.getProperty(SELENIUM_TRUST_ALL_SSL_CERTIFICATES.getKey()));
 		assertEquals("target/jbehave/view", p.getProperty(JBEHAVE_REPORT_OUTPUT_DIR.getKey()));
 		assertEquals("true", p.getProperty(JBEHAVE_REPORT_FORMAT_CONSOLE_COLORED.getKey()));
-		assertEquals("2222", p.getProperty(SELENIUM_PORT.getKey()));
 		assertEquals("src/test/resources", JBEHAVE_STORIES_PATH.getValue());
 		assertEquals("src/test/java", JBEHAVE_SCENARIO_CLASSES_PATH.getValue());
 		
