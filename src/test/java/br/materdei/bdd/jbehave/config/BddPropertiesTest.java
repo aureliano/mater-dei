@@ -25,7 +25,7 @@ public class BddPropertiesTest {
 	public void testGetProperty() {
 		Properties p = BddProperties.getProperties();
 		assertEquals("firefox", p.getProperty(WEB_DRIVER_BROWSER.getKey()));
-		assertEquals("true", p.getProperty(IGNORE_SELENIUM_START_UP.getKey()));
+		assertEquals("true", p.getProperty(IGNORE_TEST_EXECUTION.getKey()));
 		assertEquals("10000", p.getProperty(WEB_DRIVER_TIMEOUT.getKey()));
 		assertEquals("testes_desabilitados", p.getProperty(DISABLED_TESTS_FILE.getKey()));
 		assertEquals("target/jbehave/view", p.getProperty(JBEHAVE_REPORT_OUTPUT_DIR.getKey()));

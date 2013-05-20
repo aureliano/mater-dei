@@ -11,7 +11,7 @@ public class BddConfigPropertiesEnumTest {
 	@Test
 	public void testBddConfigPropertiesEnum() {
 		assertEquals("firefox", WEB_DRIVER_BROWSER.getValue());
-		assertEquals("true", IGNORE_SELENIUM_START_UP.getValue());
+		assertEquals("true", IGNORE_TEST_EXECUTION.getValue());
 		assertEquals("10000", WEB_DRIVER_TIMEOUT.getValue());
 		assertEquals("testes_desabilitados", DISABLED_TESTS_FILE.getValue());
 		assertEquals("target/jbehave/view", JBEHAVE_REPORT_OUTPUT_DIR.getValue());

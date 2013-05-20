@@ -84,7 +84,7 @@ public final class TestRunnerHelper {
 	}
 	
 	public static boolean shouldExecuteTests() {
-		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
+		String ignore = BddConfigPropertiesEnum.IGNORE_TEST_EXECUTION.getValue();
 		return ((ignore == null) || ("false".equalsIgnoreCase(ignore)));
 	}
 }
