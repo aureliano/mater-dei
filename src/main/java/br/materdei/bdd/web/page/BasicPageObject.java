@@ -3,33 +3,31 @@ package br.materdei.bdd.web.page;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jbehave.web.selenium.SeleniumConfiguration;
-import org.jbehave.web.selenium.SeleniumPage;
+import org.jbehave.web.selenium.WebDriverPage;
+import org.jbehave.web.selenium.WebDriverProvider;
 
-import br.materdei.bdd.jbehave.SeleniumServerControllerSingleton;
+import br.materdei.bdd.jbehave.WebDriverSingleton;
+import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 import br.materdei.bdd.web.annotation.PageObject;
 import br.materdei.bdd.web.component.IComponent;
 
-import com.thoughtworks.selenium.Selenium;
-import com.thoughtworks.selenium.condition.ConditionRunner;
-
-public abstract class BasicPageObject extends SeleniumPage implements IPage {
+public abstract class BasicPageObject extends WebDriverPage implements IPage {
 
 	private Map<String, IComponent<?>> components;
+	protected WebDriverProvider driverProvider;
 	
-	public BasicPageObject(Selenium selenium, ConditionRunner conditionRunner) {
-		super(selenium, conditionRunner);
+	public BasicPageObject(WebDriverProvider driverProvider) {
+		super(driverProvider);
 		this.components = new HashMap<String, IComponent<?>>();
-	}
-	
-	public BasicPageObject(ConditionRunner conditionRunner) {
-		this(SeleniumServerControllerSingleton.getInstancia().getSelenium(), conditionRunner);
+		
+		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
+		if ((ignore == null) || ("false".equalsIgnoreCase(ignore))) {
+			this.driverProvider = WebDriverSingleton.get().getWebDriverProvider();
+		}
 	}
 	
 	public BasicPageObject() {
-		this(SeleniumServerControllerSingleton.getInstancia().getSelenium(),
-				SeleniumConfiguration.defaultConditionRunner(
-						SeleniumServerControllerSingleton.getInstancia().getSelenium()));
+		this(WebDriverSingleton.get().getWebDriverProvider());
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public abstract class BasicPageObject extends SeleniumPage implements IPage {
 			throw new RuntimeException("Classes do tipo PageObject devem possuir anotação @PageObject!");
 		}
 		
-		open(pageObject.url());
+		get(pageObject.url());
 	}
 	
 	@Override

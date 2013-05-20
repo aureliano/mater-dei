@@ -26,7 +26,7 @@ public class BddPropertiesTest {
 		Properties p = BddProperties.getProperties();
 		assertEquals("localhost", p.getProperty(SELENIUM_WEB_HOST.getKey()));
 		assertEquals("http://localhost:2222", p.getProperty(SELENIUM_HOME_PAGE.getKey()));
-		assertEquals("*firefox /usr/lib/firefox-3.6.13/firefox-bin", p.getProperty(SELENIUM_BROWSER_LOCATION.getKey()));
+		assertEquals("firefox", p.getProperty(SELENIUM_BROWSER_LOCATION.getKey()));
 		assertEquals("true", p.getProperty(IGNORE_SELENIUM_START_UP.getKey()));
 		assertEquals("10000", p.getProperty(SELENIUM_TIMEOUT.getKey()));
 		assertEquals("testes_desabilitados", p.getProperty(DISABLED_TESTS_FILE.getKey()));

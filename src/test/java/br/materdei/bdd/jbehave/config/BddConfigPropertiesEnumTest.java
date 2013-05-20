@@ -10,7 +10,7 @@ public class BddConfigPropertiesEnumTest {
 
 	@Test
 	public void testBddConfigPropertiesEnum() {
-		assertEquals("*firefox /usr/lib/firefox-3.6.13/firefox-bin", SELENIUM_BROWSER_LOCATION.getValue());
+		assertEquals("firefox", SELENIUM_BROWSER_LOCATION.getValue());
 		assertEquals("true", IGNORE_SELENIUM_START_UP.getValue());
 		assertEquals("http://localhost:2222", SELENIUM_HOME_PAGE.getValue());
 		assertEquals("2222", SELENIUM_PORT.getValue());

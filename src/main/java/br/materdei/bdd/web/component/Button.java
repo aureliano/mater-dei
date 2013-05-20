@@ -1,42 +1,40 @@
 package br.materdei.bdd.web.component;
 
 import org.apache.commons.lang.StringUtils;
-
-import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
-
-import com.thoughtworks.selenium.Selenium;
+import org.jbehave.web.selenium.WebDriverProvider;
+import org.openqa.selenium.By;
 
 public class Button extends Component<Button> implements IButtonComponent<Button> {
 
 	private String label;
-	private Selenium selenium;
+	private WebDriverProvider driver;
 	
-	public Button(Selenium s) {
-		this.selenium = s;
+	public Button(WebDriverProvider d) {
+		this.driver = d;
 	}
 	
 	@Override
 	public void click() {
-		this.selenium.click(this.getLocator());
-		this.selenium.waitForPageToLoad(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
+		this.driver.get().findElement(this.getByParam()).click();
+		//this.driver.waitForPageToLoad(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@Override
 	public boolean isElementPresent() {
-		return this.selenium.isElementPresent(this.getLocator());
+		return this.driver.get().findElement(this.getByParam()) != null;
 	}
 	
-	private String getLocator() {
-		String locator = null;
+	private By getByParam() {
+		By by = null;
 		if (!StringUtils.isEmpty(super.getId())) {
-			locator = super.getId();
+			by = By.id(super.getId());
 		} else if (!StringUtils.isEmpty(this.label)) {
-			locator = "//input[@value='" + this.label + "']";
+			by = By.xpath("//input[@value='" + this.label + "']");
 		} else {
-			locator = super.getXPath();
+			by = By.xpath(super.getXPath());
 		}
 		
-		return locator;
+		return by;
 	}
 
 	@Override

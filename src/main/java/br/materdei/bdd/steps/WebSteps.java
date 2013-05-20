@@ -1,46 +1,44 @@
 package br.materdei.bdd.steps;
 
-import static br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum.SELENIUM_TIMEOUT;
-
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.jbehave.web.selenium.WebDriverProvider;
+import org.openqa.selenium.By;
 
-import br.materdei.bdd.jbehave.SeleniumServerControllerSingleton;
+import br.materdei.bdd.jbehave.WebDriverSingleton;
 import br.materdei.bdd.web.component.TextField;
 import br.materdei.bdd.web.page.POFinder;
 
-import com.thoughtworks.selenium.Selenium;
-
 public class WebSteps {
 
-	private Selenium driver;
+	private WebDriverProvider provider;
 	
 	public WebSteps() {
-		this.driver = SeleniumServerControllerSingleton.getInstancia().getSelenium();
+		this.provider = WebDriverSingleton.get().getWebDriverProvider();
 	}
 	
 	@When("eu acesso a página pela url '$url'")
 	public void dadoQueEuAcessoPaginaPelaUrl(String url) {
-		this.driver.open(url);
-		this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
+		this.provider.get().get(url);
+		//this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@When("eu acesso a página '$pageName'")
 	public void dadoQueEuAcessoPagina(String pageName) {
 		POFinder.findByName(pageName).abrePagina();
-		this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
+		//this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@When("eu clico no botão '$button'")
 	public void quandoEuClicoBotao(String button) {
-		this.driver.click("//input[@value='" + button + "']");
-		this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
+		this.provider.get().findElement(By.xpath("//input[@value='" + button + "']")).click();
+		//this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@When("eu clico no link '$link'")
 	public void quandoEuClicoLink(String link) {
-		this.driver.click("link=" + link);
-		this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
+		this.provider.get().findElement(By.xpath("link=" + link)).click();
+		//this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@When("eu preencho o campo '$fieldId' da página '$pageName' com '$value'")

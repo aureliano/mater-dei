@@ -11,11 +11,11 @@ import org.jbehave.core.parsers.RegexStoryParser;
 import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.web.selenium.SeleniumConfiguration;
+import org.jbehave.web.selenium.SeleniumContext;
 import org.jbehave.web.selenium.SeleniumContextOutput;
 
 import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 import br.materdei.bdd.jbehave.reporters.console.ColoredConsoleFormat;
-import br.materdei.bdd.jbehave.reporters.html.ScreenShootingHtmlFormat;
 
 import com.thoughtworks.paranamer.BytecodeReadingParanamer;
 import com.thoughtworks.paranamer.CachingParanamer;
@@ -27,15 +27,10 @@ public final class JBehaveConfigurationUtil {
 	}
 	
 	public static Configuration createSeleniumConfiguration(Class<?> embeddableClass) {
-					
-		SeleniumServerControllerSingleton server = SeleniumServerControllerSingleton.getInstancia();
-		
 		Keywords keywords = new LocalizedKeywords(Locale.getDefault());
 			
 		return new SeleniumConfiguration()
-			.useSelenium(server.getSelenium())
-			.useSeleniumContext(server.getSeleniumContext())
-			.useStepMonitor(server.getStepMonitor())
+			.useWebDriverProvider(WebDriverSingleton.get().getWebDriverProvider())
 			.useStoryLoader(new LoadFromClasspath(embeddableClass))
 			.useParanamer(new CachingParanamer(new BytecodeReadingParanamer()))
 			.useStoryParser(new RegexStoryParser(keywords))
@@ -50,7 +45,7 @@ public final class JBehaveConfigurationUtil {
 	}
 	
 	private static Format[] getFormats() {
-		SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
+		WebDriverSingleton controlador = WebDriverSingleton.get();
 		Format consoleFormat;
 		String coloredConsole = BddConfigPropertiesEnum.JBEHAVE_REPORT_FORMAT_CONSOLE_COLORED.getValue();
 		
@@ -60,8 +55,8 @@ public final class JBehaveConfigurationUtil {
 			consoleFormat = new ColoredConsoleFormat();
 		}
 		
-		Format screenShootingFormat = new ScreenShootingHtmlFormat(controlador.getSelenium());
+		//Format screenShootingFormat = new ScreenShootingHtmlFormat(controlador.getSelenium());
 		
-		return new Format[] { new SeleniumContextOutput(controlador.getSeleniumContext()), consoleFormat, screenShootingFormat };
+		return new Format[] { new SeleniumContextOutput(new SeleniumContext()), consoleFormat, Format.HTML/*, screenShootingFormat*/ };
 	}
 }

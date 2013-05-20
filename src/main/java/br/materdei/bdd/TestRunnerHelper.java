@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
-import br.materdei.bdd.jbehave.SeleniumServerControllerSingleton;
+import br.materdei.bdd.jbehave.WebDriverSingleton;
 import br.materdei.bdd.jbehave.StoryFinder;
 import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 import br.materdei.bdd.util.FileUtil;
@@ -37,22 +37,17 @@ public final class TestRunnerHelper {
 		return stories;
 	}
 	
-	public static void startSelenium() {
+	public static void configureBrowser() {
 		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
 		if ((ignore == null) || ("false".equalsIgnoreCase(ignore))) {
-			SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
-			controlador.iniciaServidorSelenium();
-			controlador.iniciaSelenium();
-			controlador.getSelenium().windowMaximize();
+			//WebDriverSingleton.getInstancia().getWebDriver().manage().window().maximize();
 		}
 	}
 	
-	public static void stopSelenium() {
+	public static void quitBrowser() {
 		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
 		if ((ignore == null) || ("false".equalsIgnoreCase(ignore))) {
-			SeleniumServerControllerSingleton controlador = SeleniumServerControllerSingleton.getInstancia();
-			controlador.paraSelenium();
-			controlador.paraServidorSelenium();
+			//WebDriverSingleton.getInstancia().getWebDriver().quit();
 		}
 	}
 	

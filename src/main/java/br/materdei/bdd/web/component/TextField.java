@@ -1,43 +1,41 @@
 package br.materdei.bdd.web.component;
 
 import org.apache.commons.lang.StringUtils;
-
-import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
-
-import com.thoughtworks.selenium.Selenium;
+import org.jbehave.web.selenium.WebDriverProvider;
+import org.openqa.selenium.By;
 
 public class TextField extends Component<TextField> implements ITextComponent<TextField> {
 
-	private Selenium selenium;
+	private WebDriverProvider driver;
 	
-	public TextField(Selenium s) {
-		this.selenium = s;
+	public TextField(WebDriverProvider d) {
+		this.driver = d;
 	}
 
 	@Override
 	public void type(String text) {
-		this.selenium.type(this.getLocator(), text);
+		this.driver.get().findElement(this.getByParam()).sendKeys(text);
 	}
 
 	@Override
 	public void click() {
-		this.selenium.click(this.getLocator());
-		this.selenium.waitForPageToLoad(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
+		this.driver.get().findElement(this.getByParam()).click();
+		//this.selenium.waitForPageToLoad(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@Override
 	public boolean isElementPresent() {
-		return this.selenium.isElementPresent(this.getLocator());
+		return this.driver.get().findElement(this.getByParam()) != null;
 	}
 	
-	private String getLocator() {
-		String locator = null;
+	private By getByParam() {
+		By by = null;
 		if (!StringUtils.isEmpty(this.getId())) {
-			locator = super.getId();
+			by = By.id(super.getId());
 		} else if (!StringUtils.isEmpty(super.getXPath())) {
-			locator = super.getXPath();
+			by = By.xpath(super.getXPath());
 		}
 		
-		return locator;
+		return by;
 	}
 }
