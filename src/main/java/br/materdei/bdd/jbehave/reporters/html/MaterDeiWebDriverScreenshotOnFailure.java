@@ -5,6 +5,7 @@ import java.text.MessageFormat;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.jbehave.core.annotations.AfterScenario;
 import org.jbehave.core.annotations.AfterScenario.Outcome;
 import org.jbehave.core.failures.PendingStepFound;
@@ -14,7 +15,8 @@ import org.jbehave.web.selenium.WebDriverProvider;
 
 public class MaterDeiWebDriverScreenshotOnFailure {
 
-	public static final String DEFAULT_SCREENSHOT_PATH_PATTERN = "{0}/view/screenshots/failed-scenario-{1}.png";
+	private static final String DEFAULT_SCREENSHOT_PATH_PATTERN = "{0}/view/screenshots/failed-scenario-{1}.png";
+	private static final Logger logger = Logger.getLogger(MaterDeiWebDriverScreenshotOnFailure.class);
 	
 	private WebDriverProvider webDriverProvider;
 	protected final StoryReporterBuilder reporterBuilder;
@@ -52,7 +54,7 @@ public class MaterDeiWebDriverScreenshotOnFailure {
 			File pastaTelasCapturadas = new File(screenshotPath);
 			FileUtils.forceMkdir(new File(pastaTelasCapturadas.getParent()));
 		} catch (Exception ex) {
-			System.out.println("WARN: Falha ao criar diretório com imagens capturadas de telas com erro. " + ex.getMessage());
+			logger.warn("Falha ao criar diretório com imagens capturadas de telas com erro. ", ex);
 		}
 
 		boolean savedIt = false;
@@ -61,13 +63,13 @@ public class MaterDeiWebDriverScreenshotOnFailure {
 			savedIt = true;
 		} catch (Exception ex) {
 			
-			System.out.println("WARN: Screenshot da página '" + currentUrl + ". A tentar novamente. Causa: " + ex.getMessage());
+			logger.warn("Screenshot da página '" + currentUrl + ". A tentar novamente. Causa: " + ex.getMessage());
 			// Try it again. WebDriver (on SauceLabs at least?) has blank-page and zero length files issues.
 			try {
 				this.webDriverProvider.saveScreenshotTo(screenshotPath);
 				savedIt = true;
 			} catch (Exception e) {
-				System.out.println("WARN: Screenshot da página '" + currentUrl + "' NÃO foi salvo em '" + screenshotPath
+				logger.warn("Screenshot da página '" + currentUrl + "' NÃO foi salvo em '" + screenshotPath
 						+ "' porque o erro '" + e.getMessage() + "' foi encontrado.");
 				e.printStackTrace();
 				return;
@@ -75,10 +77,10 @@ public class MaterDeiWebDriverScreenshotOnFailure {
 		}
 
 		if (savedIt) {
-			System.out.println("Screenshot da página '" + currentUrl + "' foi salvo em '" + screenshotPath + "' com "
+			logger.info("Screenshot da página '" + currentUrl + "' foi salvo em '" + screenshotPath + "' com "
 					+ new File(screenshotPath).length() + " bytes");
 		} else {
-			System.out.println("WARN: Screenshot da página '" + currentUrl +
+			logger.warn("Screenshot da página '" + currentUrl +
 							"' NÃO foi salvo. Se não houver erro, talvez o tipo de WebDriver usado não seja compatível com a captura de tela");
 		}
 	}

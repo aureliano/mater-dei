@@ -10,11 +10,14 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import br.materdei.bdd.database.config.DbConfigPropertiesEnum;
 
 public class InitData {
 
+	private static final Logger logger = Logger.getLogger(InitData.class);
+	
 	public InitData() {
 		super();
 	}
@@ -28,7 +31,7 @@ public class InitData {
 		try {
 			Statement stmt = conn.createStatement();
 			for (File file : files) {
-				System.out.println("Adicionando comandos do arquivo " + file.getAbsolutePath() + " ao batch.");
+				logger.info("Adicionando comandos do arquivo " + file.getAbsolutePath() + " ao batch.");
 				List<String> statments = statments(file);
 				
 				for (String cmd : statments) {

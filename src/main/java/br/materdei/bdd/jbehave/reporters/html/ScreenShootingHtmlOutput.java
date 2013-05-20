@@ -2,6 +2,7 @@ package br.materdei.bdd.jbehave.reporters.html;
 
 import java.io.PrintStream;
 
+import org.apache.log4j.Logger;
 import org.jbehave.core.failures.UUIDExceptionWrapper;
 import org.jbehave.core.model.Story;
 import org.jbehave.core.reporters.StoryReporterBuilder;
@@ -11,6 +12,7 @@ import org.jbehave.web.selenium.WebDriverProvider;
 public class ScreenShootingHtmlOutput extends WebDriverHtmlOutput {
 	
 	private MaterDeiWebDriverScreenshotOnFailure screenShotMaker;
+	private static final Logger logger = Logger.getLogger(ScreenShootingHtmlOutput.class);
 
 	public ScreenShootingHtmlOutput(PrintStream output, StoryReporterBuilder reporterBuilder, WebDriverProvider webDriverProvider) {
 		super(output, reporterBuilder.keywords());
@@ -41,11 +43,11 @@ public class ScreenShootingHtmlOutput extends WebDriverHtmlOutput {
 				UUIDExceptionWrapper uuidWrappedFailure = (UUIDExceptionWrapper) storyFailure;
 				this.screenShotMaker.afterScenarioFailure(uuidWrappedFailure);
 			} else {
-				System.out.println("WARN: Tela de erro não foi salva");
+				logger.warn("Tela de erro não foi salva");
 			}
 
 		} catch (Exception ex) {
-			System.err.println("WARN: Falha ao capturar tela de erro");
+			logger.warn("Falha ao capturar tela de erro");
 		}
 	}
 }
