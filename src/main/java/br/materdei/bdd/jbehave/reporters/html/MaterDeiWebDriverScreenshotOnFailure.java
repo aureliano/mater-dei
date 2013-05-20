@@ -10,27 +10,26 @@ import org.jbehave.core.annotations.AfterScenario.Outcome;
 import org.jbehave.core.failures.PendingStepFound;
 import org.jbehave.core.failures.UUIDExceptionWrapper;
 import org.jbehave.core.reporters.StoryReporterBuilder;
+import org.jbehave.web.selenium.WebDriverProvider;
 
-import com.thoughtworks.selenium.Selenium;
-
-public class SeleniumScreenshotOnFailure {
+public class MaterDeiWebDriverScreenshotOnFailure {
 
 	public static final String DEFAULT_SCREENSHOT_PATH_PATTERN = "{0}/view/screenshots/failed-scenario-{1}.png";
 	
-	private Selenium selenium;
+	private WebDriverProvider webDriverProvider;
 	protected final StoryReporterBuilder reporterBuilder;
 	protected final String screenshotPathPattern;
 
-	public SeleniumScreenshotOnFailure(Selenium selenium) {
-		this(selenium, new StoryReporterBuilder());
+	public MaterDeiWebDriverScreenshotOnFailure(WebDriverProvider webDriverProvider) {
+		this(webDriverProvider, new StoryReporterBuilder());
 	}
 
-	public SeleniumScreenshotOnFailure(Selenium selenium, StoryReporterBuilder reporterBuilder) {
-		this(selenium, reporterBuilder, DEFAULT_SCREENSHOT_PATH_PATTERN);
+	public MaterDeiWebDriverScreenshotOnFailure(WebDriverProvider webDriverProvider, StoryReporterBuilder reporterBuilder) {
+		this(webDriverProvider, reporterBuilder, DEFAULT_SCREENSHOT_PATH_PATTERN);
 	}
 
-	public SeleniumScreenshotOnFailure(Selenium selenium, StoryReporterBuilder reporterBuilder, String screenshotPathPattern) {
-		this.selenium = selenium;
+	public MaterDeiWebDriverScreenshotOnFailure(WebDriverProvider webDriverProvider, StoryReporterBuilder reporterBuilder, String screenshotPathPattern) {
+		this.webDriverProvider = webDriverProvider;
 		this.reporterBuilder = reporterBuilder;
 		this.screenshotPathPattern = screenshotPathPattern;
 	}
@@ -44,7 +43,7 @@ public class SeleniumScreenshotOnFailure {
 
 		String currentUrl = "[unknown page title]";
 		try {
-			currentUrl = selenium.getLocation();
+			currentUrl = this.webDriverProvider.get().getCurrentUrl();
 		} catch (Exception e) {
 		}
 
@@ -58,14 +57,14 @@ public class SeleniumScreenshotOnFailure {
 
 		boolean savedIt = false;
 		try {
-			selenium.captureEntirePageScreenshot(screenshotPath, "");
+			this.webDriverProvider.saveScreenshotTo(screenshotPath);
 			savedIt = true;
 		} catch (Exception ex) {
 			
 			System.out.println("WARN: Screenshot da página '" + currentUrl + ". A tentar novamente. Causa: " + ex.getMessage());
 			// Try it again. WebDriver (on SauceLabs at least?) has blank-page and zero length files issues.
 			try {
-				selenium.captureEntirePageScreenshot(screenshotPath, "");
+				this.webDriverProvider.saveScreenshotTo(screenshotPath);
 				savedIt = true;
 			} catch (Exception e) {
 				System.out.println("WARN: Screenshot da página '" + currentUrl + "' NÃO foi salvo em '" + screenshotPath

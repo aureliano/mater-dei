@@ -16,6 +16,7 @@ import org.jbehave.web.selenium.SeleniumContextOutput;
 
 import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 import br.materdei.bdd.jbehave.reporters.console.ColoredConsoleFormat;
+import br.materdei.bdd.jbehave.reporters.html.ScreenShootingHtmlFormat;
 
 import com.thoughtworks.paranamer.BytecodeReadingParanamer;
 import com.thoughtworks.paranamer.CachingParanamer;
@@ -55,8 +56,8 @@ public final class JBehaveConfigurationUtil {
 			consoleFormat = new ColoredConsoleFormat();
 		}
 		
-		//Format screenShootingFormat = new ScreenShootingHtmlFormat(controlador.getSelenium());
+		Format screenShootingFormat = new ScreenShootingHtmlFormat(controlador.getWebDriverProvider());
 		
-		return new Format[] { new SeleniumContextOutput(new SeleniumContext()), consoleFormat, Format.HTML/*, screenShootingFormat*/ };
+		return new Format[] { new SeleniumContextOutput(new SeleniumContext()), consoleFormat, screenShootingFormat };
 	}
 }

@@ -10,7 +10,6 @@ import org.jbehave.core.junit.JUnitStory;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.jbehave.web.selenium.PerStoryWebDriverSteps;
-import org.jbehave.web.selenium.WebDriverScreenshotOnFailure;
 import org.jbehave.web.selenium.WebDriverSteps;
 import org.junit.After;
 import org.junit.Before;
@@ -59,8 +58,7 @@ public class StoryBase extends JUnitStory {
 		List<Object> scenarios = ScenarioCreator.instantiateScenarios();
 		scenarios.add(new WebSteps());
 		scenarios.add(this.lifecycleSteps);
-		scenarios.add(new WebDriverScreenshotOnFailure(this.lifecycleSteps.getDriverProvider(), configuration.storyReporterBuilder()));
-				
+		
 		return new InstanceStepsFactory(configuration, scenarios);
 	}
 	
@@ -77,10 +75,8 @@ public class StoryBase extends JUnitStory {
 	
 	// This Embedder is used by Maven or Ant and it will override anything set in the constructor.
 	public static class SameThreadEmbedder extends Embedder {
-
 		public SameThreadEmbedder() {
 			useExecutorService(MoreExecutors.sameThreadExecutor());
 		}
-
 	}
 }

@@ -6,16 +6,15 @@ import org.jbehave.core.failures.UUIDExceptionWrapper;
 import org.jbehave.core.model.Story;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.web.selenium.WebDriverHtmlOutput;
-
-import com.thoughtworks.selenium.Selenium;
+import org.jbehave.web.selenium.WebDriverProvider;
 
 public class ScreenShootingHtmlOutput extends WebDriverHtmlOutput {
 	
-	private SeleniumScreenshotOnFailure screenshotMaker;
+	private MaterDeiWebDriverScreenshotOnFailure screenShotMaker;
 
-	public ScreenShootingHtmlOutput(PrintStream output, StoryReporterBuilder reporterBuilder, Selenium selenium) {
+	public ScreenShootingHtmlOutput(PrintStream output, StoryReporterBuilder reporterBuilder, WebDriverProvider webDriverProvider) {
 		super(output, reporterBuilder.keywords());
-		screenshotMaker = new SeleniumScreenshotOnFailure(selenium);
+		this.screenShotMaker = new MaterDeiWebDriverScreenshotOnFailure(webDriverProvider);
 		super.overwritePattern("failed",
 				"<div class=\"step failed\">{0} <span class=\"keyword failed\">({1})</span><br/><span class=\"message failed\">{2}</span>"
 						+ "<br/><img src=\"screenshots/failed-scenario-{3}.png\" alt=\"failing screenshot\"/></div>\n");
@@ -40,7 +39,7 @@ public class ScreenShootingHtmlOutput extends WebDriverHtmlOutput {
 			
 			if(storyFailure instanceof UUIDExceptionWrapper) {			
 				UUIDExceptionWrapper uuidWrappedFailure = (UUIDExceptionWrapper) storyFailure;
-				screenshotMaker.afterScenarioFailure(uuidWrappedFailure);
+				this.screenShotMaker.afterScenarioFailure(uuidWrappedFailure);
 			} else {
 				System.out.println("WARN: Tela de erro não foi salva");
 			}
