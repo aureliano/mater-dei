@@ -24,7 +24,7 @@ public class BddPropertiesTest {
 	@Test
 	public void testGetProperty() {
 		Properties p = BddProperties.getProperties();
-		assertEquals("firefox", p.getProperty(SELENIUM_BROWSER_LOCATION.getKey()));
+		assertEquals("firefox", p.getProperty(WEB_DRIVER_BROWSER.getKey()));
 		assertEquals("true", p.getProperty(IGNORE_SELENIUM_START_UP.getKey()));
 		assertEquals("10000", p.getProperty(SELENIUM_TIMEOUT.getKey()));
 		assertEquals("testes_desabilitados", p.getProperty(DISABLED_TESTS_FILE.getKey()));

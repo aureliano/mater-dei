@@ -10,7 +10,7 @@ public class BddConfigPropertiesEnumTest {
 
 	@Test
 	public void testBddConfigPropertiesEnum() {
-		assertEquals("firefox", SELENIUM_BROWSER_LOCATION.getValue());
+		assertEquals("firefox", WEB_DRIVER_BROWSER.getValue());
 		assertEquals("true", IGNORE_SELENIUM_START_UP.getValue());
 		assertEquals("10000", SELENIUM_TIMEOUT.getValue());
 		assertEquals("testes_desabilitados", DISABLED_TESTS_FILE.getValue());

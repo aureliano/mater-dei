@@ -2,7 +2,7 @@ package br.materdei.bdd.jbehave.config;
 
 public enum BddConfigPropertiesEnum {
 
-	SELENIUM_BROWSER_LOCATION("selenium.browser.location", null),
+	WEB_DRIVER_BROWSER("web.driver.browser", null),
 	IGNORE_SELENIUM_START_UP("mater.dei.ignorar.iniciacao.selenium.server", null),
 	SELENIUM_RESOURCES_FOLDER("selenium.resources.folder", "target/selenium"),
 	SELENIUM_TIMEOUT("selenium.timeout", "30000"),

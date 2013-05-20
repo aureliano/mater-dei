@@ -46,7 +46,7 @@ public final class WebDriverSingleton {
 	}
 	
 	private void configureWebDriverProvider() {
-		String navegador = BddConfigPropertiesEnum.SELENIUM_BROWSER_LOCATION.getValue();
+		String navegador = BddConfigPropertiesEnum.WEB_DRIVER_BROWSER.getValue();
 				
 		if ((!"firefox".equalsIgnoreCase(navegador)) && (!"chrome".equalsIgnoreCase(navegador)) &&
 				(!"ie".equalsIgnoreCase(navegador)) && (!"android".equalsIgnoreCase(navegador)) &&
