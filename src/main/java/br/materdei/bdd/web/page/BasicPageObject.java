@@ -7,7 +7,6 @@ import org.jbehave.web.selenium.WebDriverPage;
 import org.jbehave.web.selenium.WebDriverProvider;
 
 import br.materdei.bdd.jbehave.WebDriverSingleton;
-import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 import br.materdei.bdd.web.annotation.PageObject;
 import br.materdei.bdd.web.component.IComponent;
 
@@ -19,11 +18,7 @@ public abstract class BasicPageObject extends WebDriverPage implements IPage {
 	public BasicPageObject(WebDriverProvider driverProvider) {
 		super(driverProvider);
 		this.components = new HashMap<String, IComponent<?>>();
-		
-		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
-		if ((ignore == null) || ("false".equalsIgnoreCase(ignore))) {
-			this.driverProvider = WebDriverSingleton.get().getWebDriverProvider();
-		}
+		this.driverProvider = WebDriverSingleton.get().getWebDriverProvider();
 	}
 	
 	public BasicPageObject() {

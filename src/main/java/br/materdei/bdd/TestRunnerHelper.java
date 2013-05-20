@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
-import br.materdei.bdd.jbehave.WebDriverSingleton;
 import br.materdei.bdd.jbehave.StoryFinder;
 import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 import br.materdei.bdd.util.FileUtil;
@@ -37,23 +36,8 @@ public final class TestRunnerHelper {
 		return stories;
 	}
 	
-	public static void configureBrowser() {
-		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
-		if ((ignore == null) || ("false".equalsIgnoreCase(ignore))) {
-			//WebDriverSingleton.getInstancia().getWebDriver().manage().window().maximize();
-		}
-	}
-	
-	public static void quitBrowser() {
-		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
-		if ((ignore == null) || ("false".equalsIgnoreCase(ignore))) {
-			//WebDriverSingleton.getInstancia().getWebDriver().quit();
-		}
-	}
-	
 	public static void copyJBehaveSiteResources() {
-		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
-		if ((ignore != null) && ("true".equalsIgnoreCase(ignore))) {
+		if (!shouldExecuteTests()) {
 			return;
 		}
 		
@@ -76,8 +60,7 @@ public final class TestRunnerHelper {
 	}
 	
 	public static void printDisabledTests(List<String> files) {
-		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
-		if (((ignore != null) && ("true".equalsIgnoreCase(ignore))) || (files.isEmpty())) {
+		if (!shouldExecuteTests()) {
 			return;
 		}
 		
@@ -98,5 +81,10 @@ public final class TestRunnerHelper {
 		System.out.println("PARA HABILITAR ALGUM TESTE REMOVA O CAMINHO RELATIVO DO TESTE DESEJADO DO ARQUIVO '" +
 				BddConfigPropertiesEnum.DISABLED_TESTS_FILE.getValue() + "'.");
 		System.out.println(lineBreak);
+	}
+	
+	public static boolean shouldExecuteTests() {
+		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
+		return ((ignore == null) || ("false".equalsIgnoreCase(ignore)));
 	}
 }

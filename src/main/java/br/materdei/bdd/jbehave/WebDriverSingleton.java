@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 import org.jbehave.web.selenium.PropertyWebDriverProvider;
 import org.jbehave.web.selenium.WebDriverProvider;
 
+import br.materdei.bdd.TestRunnerHelper;
 import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 
 public final class WebDriverSingleton {
@@ -39,8 +40,7 @@ public final class WebDriverSingleton {
 	private WebDriverProvider webDriverProvider;
 
 	private WebDriverSingleton() {
-		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
-		if ((ignore == null) || ("false".equalsIgnoreCase(ignore))) {
+		if (TestRunnerHelper.shouldExecuteTests()) {
 			this.configureWebDriverProvider();
 		}
 	}

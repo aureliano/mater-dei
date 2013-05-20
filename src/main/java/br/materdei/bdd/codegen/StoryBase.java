@@ -15,9 +15,9 @@ import org.junit.After;
 import org.junit.Before;
 
 import br.materdei.bdd.TestModel;
+import br.materdei.bdd.TestRunnerHelper;
 import br.materdei.bdd.jbehave.JBehaveConfigurationUtil;
 import br.materdei.bdd.jbehave.WebDriverSingleton;
-import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 import br.materdei.bdd.steps.WebSteps;
 
 import com.google.common.util.concurrent.MoreExecutors;
@@ -39,8 +39,7 @@ public class StoryBase extends JUnitStory {
 		Embedder embedder = configuredEmbedder();
 		embedder.useMetaFilters(this.model.getMetaFilters());
 		
-		String ignore = BddConfigPropertiesEnum.IGNORE_SELENIUM_START_UP.getValue();
-		if ((ignore != null) && ("true".equalsIgnoreCase(ignore))) {
+		if (!TestRunnerHelper.shouldExecuteTests()) {
 			return;
 		}
 		

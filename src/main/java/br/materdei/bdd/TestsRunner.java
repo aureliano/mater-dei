@@ -34,7 +34,7 @@ public class TestsRunner {
 			
 			System.out.println(" => Executando estória " + model.getStoryPath());
 			
-			runnableStory.beforeTest();			
+			runnableStory.beforeTest();
 			runnableStory.run(model);
 			runnableStory.afterTest();
 		}
@@ -48,12 +48,10 @@ public class TestsRunner {
 	
 	private void prepareTestEnvironment() {
 		WebDriverSingleton.createSeleniumResourcesFolder();
-		TestRunnerHelper.configureBrowser();
 		TestRunnerHelper.copyJBehaveSiteResources();
 	}
 	
 	private void tearDownTestEnvironment(List<String> disabledStories) {
-		TestRunnerHelper.quitBrowser();
 		TestRunnerHelper.printDisabledTests(disabledStories);
 	}
 }
