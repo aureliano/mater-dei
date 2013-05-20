@@ -1,9 +1,5 @@
 package br.materdei.bdd.jbehave;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.FileUtils;
 import org.jbehave.web.selenium.PropertyWebDriverProvider;
 import org.jbehave.web.selenium.WebDriverProvider;
 
@@ -26,15 +22,6 @@ public final class WebDriverSingleton {
 		}
 
 		return serverController;
-	}
-	
-	// TODO: Remova-me!!!
-	public static void createSeleniumResourcesFolder() {
-		try {
-			FileUtils.forceMkdir(new File(BddConfigPropertiesEnum.SELENIUM_RESOURCES_FOLDER.getValue()));
-		} catch (IOException ex) {
-			throw new RuntimeException(ex);
-		}
 	}
 	
 	private WebDriverProvider webDriverProvider;

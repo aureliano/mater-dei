@@ -4,7 +4,6 @@ import java.util.List;
 
 import br.materdei.bdd.codegen.BddTestCreator;
 import br.materdei.bdd.codegen.StoryBase;
-import br.materdei.bdd.jbehave.WebDriverSingleton;
 import br.materdei.bdd.jbehave.StoryFinder;
 import br.materdei.bdd.jbehave.StoryNameParser;
 
@@ -47,7 +46,6 @@ public class TestsRunner {
 	}
 	
 	private void prepareTestEnvironment() {
-		WebDriverSingleton.createSeleniumResourcesFolder();
 		TestRunnerHelper.copyJBehaveSiteResources();
 	}
 	
