@@ -14,7 +14,6 @@ public class BddConfigPropertiesEnumTest {
 		assertEquals("true", IGNORE_SELENIUM_START_UP.getValue());
 		assertEquals("10000", SELENIUM_TIMEOUT.getValue());
 		assertEquals("testes_desabilitados", DISABLED_TESTS_FILE.getValue());
-		assertEquals("true", SELENIUM_TRUST_ALL_SSL_CERTIFICATES.getValue());
 		assertEquals("target/jbehave/view", JBEHAVE_REPORT_OUTPUT_DIR.getValue());
 		assertEquals("true", JBEHAVE_REPORT_FORMAT_CONSOLE_COLORED.getValue());
 		assertEquals("src/test/resources", JBEHAVE_STORIES_PATH.getValue());

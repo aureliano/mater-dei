@@ -7,7 +7,6 @@ public enum BddConfigPropertiesEnum {
 	SELENIUM_RESOURCES_FOLDER("selenium.resources.folder", "target/selenium"),
 	SELENIUM_TIMEOUT("selenium.timeout", "30000"),
 	DISABLED_TESTS_FILE("disabled.tests.file.location", "testes_desabilitados"),
-	SELENIUM_TRUST_ALL_SSL_CERTIFICATES("selenium.trust.all.ssl.certificates", "false"),
 	JBEHAVE_REPORT_OUTPUT_DIR("jbehave.report.output.dir", "target/jbehave/view"),
 	JBEHAVE_REPORT_FORMAT_CONSOLE_COLORED("jbehave.report.format.console.colored", "false"),
 	JBEHAVE_STORIES_PATH("jbehave.stories.path", "src/main/resources"),

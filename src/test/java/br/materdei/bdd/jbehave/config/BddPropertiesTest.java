@@ -18,7 +18,7 @@ public class BddPropertiesTest {
 		Properties p = BddProperties.getProperties();
 		assertNotNull(p);
 		assertFalse(p.isEmpty());
-		assertEquals(17, p.size());
+		assertEquals(16, p.size());
 	}
 	
 	@Test
@@ -28,7 +28,6 @@ public class BddPropertiesTest {
 		assertEquals("true", p.getProperty(IGNORE_SELENIUM_START_UP.getKey()));
 		assertEquals("10000", p.getProperty(SELENIUM_TIMEOUT.getKey()));
 		assertEquals("testes_desabilitados", p.getProperty(DISABLED_TESTS_FILE.getKey()));
-		assertEquals("true", p.getProperty(SELENIUM_TRUST_ALL_SSL_CERTIFICATES.getKey()));
 		assertEquals("target/jbehave/view", p.getProperty(JBEHAVE_REPORT_OUTPUT_DIR.getKey()));
 		assertEquals("true", p.getProperty(JBEHAVE_REPORT_FORMAT_CONSOLE_COLORED.getKey()));
 		assertEquals("src/test/resources", JBEHAVE_STORIES_PATH.getValue());
