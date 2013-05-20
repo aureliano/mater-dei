@@ -16,7 +16,6 @@ public class Button extends Component<Button> implements IButtonComponent<Button
 	@Override
 	public void click() {
 		this.driver.get().findElement(this.getByParam()).click();
-		//this.driver.waitForPageToLoad(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@Override

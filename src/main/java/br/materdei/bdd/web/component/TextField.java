@@ -20,7 +20,6 @@ public class TextField extends Component<TextField> implements ITextComponent<Te
 	@Override
 	public void click() {
 		this.driver.get().findElement(this.getByParam()).click();
-		//this.selenium.waitForPageToLoad(BddConfigPropertiesEnum.SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@Override

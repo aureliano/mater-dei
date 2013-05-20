@@ -20,25 +20,21 @@ public class WebSteps {
 	@When("eu acesso a página pela url '$url'")
 	public void dadoQueEuAcessoPaginaPelaUrl(String url) {
 		this.provider.get().get(url);
-		//this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@When("eu acesso a página '$pageName'")
 	public void dadoQueEuAcessoPagina(String pageName) {
 		POFinder.findByName(pageName).abrePagina();
-		//this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@When("eu clico no botão '$button'")
 	public void quandoEuClicoBotao(String button) {
 		this.provider.get().findElement(By.xpath("//input[@value='" + button + "']")).click();
-		//this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@When("eu clico no link '$link'")
 	public void quandoEuClicoLink(String link) {
 		this.provider.get().findElement(By.xpath("link=" + link)).click();
-		//this.driver.waitForPageToLoad(SELENIUM_TIMEOUT.getValue());
 	}
 	
 	@When("eu preencho o campo '$fieldId' da página '$pageName' com '$value'")
