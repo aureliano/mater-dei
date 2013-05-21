@@ -42,6 +42,8 @@ public final class WebDriverSingleton {
 		}
 		
 		System.setProperty("browser", navegador);
+		System.setProperty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_LOCATION.getKey(), BddConfigPropertiesEnum.WEB_DRIVER_CHROME_LOCATION.getValue());
+		
 		this.webDriverProvider = new PropertyWebDriverProvider();
 	}
 	

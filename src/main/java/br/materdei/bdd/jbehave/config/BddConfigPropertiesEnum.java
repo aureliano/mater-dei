@@ -3,6 +3,7 @@ package br.materdei.bdd.jbehave.config;
 public enum BddConfigPropertiesEnum {
 
 	WEB_DRIVER_BROWSER("web.driver.browser", null),
+	WEB_DRIVER_CHROME_LOCATION("web.driver.chrome.location", null),
 	IGNORE_TEST_EXECUTION("mater.dei.ignore.test.execution", null),
 	WEB_DRIVER_TIMEOUT("web.driver.timeout", "30000"),
 	DISABLED_TESTS_FILE("disabled.tests.file.location", "testes_desabilitados"),

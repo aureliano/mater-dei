@@ -18,13 +18,14 @@ public class BddPropertiesTest {
 		Properties p = BddProperties.getProperties();
 		assertNotNull(p);
 		assertFalse(p.isEmpty());
-		assertEquals(16, p.size());
+		assertEquals(17, p.size());
 	}
 	
 	@Test
 	public void testGetProperty() {
 		Properties p = BddProperties.getProperties();
 		assertEquals("firefox", p.getProperty(WEB_DRIVER_BROWSER.getKey()));
+		assertEquals("src/main/resources/chromedriver", p.getProperty(WEB_DRIVER_CHROME_LOCATION.getKey()));
 		assertEquals("true", p.getProperty(IGNORE_TEST_EXECUTION.getKey()));
 		assertEquals("10000", p.getProperty(WEB_DRIVER_TIMEOUT.getKey()));
 		assertEquals("testes_desabilitados", p.getProperty(DISABLED_TESTS_FILE.getKey()));
