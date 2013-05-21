@@ -40,10 +40,10 @@ public final class WebDriverSingleton {
 		
 		System.setProperty("browser", browser);
 		if ("chrome".equalsIgnoreCase(browser)) {
-			if (StringUtils.isEmpty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_LOCATION.getValue())) {
+			if (StringUtils.isEmpty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getValue())) {
 				throw new RuntimeException("É necessário informar onde a localização do chromedriver através da propriedade web.driver.chrome.location");
 			} else {
-				System.setProperty("web.driver.chrome.location", BddConfigPropertiesEnum.WEB_DRIVER_CHROME_LOCATION.getValue());
+				System.setProperty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getKey(), BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getValue());
 			}
 		}		
 		
