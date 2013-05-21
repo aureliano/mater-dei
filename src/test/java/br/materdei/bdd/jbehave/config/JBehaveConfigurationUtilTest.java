@@ -1,4 +1,4 @@
-package br.materdei.bdd.jbehave;
+package br.materdei.bdd.jbehave.config;
 
 import org.jbehave.core.configuration.Configuration;
 import org.junit.Test;
