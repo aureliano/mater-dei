@@ -1,5 +1,6 @@
 package br.materdei.bdd.jbehave;
 
+import org.apache.commons.lang.StringUtils;
 import org.jbehave.web.selenium.PropertyWebDriverProvider;
 import org.jbehave.web.selenium.WebDriverProvider;
 
@@ -9,8 +10,7 @@ import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 public final class WebDriverSingleton {
 	
 	private static volatile WebDriverSingleton serverController = null;
-	
-	
+		
 	/**
 	 * Obtém a instância do controlador do selenium server.
 	 * 
@@ -33,16 +33,22 @@ public final class WebDriverSingleton {
 	}
 	
 	private void configureWebDriverProvider() {
-		String navegador = BddConfigPropertiesEnum.WEB_DRIVER_BROWSER.getValue();
+		String browser = BddConfigPropertiesEnum.WEB_DRIVER_BROWSER.getValue();
 				
-		if ((!"firefox".equalsIgnoreCase(navegador)) && (!"chrome".equalsIgnoreCase(navegador)) &&
-				(!"ie".equalsIgnoreCase(navegador)) && (!"android".equalsIgnoreCase(navegador)) &&
-				(!"htmlunit".equalsIgnoreCase(navegador))) {
-			throw new RuntimeException("Navegador '" + navegador + "' não suportado. Permitido [firefox, chrome, ie, android, htmlunit]");
+		if ((!"firefox".equalsIgnoreCase(browser)) && (!"chrome".equalsIgnoreCase(browser)) &&
+				(!"ie".equalsIgnoreCase(browser)) && (!"android".equalsIgnoreCase(browser)) &&
+				(!"htmlunit".equalsIgnoreCase(browser))) {
+			throw new RuntimeException("Navegador '" + browser + "' não suportado. Permitido [firefox, chrome, ie, android, htmlunit]");
 		}
 		
-		System.setProperty("browser", navegador);
-		System.setProperty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_LOCATION.getKey(), BddConfigPropertiesEnum.WEB_DRIVER_CHROME_LOCATION.getValue());
+		System.setProperty("browser", browser);
+		if ("chrome".equalsIgnoreCase(browser)) {
+			if (StringUtils.isEmpty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_LOCATION.getValue())) {
+				throw new RuntimeException("É necessário informar onde a localização do chromedriver através da propriedade web.driver.chrome.location");
+			} else {
+				System.setProperty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_LOCATION.getKey(), BddConfigPropertiesEnum.WEB_DRIVER_CHROME_LOCATION.getValue());
+			}
+		}		
 		
 		this.webDriverProvider = new PropertyWebDriverProvider();
 	}
