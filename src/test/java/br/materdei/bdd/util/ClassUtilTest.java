@@ -6,9 +6,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import br.materdei.bdd.TestModel;
 import br.materdei.bdd.codegen.BddTestCreator;
+import br.materdei.bdd.codegen.StoryBaseMock;
 
 public class ClassUtilTest {
 
@@ -50,5 +54,17 @@ public class ClassUtilTest {
 		
 		f = new File("src/main/java/br/materdei/bdd/database/config/DbConfigPropertiesEnum.java");
 		assertEquals("br.materdei.bdd.database.config.DbConfigPropertiesEnum", ClassUtil.extractClassNameFromJavaFile(f));
+	}
+	
+	@Test
+	public void testExecuteMethodsWithAnnotation() throws Exception {
+		StoryBaseMock m = new StoryBaseMock();
+		assertFalse(m.isBeforeDone());
+		
+		ClassUtil.executeMethodsWithAnnotation(m, Before.class);		
+		assertTrue(m.isBeforeDone());
+		
+		ClassUtil.executeMethodsWithAnnotation(m, After.class);		
+		assertTrue(m.isAfterDone());
 	}
 }

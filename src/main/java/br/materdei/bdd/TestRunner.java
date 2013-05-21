@@ -33,9 +33,9 @@ public class TestRunner {
 			
 			System.out.println(" => Executando estória " + model.getStoryPath());
 			
-			runnableStory.beforeTest();
+			TestRunnerHelper.runBeforeMethods(runnableStory);
 			runnableStory.run(model);
-			runnableStory.afterTest();
+			TestRunnerHelper.runAfterMethods(runnableStory);
 		}
 			
 		this.tearDownTestEnvironment(disabledStories);

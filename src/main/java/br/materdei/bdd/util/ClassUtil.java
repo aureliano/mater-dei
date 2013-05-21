@@ -2,11 +2,17 @@ package br.materdei.bdd.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 public final class ClassUtil {
 
+	private static final Logger logger = Logger.getLogger(ClassUtil.class);
+	
 	private ClassUtil() {
 		super();
 	}
@@ -49,5 +55,23 @@ public final class ClassUtil {
 		}
 		
 		return pkg + "." + clazz;
+	}
+	
+	public static void executeMethodsWithAnnotation(Object target, Class<? extends Annotation> annotation) throws Exception {
+		executeMethodsWithAnnotation(target, new Object[] {}, annotation);
+	}
+	
+	public static void executeMethodsWithAnnotation(Object target, Object[] params, Class<? extends Annotation> annotation) throws Exception {
+		Method[] methods = target.getClass().getMethods();
+		
+		if (methods.length > 0) {
+			logger.info("Running " + annotation.getSimpleName() + " methods");
+		}
+		
+		for (Method m : methods) {
+			if (m.getAnnotation(annotation) != null) {
+				m.invoke(target, new Object[] {});
+			}
+		}
 	}
 }

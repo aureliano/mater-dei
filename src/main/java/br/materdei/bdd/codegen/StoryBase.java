@@ -11,8 +11,6 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.jbehave.web.selenium.PerStoryWebDriverSteps;
 import org.jbehave.web.selenium.WebDriverSteps;
-import org.junit.After;
-import org.junit.Before;
 
 import br.materdei.bdd.TestModel;
 import br.materdei.bdd.TestRunnerHelper;
@@ -65,12 +63,6 @@ public class StoryBase extends JUnitStory {
 	public Configuration configuration() {
 		return JBehaveConfigurationUtil.createSeleniumConfiguration(this.getClass());
 	}
-	
-	@Before
-	public void beforeTest() {}
-
-	@After
-	public void afterTest() throws Exception {}
 	
 	// This Embedder is used by Maven or Ant and it will override anything set in the constructor.
 	public static class SameThreadEmbedder extends Embedder {

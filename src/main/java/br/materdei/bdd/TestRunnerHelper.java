@@ -7,9 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.jbehave.core.annotations.AfterStories;
+import org.jbehave.core.annotations.AfterStory;
+import org.jbehave.core.annotations.BeforeStories;
+import org.jbehave.core.annotations.BeforeStory;
+import org.junit.After;
+import org.junit.Before;
 
+import br.materdei.bdd.codegen.StoryBase;
 import br.materdei.bdd.jbehave.StoryFinder;
 import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
+import br.materdei.bdd.util.ClassUtil;
 import br.materdei.bdd.util.FileUtil;
 
 public final class TestRunnerHelper {
@@ -34,6 +42,18 @@ public final class TestRunnerHelper {
 		}
 		
 		return stories;
+	}
+	
+	public static void runBeforeMethods(StoryBase story) throws Exception {
+		ClassUtil.executeMethodsWithAnnotation(story, Before.class);
+		ClassUtil.executeMethodsWithAnnotation(story, BeforeStory.class);
+		ClassUtil.executeMethodsWithAnnotation(story, BeforeStories.class);
+	}
+	
+	public static void runAfterMethods(StoryBase story) throws Exception {
+		ClassUtil.executeMethodsWithAnnotation(story, After.class);
+		ClassUtil.executeMethodsWithAnnotation(story, AfterStory.class);
+		ClassUtil.executeMethodsWithAnnotation(story, AfterStories.class);
 	}
 	
 	public static void copyJBehaveSiteResources() {

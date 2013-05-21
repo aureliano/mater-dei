@@ -11,6 +11,9 @@ public class StoryBaseMock extends StoryBase {
 
 	private static final Logger logger = Logger.getLogger(StoryBaseMock.class);
 	
+	private boolean beforeDone;
+	private boolean afterDone;
+	
 	public StoryBaseMock() {
 		super();
 	}
@@ -27,10 +30,20 @@ public class StoryBaseMock extends StoryBase {
 	@Before
 	public void beforeTest() {
 		logger.info("\nExecutando beforeTest de => " + this.getClass().getName());
+		this.beforeDone = true;
 	}
 
 	@After
 	public void afterTest() throws Exception {
 		logger.info("Executando afterTest de => " + this.getClass().getName() + "\n");
+		this.afterDone = true;
+	}
+	
+	public boolean isBeforeDone() {
+		return this.beforeDone;
+	}
+	
+	public boolean isAfterDone() {
+		return this.afterDone;
 	}
 }
