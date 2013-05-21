@@ -14,9 +14,9 @@ import org.jbehave.web.selenium.SeleniumConfiguration;
 import org.jbehave.web.selenium.SeleniumContext;
 import org.jbehave.web.selenium.SeleniumContextOutput;
 
-import br.materdei.bdd.jbehave.WebDriverSingleton;
 import br.materdei.bdd.jbehave.reporters.console.ColoredConsoleFormat;
 import br.materdei.bdd.jbehave.reporters.html.ScreenShootingHtmlFormat;
+import br.materdei.bdd.web.driver.WebDriverSingleton;
 
 import com.thoughtworks.paranamer.BytecodeReadingParanamer;
 import com.thoughtworks.paranamer.CachingParanamer;

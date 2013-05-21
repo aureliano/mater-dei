@@ -6,9 +6,9 @@ import java.util.Map;
 import org.jbehave.web.selenium.WebDriverPage;
 import org.jbehave.web.selenium.WebDriverProvider;
 
-import br.materdei.bdd.jbehave.WebDriverSingleton;
 import br.materdei.bdd.web.annotation.PageObject;
 import br.materdei.bdd.web.component.IComponent;
+import br.materdei.bdd.web.driver.WebDriverSingleton;
 
 public abstract class BasicPageObject extends WebDriverPage implements IPage {
 

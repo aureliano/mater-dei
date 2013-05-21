@@ -5,8 +5,8 @@ import org.jbehave.core.annotations.When;
 import org.jbehave.web.selenium.WebDriverProvider;
 import org.openqa.selenium.By;
 
-import br.materdei.bdd.jbehave.WebDriverSingleton;
 import br.materdei.bdd.web.component.TextField;
+import br.materdei.bdd.web.driver.WebDriverSingleton;
 import br.materdei.bdd.web.page.POFinder;
 
 public class WebSteps {

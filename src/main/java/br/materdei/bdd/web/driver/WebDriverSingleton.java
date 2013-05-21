@@ -1,10 +1,9 @@
-package br.materdei.bdd.jbehave;
+package br.materdei.bdd.web.driver;
 
 import org.apache.commons.lang.StringUtils;
 import org.jbehave.web.selenium.PropertyWebDriverProvider;
 import org.jbehave.web.selenium.WebDriverProvider;
 
-import br.materdei.bdd.TestRunnerHelper;
 import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 
 public final class WebDriverSingleton {
@@ -27,9 +26,7 @@ public final class WebDriverSingleton {
 	private WebDriverProvider webDriverProvider;
 
 	private WebDriverSingleton() {
-		if (TestRunnerHelper.shouldExecuteTests()) {
-			this.configureWebDriverProvider();
-		}
+		this.configureWebDriverProvider();
 	}
 	
 	private void configureWebDriverProvider() {
