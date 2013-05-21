@@ -16,8 +16,8 @@ import org.junit.Before;
 
 import br.materdei.bdd.TestModel;
 import br.materdei.bdd.TestRunnerHelper;
-import br.materdei.bdd.jbehave.JBehaveConfigurationUtil;
 import br.materdei.bdd.jbehave.WebDriverSingleton;
+import br.materdei.bdd.jbehave.config.JBehaveConfigurationUtil;
 import br.materdei.bdd.steps.WebSteps;
 
 import com.google.common.util.concurrent.MoreExecutors;
