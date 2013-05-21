@@ -7,7 +7,7 @@ import br.materdei.bdd.codegen.StoryBase;
 import br.materdei.bdd.jbehave.StoryFinder;
 import br.materdei.bdd.jbehave.StoryNameParser;
 
-public class TestsRunner {
+public class TestRunner {
 
 	public void run() throws Throwable {
 		this.execute(new TestModel());
