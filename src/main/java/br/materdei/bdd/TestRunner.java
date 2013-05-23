@@ -93,7 +93,7 @@ public class TestRunner {
 		return this;
 	}
 	
-	public TestRunner configByProperties(String propertiesFilePath) {
+	public TestRunner configWithProperties(String propertiesFilePath) {
 		URL url = ClassLoader.getSystemResource(propertiesFilePath);
 		Properties properties = new Properties();
 		
