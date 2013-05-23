@@ -28,10 +28,13 @@ public class WebDriver {
 		BrowserEnum b = BrowserEnum.browserFromString(p.getProperty(BddConfigPropertiesEnum.WEB_DRIVER_BROWSER.getKey()));
 		this.useBrowser(b);
 		
-		File f = new File(p.getProperty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getKey()));
-		this.useChromeDriver(f);
+		String value = p.getProperty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getKey());
+		if (!StringUtils.isEmpty(value)) {
+			File f = new File(value);
+			this.useChromeDriver(f);
+		}
 		
-		String value = p.getProperty(BddConfigPropertiesEnum.WEB_DRIVER_TIMEOUT.getKey());
+		value = p.getProperty(BddConfigPropertiesEnum.WEB_DRIVER_TIMEOUT.getKey());
 		if (!StringUtils.isEmpty(value)) {
 			this.useDriverTimeout(Integer.parseInt(value));
 		}
