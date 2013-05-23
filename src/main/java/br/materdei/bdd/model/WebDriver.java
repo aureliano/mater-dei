@@ -18,6 +18,7 @@ public class WebDriver {
 	private Integer driverTimeout;
 	private BrowserEnum browser;
 	private File chromeDriver;
+	private boolean windowMaximized;
 	
 	public WebDriver() {
 		this.useDefaultValues();
@@ -30,9 +31,14 @@ public class WebDriver {
 		File f = new File(p.getProperty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getKey()));
 		this.useChromeDriver(f);
 		
-		String t = p.getProperty(BddConfigPropertiesEnum.WEB_DRIVER_TIMEOUT.getKey());
-		if (!StringUtils.isEmpty(t)) {
-			this.useDriverTimeout(Integer.parseInt(t));
+		String value = p.getProperty(BddConfigPropertiesEnum.WEB_DRIVER_TIMEOUT.getKey());
+		if (!StringUtils.isEmpty(value)) {
+			this.useDriverTimeout(Integer.parseInt(value));
+		}
+		
+		value = p.getProperty(BddConfigPropertiesEnum.WEB_DRIVER_WINDOW_MAXIMIZED.getKey());
+		if (!StringUtils.isEmpty(value)) {
+			this.useWindowMaximized(Boolean.parseBoolean(value));
 		}
 		
 		this.useDefaultValues();
@@ -97,6 +103,22 @@ public class WebDriver {
 			throw new IllegalArgumentException(chromeDriver.getAbsolutePath() + " é um diretório! Deveria ser um arquivo binário");
 		}
 		
+		return this;
+	}
+	
+	public boolean isWindowMaximized() {
+		return windowMaximized;
+	}
+	
+	/**
+	 * Maximiza a janela do navegador que está executando os testes.
+	 * Valor padrão: false
+	 * 
+	 * @param windowMaximized
+	 * @return Este objeto
+	 */
+	public WebDriver useWindowMaximized(boolean windowMaximized) {
+		this.windowMaximized = windowMaximized;
 		return this;
 	}
 	

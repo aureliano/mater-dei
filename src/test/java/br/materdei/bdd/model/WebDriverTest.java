@@ -2,6 +2,8 @@ package br.materdei.bdd.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +19,7 @@ public class WebDriverTest {
 		assertEquals(BrowserEnum.FIREFOX, d.getBrowser());
 		assertEquals(new Integer(30), d.getDriverTimeout());
 		assertNull(d.getChromeDriver());
+		assertFalse(d.isWindowMaximized());
 	}
 	
 	@Test
@@ -28,6 +31,7 @@ public class WebDriverTest {
 		assertEquals(BrowserEnum.FIREFOX, d.getBrowser());
 		assertEquals(new File("src/test/resources/chromedriver"), d.getChromeDriver());
 		assertEquals(new Integer(10000), d.getDriverTimeout());
+		assertTrue(d.isWindowMaximized());
 	}
 	
 	@Test
@@ -70,5 +74,14 @@ public class WebDriverTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testUseChromeDriverWhereFileIsDirectory() {
 		new WebDriver().useChromeDriver(new File("src/test/resources"));
+	}
+	
+	@Test
+	public void testUseWindowMaximized() {
+		WebDriver d = new WebDriver().useWindowMaximized(true);
+		assertTrue(d.isWindowMaximized());
+		
+		d.useWindowMaximized(false);
+		assertFalse(d.isWindowMaximized());
 	}
 }
