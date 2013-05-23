@@ -34,7 +34,7 @@ public class WebSteps {
 	
 	@When("eu clico no link '$link'")
 	public void quandoEuClicoLink(String link) {
-		this.provider.get().findElement(By.xpath("link=" + link)).click();
+		this.provider.get().findElement(By.xpath("//a[text()='" + link + "']")).click();
 	}
 	
 	@When("eu preencho o campo '$fieldId' da página '$pageName' com '$value'")
