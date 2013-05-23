@@ -75,7 +75,7 @@ public final class TestRunnerHelper {
 		}
 		
 		try {
-			FileUtils.copyURLToFile(new URL(urlResources), jbehaveSiteDir, webDriverModel.getDriverTimeout(), webDriverModel.getDriverTimeout());
+			FileUtils.copyURLToFile(new URL(urlResources), jbehaveSiteDir, (webDriverModel.getDriverTimeout() * 1000), (webDriverModel.getDriverTimeout() * 1000));
 			FileUtil.extractFromZipFile(jbehaveSiteDir.getAbsolutePath(), jbehaveModel.getReportOutputDir());
 		} catch (IOException ex) {
 			System.out.println("WARN: Não foi possível copiar o recurso jbehave-site-resources. " + ex.getMessage());
