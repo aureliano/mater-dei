@@ -29,6 +29,7 @@ public final class WebDriverPreferences {
 		
 		logger.info("Web driver timeout: " + model.getDriverTimeout() + " segundos");
 		driver.manage().timeouts().implicitlyWait(model.getDriverTimeout(), TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(model.getDriverTimeout(), TimeUnit.SECONDS);
 		
 		logger.info("Window maximized: " + model.isWindowMaximized());
 		if (model.isWindowMaximized()) {
