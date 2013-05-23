@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.jbehave.core.annotations.AfterStories;
 import org.jbehave.core.annotations.AfterStory;
 import org.jbehave.core.annotations.BeforeStories;
@@ -23,6 +24,8 @@ import br.materdei.bdd.util.ClassUtil;
 import br.materdei.bdd.util.FileUtil;
 
 public final class TestRunnerHelper {
+	
+	private static final Logger logger = Logger.getLogger(TestRunnerHelper.class);
 	
 	private TestRunnerHelper() {
 		super();
@@ -68,7 +71,7 @@ public final class TestRunnerHelper {
 		
 		String urlResources = "https://dl.dropboxusercontent.com/s/b0hoin4wghahik5/jbehave-site-resources.zip";
 		File jbehaveSiteDir = new File(jbehaveModel.getReportOutputDir() + "/jbehave-site-resources.zip");
-		System.out.println("COPIANDO RECURSOS DE FORMATAÇÃO (css, imagens e js) DO RELATÓRIO DE TESTES PARA " + jbehaveSiteDir.getParent());
+		logger.info("COPIANDO RECURSOS DE FORMATAÇÃO (css, imagens e js) DO RELATÓRIO DE TESTES PARA " + jbehaveSiteDir.getParent());
 		
 		if (jbehaveSiteDir.exists()) {
 			return;
@@ -78,7 +81,7 @@ public final class TestRunnerHelper {
 			FileUtils.copyURLToFile(new URL(urlResources), jbehaveSiteDir, (webDriverModel.getDriverTimeout() * 1000), (webDriverModel.getDriverTimeout() * 1000));
 			FileUtil.extractFromZipFile(jbehaveSiteDir.getAbsolutePath(), jbehaveModel.getReportOutputDir());
 		} catch (IOException ex) {
-			System.out.println("WARN: Não foi possível copiar o recurso jbehave-site-resources. " + ex.getMessage());
+			logger.warn("Não foi possível copiar o recurso jbehave-site-resources. " + ex.getMessage());
 		}
 	}
 	
