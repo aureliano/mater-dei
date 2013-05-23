@@ -10,7 +10,16 @@ import java.util.List;
 
 import org.junit.Test;
 
+import br.materdei.bdd.model.JBehave;
+import br.materdei.bdd.model.ThreadLocalModel;
+
 public class StoryFinderTest {
+	
+	public StoryFinderTest() {
+		ThreadLocalModel.setJBehaveModel(new JBehave()
+			.useStoriesPath("src/test/resources")
+			.useDisabledTestsFile("testes_desabilitados"));
+	}
 
 	@Test
 	public void testFind() {

@@ -2,7 +2,7 @@ package br.materdei.bdd.jbehave;
 
 import java.io.File;
 
-import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
+import br.materdei.bdd.model.ThreadLocalModel;
 
 public final class StoryNameParser {
 
@@ -16,10 +16,10 @@ public final class StoryNameParser {
 		}
 		
 		File root = new File("");
-		String seed = "/" + BddConfigPropertiesEnum.JBEHAVE_STORIES_PATH.getValue() + "/";
+		String seed = ThreadLocalModel.getJBehaveModel().getStoriesPath() + "/";
 		
 		storyPath = storyPath.replaceFirst(root.getAbsolutePath(), "");
-		storyPath = storyPath.replaceFirst(seed, "");
+		storyPath = storyPath.replaceFirst("/?" + seed, "");
 		storyPath = storyPath.replaceAll("/", ".");
 		storyPath = storyPath.replaceAll("(.story|.estoria)", "");		
 		

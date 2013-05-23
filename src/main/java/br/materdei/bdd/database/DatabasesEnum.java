@@ -1,22 +1,30 @@
 package br.materdei.bdd.database;
 
+import br.materdei.bdd.model.Database;
+
 public enum DatabasesEnum {
 
-	MYSQL("3306"),
-	POSTGRESQL("5432");
+	MYSQL(3306, "com.mysql.jdbc.Driver"),
+	POSTGRESQL(5432, "org.postgresql.Driver");
 	
-	private DatabasesEnum(String port) {
+	private DatabasesEnum(Integer port, String driver) {
 		this.defaultPort = port;
+		this.defaultDriver = driver;
 	}
 	
-	private String defaultPort;
+	private Integer defaultPort;
+	private String defaultDriver;
 	
-	public String getDefaultPort() {
+	public Integer getDefaultPort() {
 		return this.defaultPort;
 	}
 	
+	public String getDefaultDriver() {
+		return this.defaultDriver;
+	}
+	
 	public String getDefaultHost() {
-		return "localhost";
+		return Database.DEFAULT_CONNECTION_HOST;
 	}
 	
 	public static DatabasesEnum databaseFromDriverName(String driverName) {

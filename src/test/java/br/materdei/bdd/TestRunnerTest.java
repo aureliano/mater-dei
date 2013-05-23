@@ -2,9 +2,27 @@ package br.materdei.bdd;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import br.materdei.bdd.model.JBehave;
+import br.materdei.bdd.model.ThreadLocalModel;
+
 public class TestRunnerTest {
+	
+	@Before
+	public void beforeTest() {
+		ThreadLocalModel.setJBehaveModel(new JBehave()
+			.useStoriesPath("src/test/resources")
+			.useDisabledTestsFile("testes_desabilitados")
+			.useIgnoreTestExecution(true));
+	}
+	
+	@After
+	public void afterTest() {
+		ThreadLocalModel.setJBehaveModel(null);
+	}
 
 	@Test
 	public void testRun() throws Throwable {

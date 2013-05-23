@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 
-import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
+import br.materdei.bdd.model.ThreadLocalModel;
 import br.materdei.bdd.util.FileUtil;
 
 public final class StoryFinder {
@@ -18,7 +19,7 @@ public final class StoryFinder {
 	}
 	
 	public static List<String> find() {
-		List<File> files = FileUtil.loadFiles(BddConfigPropertiesEnum.JBEHAVE_STORIES_PATH.getValue());
+		List<File> files = FileUtil.loadFiles(ThreadLocalModel.getJBehaveModel().getStoriesPath());
 		List<String> stories = new ArrayList<String>();
 		
 		for (File f : files) {
@@ -31,7 +32,12 @@ public final class StoryFinder {
 	}
 	
 	public static List<String> findDisabledStories() {
-		URL url = ClassLoader.getSystemResource(BddConfigPropertiesEnum.DISABLED_TESTS_FILE.getValue());
+		String disabledTestsFile = ThreadLocalModel.getJBehaveModel().getDisabledTestsFile();
+		if (StringUtils.isEmpty(disabledTestsFile)) {
+			return new ArrayList<String>();
+		}
+		
+		URL url = ClassLoader.getSystemResource(disabledTestsFile);
 		if (url == null) {
 			return new ArrayList<String>();
 		}

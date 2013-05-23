@@ -8,8 +8,8 @@ public class DatabasesEnumTest {
 
 	@Test
 	public void testDefaultPort() {
-		assertEquals("3306", DatabasesEnum.MYSQL.getDefaultPort());
-		assertEquals("5432", DatabasesEnum.POSTGRESQL.getDefaultPort());
+		assertEquals(new Integer(3306), DatabasesEnum.MYSQL.getDefaultPort());
+		assertEquals(new Integer(5432), DatabasesEnum.POSTGRESQL.getDefaultPort());
 	}
 	
 	@Test

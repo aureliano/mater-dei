@@ -4,57 +4,38 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import org.apache.commons.lang.StringUtils;
-
+import br.materdei.bdd.TestRunnerHelper;
 import br.materdei.bdd.database.DatabaseInterface;
-import br.materdei.bdd.database.DatabasesEnum;
-import br.materdei.bdd.database.DbUrlCreator;
-import br.materdei.bdd.database.config.DbConfigPropertiesEnum;
 import br.materdei.bdd.database.init.InitData;
+import br.materdei.bdd.model.Database;
+import br.materdei.bdd.model.ThreadLocalModel;
 
 public abstract class DatabaseImpl implements DatabaseInterface {
-
-	protected String urlConnection;
-	protected String driverClass;
-	protected String user;
-	protected String password;
-	protected String database;
 	
+	private Database model;
 	private Connection connection;
 	
 	protected DatabaseImpl() {
-		this.driverClass = DbConfigPropertiesEnum.DATABASE_CONNECTION_DRIVER.getValue();
-		if (StringUtils.isEmpty(this.driverClass)) {
-			throw new RuntimeException("Propriedade database.connection.driver não foi informada no arquivo bdd-config.properties");
+		this.model = ThreadLocalModel.getDatabaseModel();
+		
+		if (!TestRunnerHelper.shouldExecuteTests()) {
+			return;
 		}
 		
-		this.user = DbConfigPropertiesEnum.DATABASE_CONNECTION_USER.getValue();
-		if (StringUtils.isEmpty(this.user)) {
-			throw new RuntimeException("Propriedade database.connection.user não foi informada no arquivo bdd-config.properties");
+		if (this.model == null) {
+			throw new RuntimeException("É necessário configurar um modelo de dados para manipular uma base de dados.");
 		}
 		
-		this.password = DbConfigPropertiesEnum.DATABASE_COONECTION_PASSWORD.getValue();
-		if (StringUtils.isEmpty(this.password)) {
-			throw new RuntimeException("Propriedade database.connection.password não foi informada no arquivo bdd-config.properties");
-		}
-		
-		this.database = DbConfigPropertiesEnum.DATABASE_CONNECTION_DB.getValue();
-		if (StringUtils.isEmpty(this.database)) {
-			throw new RuntimeException("Propriedade database.connection.db não foi informada no arquivo bdd-config.properties");
-		}
-		
-		DatabasesEnum db = DatabasesEnum.databaseFromDriverName(this.driverClass);
-		if (db == null) {
-			throw new RuntimeException("Driver JDBC desconhecido: " + this.driverClass);
-		}
-		this.urlConnection = DbUrlCreator.create(db);
+		this.model.validation();
 	}
 	
 	@Override
 	public Connection createDatabaseConnection() throws Exception {
 		if ((this.connection == null) || (this.connection.isClosed())) {
-			Class.forName(this.driverClass);		
-			this.connection = DriverManager.getConnection(this.urlConnection + database, user, password);		
+			Class.forName(this.model.getConnectionDriver());		
+			this.connection = DriverManager.getConnection(
+					this.model.getUrlConnection() + this.model.getConnectionDatabase(),
+					this.model.getConnectionUser(), this.model.getConnectionPassword());		
 		}
 		
 		return this.connection;
@@ -62,7 +43,7 @@ public abstract class DatabaseImpl implements DatabaseInterface {
 
 	@Override
 	public void loadInitialData() throws Exception {
-		System.out.println("Carregando dados iniciais no banco de dados " + this.database);
+		System.out.println("Carregando dados iniciais no banco de dados " + this.model.getConnectionDatabase());
 		InitData.init(this.createDatabaseConnection());
 	}
 	

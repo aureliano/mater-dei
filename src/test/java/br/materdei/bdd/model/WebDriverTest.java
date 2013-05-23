@@ -1,25 +1,39 @@
 package br.materdei.bdd.model;
 
-import java.io.File;
-
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
+
+import org.junit.Test;
 
 public class WebDriverTest {
 
 	@Test
 	public void testDefaults() {
 		WebDriver d = new WebDriver();
-		assertEquals(Browser.FIREFOX, d.getBrowser());
+		assertEquals(BrowserEnum.FIREFOX, d.getBrowser());
 		assertEquals(new Integer(30), d.getDriverTimeout());
 		assertNull(d.getChromeDriver());
 	}
 	
 	@Test
+	public void testLoadProperties() throws Exception {
+		Properties p = new Properties();
+		p.load(new FileInputStream(new File("src/test/resources/bdd-config.properties")));
+		WebDriver d = new WebDriver(p);
+		
+		assertEquals(BrowserEnum.FIREFOX, d.getBrowser());
+		assertEquals(new File("src/test/resources/chromedriver"), d.getChromeDriver());
+		assertEquals(new Integer(10000), d.getDriverTimeout());
+	}
+	
+	@Test
 	public void testUseBrowser() {
 		WebDriver d = new WebDriver().useBrowser(null);
-		assertEquals(Browser.FIREFOX, d.getBrowser());
+		assertEquals(BrowserEnum.FIREFOX, d.getBrowser());
 	}
 	
 	@Test
@@ -30,13 +44,13 @@ public class WebDriverTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void testUseDriverTimeoutWithTimoutEqualsToZero() {
+	public void testUseDriverTimeoutWithTimoutEqualsZero() {
 		Integer expected = 0;
 		new WebDriver().useDriverTimeout(expected);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void testUseDriverTimeoutWithTimoutLesserThanZero() {
+	public void testUseDriverTimeoutWithTimoutLessThanZero() {
 		Integer expected = -1;
 		new WebDriver().useDriverTimeout(expected);
 	}

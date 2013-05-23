@@ -16,12 +16,14 @@ import org.junit.Before;
 
 import br.materdei.bdd.codegen.StoryBase;
 import br.materdei.bdd.jbehave.StoryFinder;
-import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
+import br.materdei.bdd.model.JBehave;
+import br.materdei.bdd.model.ThreadLocalModel;
+import br.materdei.bdd.model.WebDriver;
 import br.materdei.bdd.util.ClassUtil;
 import br.materdei.bdd.util.FileUtil;
 
 public final class TestRunnerHelper {
-
+	
 	private TestRunnerHelper() {
 		super();
 	}
@@ -61,10 +63,11 @@ public final class TestRunnerHelper {
 			return;
 		}
 		
+		WebDriver webDriverModel = ThreadLocalModel.getWebDriverModel();
+		JBehave jbehaveModel = ThreadLocalModel.getJBehaveModel();
+		
 		String urlResources = "https://dl.dropboxusercontent.com/s/b0hoin4wghahik5/jbehave-site-resources.zip";
-		Integer connectionTimeout = Integer.parseInt(BddConfigPropertiesEnum.WEB_DRIVER_TIMEOUT.getValue());
-		Integer readTimeout = Integer.parseInt(BddConfigPropertiesEnum.WEB_DRIVER_TIMEOUT.getValue());
-		File jbehaveSiteDir = new File(BddConfigPropertiesEnum.JBEHAVE_REPORT_OUTPUT_DIR.getValue() + "/jbehave-site-resources.zip");
+		File jbehaveSiteDir = new File(jbehaveModel.getReportOutputDir() + "/jbehave-site-resources.zip");
 		System.out.println("COPIANDO RECURSOS DE FORMATAÇÃO (css, imagens e js) DO RELATÓRIO DE TESTES PARA " + jbehaveSiteDir.getParent());
 		
 		if (jbehaveSiteDir.exists()) {
@@ -72,8 +75,8 @@ public final class TestRunnerHelper {
 		}
 		
 		try {
-			FileUtils.copyURLToFile(new URL(urlResources), jbehaveSiteDir, connectionTimeout, readTimeout);
-			FileUtil.extractFromZipFile(jbehaveSiteDir.getAbsolutePath(), BddConfigPropertiesEnum.JBEHAVE_REPORT_OUTPUT_DIR.getValue());
+			FileUtils.copyURLToFile(new URL(urlResources), jbehaveSiteDir, webDriverModel.getDriverTimeout(), webDriverModel.getDriverTimeout());
+			FileUtil.extractFromZipFile(jbehaveSiteDir.getAbsolutePath(), jbehaveModel.getReportOutputDir());
 		} catch (IOException ex) {
 			System.out.println("WARN: Não foi possível copiar o recurso jbehave-site-resources. " + ex.getMessage());
 		}
@@ -81,6 +84,11 @@ public final class TestRunnerHelper {
 	
 	public static void printDisabledTests(List<String> files) {
 		if (!shouldExecuteTests()) {
+			return;
+		}
+		
+		JBehave jbehave = ThreadLocalModel.getJBehaveModel();
+		if (files.isEmpty()) {
 			return;
 		}
 		
@@ -98,13 +106,11 @@ public final class TestRunnerHelper {
 		System.out.println();
 		System.out.println("TOTAL DE TESTES DESABILITADOS: " + files.size());
 		System.out.println();
-		System.out.println("PARA HABILITAR ALGUM TESTE REMOVA O CAMINHO RELATIVO DO TESTE DESEJADO DO ARQUIVO '" +
-				BddConfigPropertiesEnum.DISABLED_TESTS_FILE.getValue() + "'.");
+		System.out.println("PARA HABILITAR ALGUM TESTE REMOVA O CAMINHO RELATIVO DO TESTE DESEJADO DO ARQUIVO '" + jbehave.getDisabledTestsFile() + "'.");
 		System.out.println(lineBreak);
 	}
 	
 	public static boolean shouldExecuteTests() {
-		String ignore = BddConfigPropertiesEnum.IGNORE_TEST_EXECUTION.getValue();
-		return ((ignore == null) || ("false".equalsIgnoreCase(ignore)));
+		return !(ThreadLocalModel.getJBehaveModel().isIgnoreTestExecution());
 	}
 }

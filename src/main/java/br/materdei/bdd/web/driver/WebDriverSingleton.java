@@ -1,10 +1,11 @@
 package br.materdei.bdd.web.driver;
 
-import org.apache.commons.lang.StringUtils;
 import org.jbehave.web.selenium.PropertyWebDriverProvider;
 import org.jbehave.web.selenium.WebDriverProvider;
 
 import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
+import br.materdei.bdd.model.ThreadLocalModel;
+import br.materdei.bdd.model.WebDriver;
 
 public final class WebDriverSingleton {
 	
@@ -30,20 +31,14 @@ public final class WebDriverSingleton {
 	}
 	
 	private void configureWebDriverProvider() {
-		String browser = BddConfigPropertiesEnum.WEB_DRIVER_BROWSER.getValue();
+		WebDriver model = ThreadLocalModel.getWebDriverModel();
 				
-		if ((!"firefox".equalsIgnoreCase(browser)) && (!"chrome".equalsIgnoreCase(browser)) &&
-				(!"ie".equalsIgnoreCase(browser)) && (!"android".equalsIgnoreCase(browser)) &&
-				(!"htmlunit".equalsIgnoreCase(browser))) {
-			throw new RuntimeException("Navegador '" + browser + "' não suportado. Permitido [firefox, chrome, ie, android, htmlunit]");
-		}
-		
-		System.setProperty("browser", browser);
-		if ("chrome".equalsIgnoreCase(browser)) {
-			if (StringUtils.isEmpty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getValue())) {
-				throw new RuntimeException("É necessário informar onde a localização do chromedriver através da propriedade web.driver.chrome.location");
+		System.setProperty("browser", model.getBrowser().getKey().toLowerCase());
+		if ("chrome".equalsIgnoreCase(model.getBrowser().getKey())) {
+			if (model.getChromeDriver() == null) {
+				throw new RuntimeException("É necessário informar a localização do chromedriver através da propriedade webdriver.chrome.driver");
 			} else {
-				System.setProperty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getKey(), BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getValue());
+				System.setProperty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getKey(), model.getChromeDriver().getAbsolutePath());
 			}
 		}		
 		

@@ -2,7 +2,6 @@ package br.materdei.bdd.jbehave.config;
 
 import java.util.Locale;
 
-import org.apache.commons.lang.StringUtils;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.Keywords;
 import org.jbehave.core.i18n.LocalizedKeywords;
@@ -16,6 +15,7 @@ import org.jbehave.web.selenium.SeleniumContextOutput;
 
 import br.materdei.bdd.jbehave.reporters.console.ColoredConsoleFormat;
 import br.materdei.bdd.jbehave.reporters.html.ScreenShootingHtmlFormat;
+import br.materdei.bdd.model.ThreadLocalModel;
 import br.materdei.bdd.web.driver.WebDriverSingleton;
 
 import com.thoughtworks.paranamer.BytecodeReadingParanamer;
@@ -48,12 +48,12 @@ public final class JBehaveConfigurationUtil {
 	private static Format[] getFormats() {
 		WebDriverSingleton controlador = WebDriverSingleton.get();
 		Format consoleFormat;
-		String coloredConsole = BddConfigPropertiesEnum.JBEHAVE_REPORT_FORMAT_CONSOLE_COLORED.getValue();
+		boolean coloredConsole = ThreadLocalModel.getJBehaveModel().isColoredConsoleOutput();
 		
-		if((StringUtils.isEmpty(coloredConsole)) || ("false".equals(coloredConsole.toLowerCase()))) {
-			consoleFormat = Format.CONSOLE;
-		} else {
+		if(coloredConsole) {
 			consoleFormat = new ColoredConsoleFormat();
+		} else {
+			consoleFormat = Format.CONSOLE;
 		}
 		
 		Format screenShootingFormat = new ScreenShootingHtmlFormat(controlador.getWebDriverProvider());
