@@ -22,6 +22,4 @@ Ou
 
 Documentação
 ---
-* [JavaDoc](/)
 * [Wiki](https://github.com/aureliano/mater-dei/wiki): utilização, configuração do framework e exemplos 
-* [Integração contínua](/): dicas para implantação
