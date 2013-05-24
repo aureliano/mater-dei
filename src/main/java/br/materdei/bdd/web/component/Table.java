@@ -35,7 +35,7 @@ public class Table extends Component<Table> {
 	
 	public boolean containsText(String text) {
 		WebDriver d = this.driver.get();
-		String path = "//table[@id='" + super.getId() + "']//tr";
+		String path = this.getTableRowsXpath();
 		
 		int rows = d.findElements(By.xpath(path)).size();
 		
@@ -52,6 +52,26 @@ public class Table extends Component<Table> {
 		}
 		
 		return false;
+	}
+	
+	public void clickButton(String buttonLabel, int row) {
+		String path = this.getTableRowsXpath() + "[" + row + "]" + "/td/input[@value='" + buttonLabel + "']";
+		this.driver.get().findElement(By.xpath(path)).click();
+	}
+	
+	public void clickButton(String buttonLabel, String rowPath) {
+		String path = this.getTableRowsXpath() + rowPath + "/td/input[@value='" + buttonLabel + "']";
+		this.driver.get().findElement(By.xpath(path)).click();
+	}
+	
+	public void clickLink(String linkLabel, int row) {
+		String path = this.getTableRowsXpath() + "[" + row + "]" + "/td/a[text()='" + linkLabel + "']";
+		this.driver.get().findElement(By.xpath(path)).click();
+	}
+	
+	public void clickLink(String linkLabel, String rowPath) {
+		String path = this.getTableRowsXpath() + rowPath + "/td/a[text()='" + linkLabel + "']";
+		this.driver.get().findElement(By.xpath(path)).click();
 	}
 	
 	public void addColumn(int position, String name) {
@@ -78,6 +98,10 @@ public class Table extends Component<Table> {
 		}
 		
 		return by;
+	}
+	
+	private String getTableRowsXpath() {
+		return "//table[@id='" + super.getId() + "']//tr";
 	}
 	
 	private List<Integer> orderedKeys() {

@@ -28,6 +28,51 @@ public class WebSteps {
 		POFinder.findByName(pageName).abrePagina();
 	}
 	
+	@When("eu clico no botão '$button', na linha de número '$row', da tabela '$table', da página '$pageName'")
+	public void quandoEuClicoBotaoTabelaPaginaNaLinha(String button, Integer row, String table, String pageName) {
+		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
+		t.clickButton(button, row);
+	}
+	
+	@When("eu clico no botão '$button', do registro com o(s) valor(es) '$filter', da tabela '$table', da página '$pageName'")
+	public void quandoEuClicoBotaoTabelaNaLinhaComValores(String button, String filter, String table, String pageName) {
+		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
+		String[] filters = filter.split(",");
+		StringBuilder b = new StringBuilder();
+		
+		for (String f : filters) {
+			String[] tokens = f.split("[=|-]");
+			b.append("/td[" + tokens[0] + "][text()='" + tokens[1] + "']/..");
+		}
+		
+		t.clickButton(button, b.toString());
+	}
+	
+	@When("eu clico no link '$link', do registro com o(s) valor(es) '$filter', da tabela '$table', da página '$pageName'")
+	public void quandoEuClicoLinhaTabelaNaLinhaComValores(String link, String filter, String table, String pageName) {
+		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
+		String[] filters = filter.split(",");
+		StringBuilder b = new StringBuilder();
+		
+		for (String f : filters) {
+			String[] tokens = f.split("[=|-]");
+			b.append("/td[" + tokens[0] + "][text()='" + tokens[1] + "']/..");
+		}
+		
+		t.clickLink(link, b.toString());
+	}
+	
+	@When("eu clico no link '$link' da tabela '$table' da página '$pageName' na linha de número '$row'")
+	public void quandoEuClicoLinhaTabelaNaLinha(String link, String table, String pageName, Integer row) {
+		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
+		t.clickLink(link, row);
+	}
+	
+	@When("eu clico no botão '$buttonId' da página '$pageName'")
+	public void quandoEuClicoBotaoDaPagina(String buttonId, String pageName) {
+		POFinder.findByName(pageName).getComponent(buttonId).click();
+	}
+	
 	@When("eu clico no botão '$button'")
 	public void quandoEuClicoBotao(String button) {
 		this.provider.get().findElement(By.xpath("//input[@value='" + button + "']")).click();
@@ -42,11 +87,6 @@ public class WebSteps {
 	public void quandoEuPreenchoCampoDaPaginaComValor(String fieldId, String pageName, String value) {
 		TextField txtField = (TextField) POFinder.findByName(pageName).getComponent(fieldId);
 		txtField.type(value);
-	}
-	
-	@When("eu clico no botão '$buttonId' da página '$pageName'")
-	public void quandoEuClicoBotaoDaPagina(String buttonId, String pageName) {
-		POFinder.findByName(pageName).getComponent(buttonId).click();
 	}
 	
 	@Then("eu devo ver a página '$pageName'")
