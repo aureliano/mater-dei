@@ -4,9 +4,10 @@ public abstract class Component<T> implements IComponent<T> {
 
 	private String id;
 	private String xPath;
+	private boolean rendered;
 	
 	public Component() {
-		super();
+		this.rendered = true;
 	}
 	
 	@Override
@@ -29,5 +30,16 @@ public abstract class Component<T> implements IComponent<T> {
 	public T useXPath(String xpath) {
 		this.xPath = xpath;
 		return (T) this;
+	}
+
+	@Override
+	public T useRendered(boolean rendered) {
+		this.rendered = rendered;
+		return (T) this;
+	}
+
+	@Override
+	public boolean isRendered() {
+		return this.rendered;
 	}
 }

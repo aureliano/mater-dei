@@ -10,6 +10,8 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.jbehave.web.selenium.WebDriverProvider;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class Table extends Component<Table> {
 
@@ -29,6 +31,27 @@ public class Table extends Component<Table> {
 	@Override
 	public boolean isElementPresent() {
 		return this.driver.get().findElement(this.getByParam()) != null;
+	}
+	
+	public boolean containsText(String text) {
+		WebDriver d = this.driver.get();
+		String path = "//table[@id='" + super.getId() + "']//tr";
+		
+		int rows = d.findElements(By.xpath(path)).size();
+		
+		for (int row = 1; row <= rows; row++) {
+			for (Integer columnPosition : this.columns.keySet()) {
+				List<WebElement> elements = d.findElements(By.xpath(path + "[" + row + "]/td[" + columnPosition + "]"));
+				
+				for (WebElement e : elements) {
+					if (text.equals(e.getText())) {
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	public void addColumn(int position, String name) {

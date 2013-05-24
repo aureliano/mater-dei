@@ -38,6 +38,10 @@ public abstract class BasicPageObject extends WebDriverPage implements IPage {
 	@Override
 	public void verificaPagina() {
 		for (IComponent<?> c : this.components.values()) {
+			if (!c.isRendered()) {
+				continue;
+			}
+			
 			if (!c.isElementPresent()) {
 				throw new RuntimeException("Componente '" + c.getId() + "' não está presente na página atual.");
 			}

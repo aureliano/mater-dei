@@ -5,6 +5,7 @@ import org.jbehave.core.annotations.When;
 import org.jbehave.web.selenium.WebDriverProvider;
 import org.openqa.selenium.By;
 
+import br.materdei.bdd.web.component.Table;
 import br.materdei.bdd.web.component.TextField;
 import br.materdei.bdd.web.driver.WebDriverSingleton;
 import br.materdei.bdd.web.page.POFinder;
@@ -51,5 +52,14 @@ public class WebSteps {
 	@Then("eu devo ver a página '$pageName'")
 	public void entaoEuDevoVerPagina(String pageName) {
 		POFinder.findByName(pageName).verificaPagina();
+	}
+	
+	@Then("eu devo ver tabela '$table' da página '$pageName' com o texto '$text'")
+	public void entaoEuDevoVerTabelaNaPaginaComTexto(String table, String pageName, String text) {
+		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
+		t.isElementPresent();
+		if (!t.containsText(text)) {
+			throw new RuntimeException(String.format("A tabela '%s' da página '%s' não contém o texto '%s'", table, pageName, text));
+		}
 	}
 }

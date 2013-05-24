@@ -13,4 +13,8 @@ public interface IComponent<T> {
 	public abstract void click();
 	
 	public abstract boolean isElementPresent();
+	
+	public abstract T useRendered(boolean rendered);
+	
+	public abstract boolean isRendered();
 }
