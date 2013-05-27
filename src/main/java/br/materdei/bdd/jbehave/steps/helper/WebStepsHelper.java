@@ -10,6 +10,10 @@ import br.materdei.bdd.web.driver.WebDriverSingleton;
 import br.materdei.bdd.web.page.POFinder;
 
 public final class WebStepsHelper {
+	
+	private WebStepsHelper() {
+		super();
+	}
 
 	public static void openPageByUrl(String url) {
 		driver().get(url);
@@ -52,7 +56,7 @@ public final class WebStepsHelper {
 	    javascriptAlert.dismiss();
 	}
 	
-	private static WebDriver driver() {
+	public static WebDriver driver() {
 		return WebDriverSingleton.get().getWebDriverProvider().get();
 	}
 }

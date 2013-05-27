@@ -1,59 +1,38 @@
 package br.materdei.bdd.jbehave.steps;
 
+import static br.materdei.bdd.jbehave.steps.helper.TableStepsHelper.clickTableButtonByRowNumber;
+import static br.materdei.bdd.jbehave.steps.helper.TableStepsHelper.clickTableButtonByRowValues;
+import static br.materdei.bdd.jbehave.steps.helper.TableStepsHelper.clickTableLinkByRowNumber;
+import static br.materdei.bdd.jbehave.steps.helper.TableStepsHelper.clickTableLinkByRowValues;
+import static br.materdei.bdd.jbehave.steps.helper.TableStepsHelper.verifyTextInTable;
+
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
-
-import br.materdei.bdd.web.component.Table;
-import br.materdei.bdd.web.page.POFinder;
 
 public class TableSteps {
 	
 	@When("eu clico no botão '$button', na linha de número '$row', da tabela '$table', da página '$pageName'")
 	public void quandoEuClicoBotaoTabelaPaginaNaLinha(String button, Integer row, String table, String pageName) {
-		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
-		t.clickButton(button, row);
+		clickTableButtonByRowNumber(pageName, table, row, button);
 	}
 	
 	@When("eu clico no botão '$button', do registro com o(s) valor(es) '$filter', da tabela '$table', da página '$pageName'")
 	public void quandoEuClicoBotaoTabelaNaLinhaComValores(String button, String filter, String table, String pageName) {
-		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
-		String[] filters = filter.split(",");
-		StringBuilder b = new StringBuilder();
-		
-		for (String f : filters) {
-			String[] tokens = f.split("[=|-]");
-			b.append("/td[" + tokens[0] + "][text()='" + tokens[1] + "']/..");
-		}
-		
-		t.clickButton(button, b.toString());
+		clickTableButtonByRowValues(pageName, table, filter, button);
 	}
 	
 	@When("eu clico no link '$link', do registro com o(s) valor(es) '$filter', da tabela '$table', da página '$pageName'")
 	public void quandoEuClicoLinhaTabelaNaLinhaComValores(String link, String filter, String table, String pageName) {
-		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
-		String[] filters = filter.split(",");
-		StringBuilder b = new StringBuilder();
-		
-		for (String f : filters) {
-			String[] tokens = f.split("[=|-]");
-			b.append("/td[" + tokens[0] + "][text()='" + tokens[1] + "']/..");
-		}
-		
-		t.clickLink(link, b.toString());
+		clickTableLinkByRowValues(pageName, table, filter, link);
 	}
 	
 	@When("eu clico no link '$link' da tabela '$table' da página '$pageName' na linha de número '$row'")
 	public void quandoEuClicoLinhaTabelaNaLinha(String link, String table, String pageName, Integer row) {
-		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
-		t.clickLink(link, row);
+		clickTableLinkByRowNumber(pageName, table, row, link);
 	}
 	
 	@Then("eu devo ver tabela '$table' da página '$pageName' com o texto '$text'")
 	public void entaoEuDevoVerTabelaNaPaginaComTexto(String table, String pageName, String text) {
-		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
-		t.isElementPresent();
-		if (!t.containsText(text)) {
-			throw new RuntimeException(String.format("A tabela '%s' da página '%s' não contém o texto '%s'", table, pageName, text));
-		}
+		verifyTextInTable(pageName, table, text);
 	}
 }
