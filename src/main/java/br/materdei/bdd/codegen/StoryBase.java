@@ -15,6 +15,7 @@ import org.jbehave.web.selenium.WebDriverSteps;
 import br.materdei.bdd.TestModel;
 import br.materdei.bdd.TestRunnerHelper;
 import br.materdei.bdd.jbehave.config.JBehaveConfigurationUtil;
+import br.materdei.bdd.jbehave.steps.TableSteps;
 import br.materdei.bdd.jbehave.steps.WebSteps;
 import br.materdei.bdd.web.driver.WebDriverSingleton;
 
@@ -53,6 +54,7 @@ public class StoryBase extends JUnitStory {
 		Configuration configuration = configuration();
 		
 		List<Object> scenarios = ScenarioCreator.instantiateScenarios();
+		scenarios.add(new TableSteps());
 		scenarios.add(new WebSteps());
 		scenarios.add(this.lifecycleSteps);
 		
