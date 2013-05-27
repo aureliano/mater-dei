@@ -3,6 +3,8 @@ package br.materdei.bdd.jbehave.steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.web.selenium.WebDriverProvider;
+import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 
 import br.materdei.bdd.web.component.Table;
@@ -101,5 +103,19 @@ public class WebSteps {
 		if (!t.containsText(text)) {
 			throw new RuntimeException(String.format("A tabela '%s' da página '%s' não contém o texto '%s'", table, pageName, text));
 		}
+	}
+	
+	@When("eu aceito a mensagem de confirmação '$message'")
+	public void quandoEuAceitoMensagemConfirmacao(String message) {
+		Alert javascriptAlert = this.provider.get().switchTo().alert();
+	    Assert.assertEquals(message, javascriptAlert.getText());
+	    javascriptAlert.accept();
+	}
+	
+	@When("eu rejeito a mensagem de confirmação '$message'")
+	public void quandoEuRejeitoMensagemConfirmacao(String message) {
+		Alert javascriptAlert = this.provider.get().switchTo().alert();
+	    Assert.assertEquals(message, javascriptAlert.getText());
+	    javascriptAlert.dismiss();
 	}
 }
