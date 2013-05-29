@@ -116,4 +116,16 @@ public final class TestRunnerHelper {
 	public static boolean shouldExecuteTests() {
 		return !(ThreadLocalModel.getJBehaveModel().isIgnoreTestExecution());
 	}
+	
+	public static void removeDisabledStories(List<String> stories, List<String> disabled) {
+		String root = new File("").getAbsolutePath();
+		String seed = ThreadLocalModel.getJBehaveModel().getStoriesPath();
+		List<String> data = new ArrayList<String>();
+		
+		for (String s : disabled) {
+			data.add(String.format("%s/%s/%s", root, seed, s));
+		}
+		
+		stories.removeAll(data);
+	}
 }

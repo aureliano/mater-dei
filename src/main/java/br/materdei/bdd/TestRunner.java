@@ -33,8 +33,8 @@ public class TestRunner {
 		this.prepareTestEnvironment();
 		
 		List<String> stories = loadStories(model.getStoryPath());
-		List<String> disabledStories = StoryFinder.findDisabledStories();		
-		stories.removeAll(disabledStories);
+		List<String> disabledStories = StoryFinder.findDisabledStories();
+		TestRunnerHelper.removeDisabledStories(stories, disabledStories);
 				
 		for (String story : stories) {
 			String fileName = story.substring(story.lastIndexOf("/") + 1);
