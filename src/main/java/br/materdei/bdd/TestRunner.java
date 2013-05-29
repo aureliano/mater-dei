@@ -31,6 +31,7 @@ public class TestRunner {
 	
 	private void execute(TestModel model) throws Throwable {
 		this.prepareTestEnvironment();
+		Throwable exception = null;
 		
 		List<String> stories = loadStories(model.getStoryPath());
 		List<String> disabledStories = StoryFinder.findDisabledStories();
@@ -46,10 +47,18 @@ public class TestRunner {
 			System.out.println(" => Executando estória " + model.getStoryPath());
 			
 			TestRunnerHelper.runBeforeMethods(runnableStory);
-			runnableStory.run(model);
+			try {
+				runnableStory.run(model);
+			} catch (Throwable t) {
+				exception = t;
+			}
 			TestRunnerHelper.runAfterMethods(runnableStory);
 		}
-			
+		
+		if (exception != null) {
+			throw exception;
+		}
+		
 		this.tearDownTestEnvironment(disabledStories);
 	}
 	
