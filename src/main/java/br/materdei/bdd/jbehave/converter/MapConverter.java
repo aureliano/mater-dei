@@ -40,7 +40,7 @@ public class MapConverter implements ParameterConverter {
 	}
 	
 	protected String replaceCommas(String value) {
-		String allowedChars = "ÁáÀàÉéÍíÓóÚúÃãÕõÊêÔôÇç<>,.;:/?°º\\]}ª\\[{'\"!@#$%&*()-=+§\\\\";
+		String allowedChars = "ÁáÀàÉéÍíÓóÚúÃãÕõÊêÔôÇç,.;:/?°º\\]}ª\\[{'\"!@#$%&*()-=+§\\\\";
 		String text = "";
 		Matcher matcher = Pattern.compile("\"[\\w\\s" + allowedChars + "]*,[\\w\\s" + allowedChars + "]*\"").matcher(value);
 		

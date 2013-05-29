@@ -58,6 +58,11 @@ public class MapConverterTest {
 		assertEquals(map.get("id"), 548L);
 		assertEquals(map.get("nome"), "Aureliano");
 		assertEquals(map.get("bonus"), 235.68F);
+		
+		map = converter.buildDataMap("cnpj => \"71466923329710\", nome => \"Órgão Proponente de Testes\", natureza => \"Entidade Privada sem fins lucrativos\"");
+		assertEquals(map.get("cnpj"), "71466923329710");
+		assertEquals(map.get("nome"), "Órgão Proponente de Testes");
+		assertEquals(map.get("natureza"), "Entidade Privada sem fins lucrativos");
 	}
 
 	@Test

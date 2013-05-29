@@ -9,10 +9,12 @@ import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.parsers.RegexStoryParser;
 import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.StoryReporterBuilder;
+import org.jbehave.core.steps.ParameterConverters;
 import org.jbehave.web.selenium.SeleniumConfiguration;
 import org.jbehave.web.selenium.SeleniumContext;
 import org.jbehave.web.selenium.SeleniumContextOutput;
 
+import br.materdei.bdd.jbehave.converter.MapConverter;
 import br.materdei.bdd.jbehave.reporters.console.ColoredConsoleFormat;
 import br.materdei.bdd.jbehave.reporters.html.ScreenShootingHtmlFormat;
 import br.materdei.bdd.model.ThreadLocalModel;
@@ -35,6 +37,7 @@ public final class JBehaveConfigurationUtil {
 			.useStoryLoader(new LoadFromClasspath(embeddableClass))
 			.useParanamer(new CachingParanamer(new BytecodeReadingParanamer()))
 			.useStoryParser(new RegexStoryParser(keywords))
+			.useParameterConverters(new ParameterConverters().addConverters(new MapConverter()))
 			.useKeywords(keywords)
 			.useStoryReporterBuilder(
 				new StoryReporterBuilder()		
