@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 
+import org.junit.Assert;
+
 import br.materdei.bdd.codegen.BddTestCreator;
 import br.materdei.bdd.codegen.StoryBase;
 import br.materdei.bdd.jbehave.StoryFinder;
@@ -21,15 +23,23 @@ public class TestRunner {
 	private Database databaseConfig;
 	private JBehave jbehaveConfig;
 
-	public void run() throws Throwable {
+	public void run() {
 		this.execute(new TestModel());
 	}
 	
-	public void run(TestModel model) throws Throwable {
+	public void run(TestModel model) {
 		this.execute(model);
 	}
 	
-	private void execute(TestModel model) throws Throwable {
+	private void execute(TestModel model) {
+		try {
+			this.make(model);
+		} catch (Throwable t) {
+			Assert.fail(t.getMessage());
+		}
+	}
+	
+	private void make(TestModel model) throws Throwable {
 		this.prepareTestEnvironment();
 		Throwable exception = null;
 		
@@ -41,25 +51,24 @@ public class TestRunner {
 			String fileName = story.substring(story.lastIndexOf("/") + 1);
 			String storyName = StoryNameParser.parse(story);
 			
-			StoryBase runnableStory = (StoryBase) BddTestCreator.create(model.getStoryBase(), storyName);
-			model.useStoryPath(storyName.replaceAll("\\.", "/").substring(0, storyName.lastIndexOf(".") + 1) + fileName);
-			
-			System.out.println(" => Executando estória " + model.getStoryPath());
-			
-			TestRunnerHelper.runBeforeMethods(runnableStory);
 			try {
+				StoryBase runnableStory = (StoryBase) BddTestCreator.create(model.getStoryBase(), storyName);
+				model.useStoryPath(storyName.replaceAll("\\.", "/").substring(0, storyName.lastIndexOf(".") + 1) + fileName);
+				
+				System.out.println(" => Executando estória " + model.getStoryPath());
+				
+				TestRunnerHelper.runBeforeMethods(runnableStory);
 				runnableStory.run(model);
+				TestRunnerHelper.runAfterMethods(runnableStory);
 			} catch (Throwable t) {
 				exception = t;
 			}
-			TestRunnerHelper.runAfterMethods(runnableStory);
-		}
-		
-		if (exception != null) {
-			throw exception;
 		}
 		
 		this.tearDownTestEnvironment(disabledStories);
+		if (exception != null) {
+			throw exception;
+		}
 	}
 	
 	protected List<String> loadStories(String resourceName) {
