@@ -25,6 +25,8 @@ public final class ClassUtil {
 			exists = true;
 		} catch (ClassNotFoundException ex) {
 			exists = false;
+		} catch (NoClassDefFoundError ex) {
+			exists = false;
 		}
 		
 		return exists;
