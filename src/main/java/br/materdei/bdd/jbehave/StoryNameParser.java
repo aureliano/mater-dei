@@ -3,6 +3,8 @@ package br.materdei.bdd.jbehave;
 import java.io.File;
 
 import br.materdei.bdd.model.ThreadLocalModel;
+import br.materdei.bdd.util.FileUtil;
+import java.util.regex.Pattern;
 
 public final class StoryNameParser {
 
@@ -11,16 +13,18 @@ public final class StoryNameParser {
 	}
 	
 	public static String parse(String storyPath) {
-		if (!storyPath.equals(storyPath.toLowerCase())) {
+		storyPath = FileUtil.configPathSeparator(storyPath);
+		String name = storyPath.substring(storyPath.lastIndexOf(File.separator));
+		if (!name.equals(name.toLowerCase())) {
 			throw new RuntimeException("Formato de nome de arquivo inválido. O nome do arquivo deve ser todo minúsculo e separado com underline '_'.");
 		}
 		
 		File root = new File("");
-		String seed = ThreadLocalModel.getJBehaveModel().getStoriesPath() + "/";
+		String seed = FileUtil.configPathSeparator(ThreadLocalModel.getJBehaveModel().getStoriesPath() + "/");
 		
-		storyPath = storyPath.replaceFirst(root.getAbsolutePath(), "");
-		storyPath = storyPath.replaceFirst("/?" + seed, "");
-		storyPath = storyPath.replaceAll("/", ".");
+		storyPath = storyPath.replaceFirst(Pattern.quote(root.getAbsolutePath() + File.separator), "");
+		storyPath = storyPath.replaceFirst(Pattern.quote(seed), "");
+		storyPath = storyPath.replaceAll(Pattern.quote(File.separator), ".");
 		storyPath = storyPath.replaceAll("(.story|.estoria)", "");		
 		
 		return convertToCamelCase(storyPath) + "Test";
