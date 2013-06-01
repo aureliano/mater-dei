@@ -75,6 +75,15 @@ public class FileUtilTest {
 	@Test
 	public void testTextFromFile() throws IOException {
 		String text = FileUtil.textFromFile(new File("src/test/java/br/materdei/bdd/integration/CadastraUsuarioCenario.java"));
-		assertEquals("package br.materdei.bdd.integration;\n\npublic class CadastraUsuarioCenario {\n\n}\n", text);
+		assertTrue(text.contains("package br.materdei.bdd.integration;"));
+		assertTrue(text.contains("public class CadastraUsuarioCenario {"));
+		assertTrue(text.contains("}"));
+	}
+
+	@Test
+	public void testConfiPathSeparator() {
+        	assertEquals("src" + File.separator + "main" + File.separator + "resources", FileUtil.configPathSeparator("src/main/resources"));
+		assertEquals("src" + File.separator + "main" + File.separator + "resources", FileUtil.configPathSeparator("src/main\\resources"));
+		assertEquals("src" + File.separator + "test" + File.separator + "resources" + File.separator + "br" + File.separator + "materdei", FileUtil.configPathSeparator("src\\test\\resources\\br\\materdei"));
 	}
 }

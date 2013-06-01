@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipFile;
@@ -67,6 +68,17 @@ public final class FileUtil {
 		}
 
 		return unzipedFiles;
+	}
+
+	public static String configPathSeparator(String filePath) {
+		String result = null;
+		if (File.separator.equals("/")) {
+			result = filePath.replaceAll(Pattern.quote("\\"), "/");
+		} else {
+			result = filePath.replaceAll("/", "\\\\");
+		}
+
+		return result;
 	}
 	
 	public static String textFromFile(File file) throws IOException {
