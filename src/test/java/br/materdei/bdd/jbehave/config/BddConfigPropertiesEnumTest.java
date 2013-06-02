@@ -12,6 +12,7 @@ public class BddConfigPropertiesEnumTest {
 	public void testBddConfigPropertiesEnum() {
 		assertEquals("webdriver.browser", WEB_DRIVER_BROWSER.getKey());
 		assertEquals("webdriver.chrome.driver", WEB_DRIVER_CHROME_DRIVER.getKey());
+		assertEquals("webdriver.ie.driver", WEB_DRIVER_INTERNET_EXPLORER_DRIVER.getKey());
 		assertEquals("jbehave.ignore.test.execution", JBEHAVE_IGNORE_TEST_EXECUTION.getKey());
 		assertEquals("webdriver.timeout", WEB_DRIVER_TIMEOUT.getKey());
 		assertEquals("jbehave.disabled.tests", JBEHAVE_DISABLED_TESTS.getKey());

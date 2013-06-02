@@ -4,6 +4,7 @@ public enum BddConfigPropertiesEnum {
 
 	WEB_DRIVER_BROWSER("webdriver.browser"),
 	WEB_DRIVER_CHROME_DRIVER("webdriver.chrome.driver"),
+	WEB_DRIVER_INTERNET_EXPLORER_DRIVER("webdriver.ie.driver"),
 	WEB_DRIVER_TIMEOUT("webdriver.timeout"),
 	WEB_DRIVER_WINDOW_MAXIMIZED("webdriver.window.maximized"),
 	JBEHAVE_IGNORE_TEST_EXECUTION("jbehave.ignore.test.execution"),
