@@ -18,6 +18,7 @@ public class WebDriver {
 	private Integer driverTimeout;
 	private BrowserEnum browser;
 	private File chromeDriver;
+	private File internetExplorerDriver;
 	private boolean windowMaximized;
 	
 	public WebDriver() {
@@ -32,6 +33,12 @@ public class WebDriver {
 		if (!StringUtils.isEmpty(value)) {
 			File f = new File(value);
 			this.useChromeDriver(f);
+		}
+
+		value = p.getProperty(BddConfigPropertiesEnum.WEB_DRIVER_INTERNET_EXPLORER_DRIVER.getKey());
+		if (!StringUtils.isEmpty(value)) {
+			File f = new File(value);
+			this.useInternetExplorerDriver(f);
 		}
 		
 		value = p.getProperty(BddConfigPropertiesEnum.WEB_DRIVER_TIMEOUT.getKey());
@@ -99,13 +106,34 @@ public class WebDriver {
 	 * @return Este objeto
 	 */
 	public WebDriver useChromeDriver(File chromeDriver) {
-		this.chromeDriver = chromeDriver;
 		if (!chromeDriver.exists()) {
 			throw new IllegalArgumentException(chromeDriver.getAbsolutePath() + " não existe!");
 		} else if (chromeDriver.isDirectory()) {
 			throw new IllegalArgumentException(chromeDriver.getAbsolutePath() + " é um diretório! Deveria ser um arquivo binário");
 		}
-		
+
+		this.chromeDriver = chromeDriver;
+		return this;
+	}
+
+	public File getInternetExplorerDriver() {
+		return internetExplorerDriver;
+	}
+
+	/**
+	 * Para usar o Internet Explorer é necessário informar a localização do IEDriverServer.
+	 *
+	 * @param internetExplorerDriver 
+	 * @return Este objeto
+	 */
+	public WebDriver useInternetExplorerDriver(File internetExplorerDriver) {
+		if (!internetExplorerDriver.exists()) {
+			throw new IllegalArgumentException(internetExplorerDriver.getAbsolutePath() + " não existe!");
+		} else if (internetExplorerDriver.isDirectory()) {
+			throw new IllegalArgumentException(internetExplorerDriver.getAbsolutePath() + " é um diretório! Deveria ser um arquivo binário");
+		}
+
+		this.internetExplorerDriver = internetExplorerDriver;
 		return this;
 	}
 	

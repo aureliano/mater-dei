@@ -61,7 +61,7 @@ public class WebDriverTest {
 	
 	@Test
 	public void testUseChromeDriver() {
-		File f = new File("src/test/resources/resources.zip");
+		File f = new File("src/test/resources/chromedriver");
 		WebDriver d = new WebDriver().useChromeDriver(f);
 		assertEquals(f, d.getChromeDriver());
 	}
@@ -74,6 +74,23 @@ public class WebDriverTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testUseChromeDriverWhereFileIsDirectory() {
 		new WebDriver().useChromeDriver(new File("src/test/resources"));
+	}
+
+	@Test
+	public void testUseInternetExplorerDriver() {
+		File f = new File("src/test/resources/IEDriverServer.exe");
+		WebDriver d = new WebDriver().useInternetExplorerDriver(f);
+		assertEquals(f, d.getInternetExplorerDriver());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testUseInternetExplorerDriverWithNonExistingFile() {
+		new WebDriver().useInternetExplorerDriver(new File("arquivo/nao/existente"));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testUseInternetExplorerDriverWhereFileIsDirectory() {
+		new WebDriver().useInternetExplorerDriver(new File("src/test/resources"));
 	}
 	
 	@Test

@@ -40,7 +40,15 @@ public final class WebDriverSingleton {
 			} else {
 				System.setProperty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getKey(), model.getChromeDriver().getAbsolutePath());
 			}
-		}		
+		}
+
+		if ("ie".equalsIgnoreCase(model.getBrowser().getKey())) {
+			if (model.getInternetExplorerDriver() == null) {
+				throw new RuntimeException("É necessário informar a localização do IEDriverServer.exe através da propriedade webdriver.ie.driver");
+			} else {
+				System.setProperty(BddConfigPropertiesEnum.WEB_DRIVER_INTERNET_EXPLORER_DRIVER.getKey(), model.getInternetExplorerDriver().getAbsolutePath());
+			}
+		}
 		
 		this.webDriverProvider = new PropertyWebDriverProvider();
 	}
