@@ -41,12 +41,12 @@ public class StoryBase extends JUnitStory {
 		if (!TestRunnerHelper.shouldExecuteTests()) {
 			return;
 		}
-		
-        try {
-            embedder.runStoriesAsPaths(asList(this.model.getStoryPath()));
-        } finally {
-            embedder.generateCrossReference();
-        }
+
+		try {
+			embedder.runStoriesAsPaths(asList(this.model.getStoryPath()));
+		} finally {
+			embedder.generateCrossReference();
+		}
 	}
 	
 	@Override

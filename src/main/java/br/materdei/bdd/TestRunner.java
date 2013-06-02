@@ -16,6 +16,7 @@ import br.materdei.bdd.model.Database;
 import br.materdei.bdd.model.JBehave;
 import br.materdei.bdd.model.ThreadLocalModel;
 import br.materdei.bdd.model.WebDriver;
+import java.io.File;
 
 public class TestRunner {
 	
@@ -48,7 +49,7 @@ public class TestRunner {
 		TestRunnerHelper.removeDisabledStories(stories, disabledStories);
 				
 		for (String story : stories) {
-			String fileName = story.substring(story.lastIndexOf("/") + 1);
+			String fileName = story.substring(story.lastIndexOf(File.separator) + 1);
 			String storyName = StoryNameParser.parse(story);
 			
 			try {
