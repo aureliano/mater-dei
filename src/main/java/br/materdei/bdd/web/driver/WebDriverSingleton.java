@@ -6,6 +6,8 @@ import org.jbehave.web.selenium.WebDriverProvider;
 import br.materdei.bdd.jbehave.config.BddConfigPropertiesEnum;
 import br.materdei.bdd.model.ThreadLocalModel;
 import br.materdei.bdd.model.WebDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public final class WebDriverSingleton {
 	
@@ -31,26 +33,7 @@ public final class WebDriverSingleton {
 	}
 	
 	private void configureWebDriverProvider() {
-		WebDriver model = ThreadLocalModel.getWebDriverModel();
-				
-		System.setProperty("browser", model.getBrowser().getKey().toLowerCase());
-		if ("chrome".equalsIgnoreCase(model.getBrowser().getKey())) {
-			if (model.getChromeDriver() == null) {
-				throw new RuntimeException("É necessário informar a localização do chromedriver através da propriedade webdriver.chrome.driver");
-			} else {
-				System.setProperty(BddConfigPropertiesEnum.WEB_DRIVER_CHROME_DRIVER.getKey(), model.getChromeDriver().getAbsolutePath());
-			}
-		}
-
-		if ("ie".equalsIgnoreCase(model.getBrowser().getKey())) {
-			if (model.getInternetExplorerDriver() == null) {
-				throw new RuntimeException("É necessário informar a localização do IEDriverServer.exe através da propriedade webdriver.ie.driver");
-			} else {
-				System.setProperty(BddConfigPropertiesEnum.WEB_DRIVER_INTERNET_EXPLORER_DRIVER.getKey(), model.getInternetExplorerDriver().getAbsolutePath());
-			}
-		}
-		
-		this.webDriverProvider = new PropertyWebDriverProvider();
+		this.webDriverProvider = WebDriverHelper.prepareWebDriverProvider();
 	}
 	
 	public WebDriverProvider getWebDriverProvider() {
