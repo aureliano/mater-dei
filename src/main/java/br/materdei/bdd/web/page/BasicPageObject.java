@@ -38,19 +38,23 @@ public abstract class BasicPageObject extends WebDriverPage implements IPage {
 	@Override
 	public void verificaPagina() {
 		for (IComponent<?> c : this.components.values()) {
-			if (!c.isRendered()) {
-				continue;
-			}
-			
-			if (!c.isElementPresent()) {
+			if ((c.isRendered()) && (!c.isElementPresent())) {
 				throw new RuntimeException("Componente '" + c.getId() + "' não está presente na página atual.");
+			} else if (!c.isRendered() && (c.isRendered())) {
+				throw new RuntimeException("Componente '" + c.getId() + "' foi renderizado quando não deveria.");
 			}
 		}
 	}
 	
 	@Override
 	public IComponent<?> getComponent(String key) {
-		return this.components.get(key);
+		IComponent<?> component = this.components.get(key);
+		if (component == null) {
+			PageObject pageObject = this.getClass().getAnnotation(PageObject.class);
+			throw new RuntimeException(String.format("Objeto '%s' não existe na página '%s'", key, pageObject.name()));
+		}
+		
+		return component;
 	}
 	
 	@Override

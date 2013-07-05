@@ -21,13 +21,13 @@ public final class TableStepsHelper {
 	
 	public static void clickTableButtonByRowValues(String pageName, String table, String filter, String button) {
 		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
-		String xpath = createTableClicableComponentXPath(pageName, table, filter);
+		String xpath = createTableClicableComponentXPath(filter);
 		t.clickButton(button, xpath);
 	}
 	
 	public static void clickTableLinkByRowValues(String pageName, String table, String filter, String link) {
 		Table t = (Table) POFinder.findByName(pageName).getComponent(table);
-		String xpath = createTableClicableComponentXPath(pageName, table, filter);
+		String xpath = createTableClicableComponentXPath(filter);
 		t.clickLink(link, xpath);
 	}
 	
@@ -39,7 +39,7 @@ public final class TableStepsHelper {
 		}
 	}
 	
-	private static String createTableClicableComponentXPath(String pageName, String table, String filter) {
+	private static String createTableClicableComponentXPath(String filter) {
 		String[] filters = filter.split(",");
 		StringBuilder b = new StringBuilder();
 		

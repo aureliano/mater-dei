@@ -5,6 +5,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import br.materdei.bdd.web.component.ComboBox;
 import br.materdei.bdd.web.component.TextField;
 import br.materdei.bdd.web.driver.WebDriverSingleton;
 import br.materdei.bdd.web.page.POFinder;
@@ -31,6 +32,10 @@ public final class WebStepsHelper {
 		driver().findElement(By.xpath("//input[@value='" + buttonLabel + "']")).click();
 	}
 	
+	public static void clickLink(String pageName, String linkId) {
+		POFinder.findByName(pageName).getComponent(linkId).click();
+	}
+	
 	public static void clickLink(String link) {
 		driver().findElement(By.xpath("//a[text()='" + link + "']")).click();
 	}
@@ -54,6 +59,16 @@ public final class WebStepsHelper {
 		Alert javascriptAlert = driver().switchTo().alert();
 	    Assert.assertEquals(message, javascriptAlert.getText());
 	    javascriptAlert.dismiss();
+	}
+	
+	public static void selectComboItemByLabel(String pageName, String comboId, String label) {
+		ComboBox combo = (ComboBox) POFinder.findByName(pageName).getComponent(comboId);
+		combo.selectByLabel(label);
+	}
+	
+	public static void selectComboItemByValue(String pageName, String comboId, String value) {
+		ComboBox combo = (ComboBox) POFinder.findByName(pageName).getComponent(comboId);
+		combo.selectByValue(value);
 	}
 	
 	public static WebDriver driver() {
